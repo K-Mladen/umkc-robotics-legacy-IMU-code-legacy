@@ -36,8 +36,9 @@ int main(int argc, char *argv[])
 		last_time = current_time;				//set last_time based on last
 		current_time = ros::Time::now();		//	iteration
 
-/**/	struct acc3d = accget();
-/**/	struct acc2d = acctransform(acc3);
+/**/	struct phidget =  accget();
+/**/	struct global = acctransform(phidget);
+/**/	struct acc2d = 2dfrom3d(global);
 /**/	struct vel2d = velfromacc(acc2d);
 		
 		r.sleep();
