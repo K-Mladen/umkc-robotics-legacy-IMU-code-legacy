@@ -93,5 +93,11 @@ accfield accrotation(accphidget,adjust)
 
 
 //finally we apply the calculations from our rotation matrix.
+
+accglobal.x = (a2+b2-c2-d2)*accrob.x + 2*(bc-ad)*accrob.y + 2*(ac+bd)*accrob.z;
+accglobal.y = 2*(ad+bc)*accrob.x + (a2-b2+c2-d2)*accrob.y + 2*(cd-ab)*accrob.z;
+//accglobal.z=2*(bd-ac)*accrob.x+2*(cd+ab)*accrob.y+(a2-b2-c2+d2)*accrob.z;
+\
+return accglobal;
 }
 #endif
