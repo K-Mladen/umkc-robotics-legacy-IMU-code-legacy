@@ -12,7 +12,7 @@ accfield accrotation(accphidget,adjust)
 //The arc length is determined in perpendicular  components that are also
 // perpendicular to the direction of the component we are considering, and the
 // components are combined using the pythagorean theorem
-    accrob.x = accphidget.x - sqrt(accphidget.roty*accphidget.roty*//squareroot
+    accrob.x = accphidget.x - sqrt(accphidget.roty*accphidget.roty* //squareroot
 								adjust.z*adjust.z +				 //(roty*z)^2+
 								accphidget.rotz*accphidget.rotz* //(rotz*y)^2
 								adjust.y*adjust.y);
