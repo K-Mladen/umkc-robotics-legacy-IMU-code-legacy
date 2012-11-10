@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 {
 
 	//Dealing with the Phidget.
-	phidget_setup();
+	spatial::spatial_setup();
 
 
 	//symbolic constants that may need changing
