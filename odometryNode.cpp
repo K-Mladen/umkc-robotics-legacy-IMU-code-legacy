@@ -13,9 +13,15 @@
 #include "velfromacc.h"
 #include "acctransform.h"
 #include "accget.h"
+#include "phidget_setup.h"
 
 int main(int argc, char *argv[])
 {
+
+	//Dealing with the Phidget.
+	phidget_setup();
+
+
 	//symbolic constants that may need changing
 	const float loopFrequency = 10.0;
 
@@ -31,7 +37,7 @@ int main(int argc, char *argv[])
 	ros::Rate r(loopFrequency);
 
 	while(n.ok())
-	{
+	
 		ros::spinOnce();						//Check for incoming messages
 		last_time = current_time;				//set last_time based on last
 		current_time = ros::Time::now();		//	iteration
