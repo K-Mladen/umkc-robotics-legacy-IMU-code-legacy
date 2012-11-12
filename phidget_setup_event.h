@@ -2,8 +2,8 @@
 Setting up stuff for the Phidget.
 
 */
-
-#include <Phidget21/phidget21.h>
+#include <stdio.h>
+#include <phidget21.h>
 #include <iostream>
 using namespace std;
 
@@ -46,18 +46,18 @@ int CCONV ErrorHandler(CPhidgetHandle spatial, void *userptr, int ErrorCode, con
 int CCONV SpatialDataHandler(CPhidgetSpatialHandle spatial, void *userptr, CPhidgetSpatial_SpatialEventDataHandle *data, int count)
 {
 	int i;
-	//printf("Number of Data Packets in this event: %d\n", count);
+	printf("Number of Data Packets in this event: %d\n", count);
 	for(i = 0; i < count; i++)
 	{
-		//printf("=== Data Set: %d ===\n", i);
-		//printf("Acceleration> x: %6f  y: %6f  x: %6f\n", data[i]->acceleration[0], data[i]->acceleration[1], data[i]->acceleration[2]);
-		//printf("Angular Rate> x: %6f  y: %6f  x: %6f\n", data[i]->angularRate[0], data[i]->angularRate[1], data[i]->angularRate[2]);
-		if(data[i]->magneticField[0] > 100)
+		printf("=== Data Set: %d ===\n", i);
+		printf("Acceleration> x: %6f  y: %6f  x: %6f\n", data[i]->acceleration[0], data[i]->acceleration[1], data[i]->acceleration[2]);
+		printf("Angular Rate> x: %6f  y: %6f  x: %6f\n", data[i]->angularRate[0], data[i]->angularRate[1], data[i]->angularRate[2]);
+	//	if(data[i]->magneticField[0] > 1)
 		printf("Magnetic Field> x: %6f  y: %6f  x: %6f\n", data[i]->magneticField[0], data[i]->magneticField[1], data[i]->magneticField[2]);
-		//printf("Timestamp> seconds: %d -- microseconds: %d\n", data[i]->timestamp.seconds, data[i]->timestamp.microseconds);
+		printf("Timestamp> seconds: %d -- microseconds: %d\n", data[i]->timestamp.seconds, data[i]->timestamp.microseconds);
 	}
 
-	//printf("---------------------------------------------\n");
+	printf("---------------------------------------------\n");
 
 	return 0;
 }
