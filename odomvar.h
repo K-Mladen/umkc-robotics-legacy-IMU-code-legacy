@@ -17,9 +17,51 @@ struct tpunit
 	double rotx;
 	double roty;
 	double rotz;
+
+    setdata(double newx, double newy, double newz,
+	            double newrotx, double newroty, double newrotz)
+    {
+        x = newx;
+        y = newy;
+        z = newz;
+        rotx = newrotx;
+        roty = newroty;
+        rotz = newrotz;
+	}
+
+
+	tpunit()
+	{
+		x = y = z = rotz = roty = rotx = 0;
+	}
+
+	tpunit(double newx, double newy, double newz,
+			double newrotx, double newroty, double newrotz)
+	{
+		x = newx;
+		y = newy;
+		z = newz;
+		rotx = newrotx;
+		roty = newroty;
+		rotz = newrotz;
+	}
+	setdata(double newx, double newy, double newz,
+			double newrotx, double newroty, double newrotz)
+	{
+		x = newx; 
+		y = newy;
+		z = newz;
+		rotx = newrotx;
+		roty = newroty;
+		rotz = newrotz;
+	}
+
 };
 
-struct accphidget
+
+
+
+struct cartesianCoordData
 {
 	double x;
 	double y;
@@ -27,43 +69,42 @@ struct accphidget
 	double rotx;
 	double roty;
 	double rotz;
-	double mag;
+	double magnitude;
+	double rotmagnitude;
 	tpunit unit;
-};
 
-struct accrob
-{
-    double x;
-    double y;
-    double z;
-    double rotx;
-	double roty;
-	double rotz;
-	tpunit unit;
-};
+	calculateMagnitude()
+	{
+		magnitude = sqrt(x*x+y*y+z*z);
+		rotmagnitude = sqrt(rotx*rotx + roty*roty + rotz*rotz);
+	}
+	setUnits()
+	{
+		unit.setData(x/magnitude,y/magnitude,z/magnitude,
+					rotx/rotmagnitude,roty/rotmagnitude,rotz/rotmagnitude);
+	}
 
-struct accfield
-{
-    double x;
-    double y;
-    double z;
-    double rotx;
-    double roty;
-    double rotz;
-	tpunit unit;
-};
+	cartesianCoordData()
+	{
+		x = y = z = rotx = roty = rotz = magnitude = rotmagnitude = 0;
+		units.setData(0,0,0,0,0,0);
+	}
+    cartesianCoordData(double newx, double newy, double newz,
+			            double newrotx, double newroty, double newrotz)
+	{
+		x = newx;
+		y = newy;
+		z = newz;
+		rotx = newrotx;
+		roty = newroty;
+		rotz = newrotz;
+		calculateMagnitude();
+		setUnits();
+	}
 
-struct pos
-{
-	double x;
-	double y;
-	double z;
-	double rotx;
-	double roty;
-	double rotz;
 }
 
-/* --turns out struct is in phidget21.h header file
+/* --turns out structis in phidget21.h header file
 //Used to store the raw data from Phidget. 
 struct rawPhidget
 {
@@ -74,27 +115,4 @@ struct rawPhidget
 	CPhidget_Timestamp time;
 
 };*/
-
-
-
-
-
-
-
-
-
-struct acc2d
-{
-	double x;
-	double y;
-	double t;
-};
-
-struct vel2d
-{
-	double x;
-	double y;
-	double t;
-};
-
 #endif

@@ -5,9 +5,9 @@
 *  need to be renamed to match actual functions.	Just saying.			  *
 ******************************************************************************/
 
-#include <ros/ros>
-#include <tf/transform_broadcaster>
-#include <nav_msgs/Odometry>
+#include "ros/ros.h"
+#include "tf/transform_broadcaster.h"
+#include "nav_msgs/Odometry.h"
 
 #include "odomvar.h"
 #include "rotation.h"
@@ -18,7 +18,10 @@
 
 int main(int argc, char *argv[])
 {
-
+	//declaring objects
+//	accphidget = //todo
+	
+	
 	//Dealing with the Phidget.
 	spatial::spatial_setup();
 
@@ -29,7 +32,7 @@ int main(int argc, char *argv[])
 
 	ros::init(argc, argv, "odometry_publisher");
 	
-	ros::NodeHandle n;
+	ros::NodeHandle odometryNode;
 	ros::Publisher odom_pub = n.advertise<nav_msgs::Odometry>("odom", 50);
 	tf::TransformBroadcaster odom_broadcaster;
 	
@@ -37,14 +40,15 @@ int main(int argc, char *argv[])
 
 	ros::Rate r(loopFrequency);
 
-	while(n.ok())
+	while(odometryNode.ok())
+	{
 	
 		ros::spinOnce();						//Check for incoming messages
 		last_time = current_time;				//set last_time based on last
 		current_time = ros::Time::now();		//	iteration
 
-/**/	struct phidget =  accget();
-/**/	struct global = acctransform(phidget);
+/**/	struct accphidget =  accget();
+/**/	struct accglobal = rotation(accphidget,);
 /**/	struct acc2d = 2dfrom3d(global);
 /**/	struct vel2d = velfromacc(acc2d);
 		
