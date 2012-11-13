@@ -10,26 +10,29 @@ A tester file for the phidget.
 
 using namespace std;
 
-
+int event;
 
 int main()	{
 
 	double raw=999;
 
+	event =0;
 	//Declare a spatial handle
 	CPhidgetSpatialHandle spatial = 0;
 	//create the spatial object
 	CPhidgetSpatial_create(&spatial);
 
-	cout << "begin?" <<endl;
+	
 	int n = spatial::spatial_setup(spatial);
 
-	int dataPoints = 100000000;
+	int dataPoints = 1000000;
 	int index =0;
-	while(index < dataPoints)	{
 
-		//cout<< raw <<endl;
+	//
+	while(event < dataPoints)	{
 
+		//CPhidgetSpatial_SpatialEventData.acceleration[0];
+		
 /*
 		printf("Acceleration> x: %6f  y: %6f  x: %6f\n", raw.accel[0], raw.accel[1], raw.accel[2]);
 		printf("Angular Rate> x: %6f  y: %6f  x: %6f\n", raw.angRate[0], raw.angRate[1], raw.angRate[2]);
@@ -40,18 +43,15 @@ int main()	{
 */		
 
 		//printf("---------------------------------------------\n");
-		++index;
 	}
-	//run until user input is read
-	printf("Press any key to end\n");
-	getchar();
-	
-	printf("Closing...\n");
+
+
+	//printf("Closing...\n");
 	CPhidget_close((CPhidgetHandle)spatial);
 	CPhidget_delete((CPhidgetHandle)spatial);
 
 	//cout << raw <<endl;
-	cout << "returned " << n <<endl;
-	cout << "QED" <<endl;
+	//cout << "returned " << n <<endl;
+	//cout << "QED" <<endl;
 	return 0;
 }

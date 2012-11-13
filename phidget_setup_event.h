@@ -7,6 +7,8 @@ Setting up stuff for the Phidget.
 #include <Phidget21/phidget21.h>
 #include <iostream>
 #include "odomvar.h"
+
+extern int event;
 using namespace std;
 
 namespace spatial	{
@@ -20,7 +22,7 @@ int CCONV AttachHandler(CPhidgetHandle spatial, void *userptr)
 {
 	int serialNo;
 	CPhidget_getSerialNumber(spatial, &serialNo);
-	printf("Spatial %10d attached!", serialNo);
+	//printf("Spatial %10d attached!", serialNo);
 
 	return 0;
 }
@@ -48,19 +50,25 @@ int CCONV ErrorHandler(CPhidgetHandle spatial, void *userptr, int ErrorCode, con
 int CCONV SpatialDataHandler(CPhidgetSpatialHandle spatial, void *userptr, CPhidgetSpatial_SpatialEventDataHandle *data, int count)
 {
 
+	cout << "event " << event <<endl;;
+	event++;
 /*
 	double* raw = (double*)userptr;
 	raw = (*data[0]).acceleration;	
 */
-	
+	//Printing out (time in microseconds, acceleration in x axis)
+
+	int elapsed =data[0]->timestamp.seconds*1000000 + data[0]->timestamp.microseconds;
+	cout << elapsed << "," << data[0]->acceleration[0] << endl;
+	/*
 	printf("Acceleration> x: %6f  y: %6f  x: %6f\n", data[0]->acceleration[0], data[0]->acceleration[1], data[0]->acceleration[2]);
 	printf("Angular Rate> x: %6f  y: %6f  x: %6f\n", data[0]->angularRate[0], data[0]->angularRate[1], data[0]->angularRate[2]);
 	//	if(data[i]->magneticField[0] > 1)
 	printf("Magnetic Field> x: %6f  y: %6f  x: %6f\n", data[0]->magneticField[0], data[0]->magneticField[1], data[0]->magneticField[2]);
 	printf("Timestamp> seconds: %d -- microseconds: %d\n", data[0]->timestamp.seconds, data[0]->timestamp.microseconds);
-	
+	*/
 
-	printf("---------------------------------------------\n");
+	
 	
 
 	return 0;
@@ -117,7 +125,7 @@ int spatial::spatial_setup(CPhidgetSpatialHandle &spatial)	{
 	CPhidget_open((CPhidgetHandle)spatial, -1);
 
 	//get the program to wait for a spatial device to be attached
-	printf("Waiting for spatial to be attached.... \n");
+	//printf("Waiting for spatial to be attached.... \n");
 	if((result = CPhidget_waitForAttachment((CPhidgetHandle)spatial, 10000)))
 	{
 		CPhidget_getErrorDescription(result, &err);
@@ -126,10 +134,10 @@ int spatial::spatial_setup(CPhidgetSpatialHandle &spatial)	{
 	}
 
 	//Display the properties of the attached spatial device
-	display_properties((CPhidgetHandle)spatial);
+	//display_properties((CPhidgetHandle)spatial);
 
 	//read spatial event data
-	printf("Reading.....\n");
+	//printf("Reading.....\n");
 	
 	//Set the data rate for the spatial events
 	CPhidgetSpatial_setDataRate(spatial, 16);
