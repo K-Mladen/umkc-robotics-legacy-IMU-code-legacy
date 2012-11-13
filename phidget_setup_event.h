@@ -2,14 +2,16 @@
 Setting up stuff for the Phidget.
 
 */
+
 #include <stdio.h>
-#include <phidget21.h>
+#include <Phidget21/phidget21.h>
 #include <iostream>
+#include "odomvar.h"
 using namespace std;
 
 namespace spatial	{
 
-	int spatial_setup();
+	int spatial_setup(CPhidgetSpatialHandle &spatial);
 
 }
 
@@ -45,19 +47,21 @@ int CCONV ErrorHandler(CPhidgetHandle spatial, void *userptr, int ErrorCode, con
 //count - the number of spatial data event packets included in this event
 int CCONV SpatialDataHandler(CPhidgetSpatialHandle spatial, void *userptr, CPhidgetSpatial_SpatialEventDataHandle *data, int count)
 {
-	int i;
-	printf("Number of Data Packets in this event: %d\n", count);
-	for(i = 0; i < count; i++)
-	{
-		printf("=== Data Set: %d ===\n", i);
-		printf("Acceleration> x: %6f  y: %6f  x: %6f\n", data[i]->acceleration[0], data[i]->acceleration[1], data[i]->acceleration[2]);
-		printf("Angular Rate> x: %6f  y: %6f  x: %6f\n", data[i]->angularRate[0], data[i]->angularRate[1], data[i]->angularRate[2]);
+
+/*
+	double* raw = (double*)userptr;
+	raw = (*data[0]).acceleration;	
+*/
+	
+	printf("Acceleration> x: %6f  y: %6f  x: %6f\n", data[0]->acceleration[0], data[0]->acceleration[1], data[0]->acceleration[2]);
+	printf("Angular Rate> x: %6f  y: %6f  x: %6f\n", data[0]->angularRate[0], data[0]->angularRate[1], data[0]->angularRate[2]);
 	//	if(data[i]->magneticField[0] > 1)
-		printf("Magnetic Field> x: %6f  y: %6f  x: %6f\n", data[i]->magneticField[0], data[i]->magneticField[1], data[i]->magneticField[2]);
-		printf("Timestamp> seconds: %d -- microseconds: %d\n", data[i]->timestamp.seconds, data[i]->timestamp.microseconds);
-	}
+	printf("Magnetic Field> x: %6f  y: %6f  x: %6f\n", data[0]->magneticField[0], data[0]->magneticField[1], data[0]->magneticField[2]);
+	printf("Timestamp> seconds: %d -- microseconds: %d\n", data[0]->timestamp.seconds, data[0]->timestamp.microseconds);
+	
 
 	printf("---------------------------------------------\n");
+	
 
 	return 0;
 }
@@ -92,16 +96,11 @@ int display_properties(CPhidgetHandle phid)
 	return 0;
 }
 
-int spatial::spatial_setup()	{
+int spatial::spatial_setup(CPhidgetSpatialHandle &spatial)	{
 	//Code taken from provided example code "Spatial-simple.c"
 	int result;
-	const char *err;
+	const char *err;	
 
-	//Declare a spatial handle
-	CPhidgetSpatialHandle spatial = 0;
-
-	//create the spatial object
-	CPhidgetSpatial_create(&spatial);
 	
 	//Set the handlers to be run when the device is plugged in or opened from software, unplugged or closed from software, or generates an error.
 	CPhidget_set_OnAttach_Handler((CPhidgetHandle)spatial, AttachHandler, NULL);
@@ -111,6 +110,7 @@ int spatial::spatial_setup()	{
 	//Registers a callback that will run according to the set data rate that will return the spatial data changes
 	//Requires the handle for the Spatial, the callback handler function that will be called, 
 	//and an arbitrary pointer that will be supplied to the callback function (may be NULL)
+	//CPhidgetSpatial_set_OnSpatialData_Handler(spatial, SpatialDataHandler, (void*)(raw));
 	CPhidgetSpatial_set_OnSpatialData_Handler(spatial, SpatialDataHandler, NULL);
 
 	//open the spatial object for device connections
@@ -134,15 +134,17 @@ int spatial::spatial_setup()	{
 	//Set the data rate for the spatial events
 	CPhidgetSpatial_setDataRate(spatial, 16);
 
+/*
 	//run until user input is read
 	printf("Press any key to end\n");
 	getchar();
-
+*/
 	//since user input has been read, this is a signal to terminate the program so we will close the phidget and delete the object we created
+/*
 	printf("Closing...\n");
 	CPhidget_close((CPhidgetHandle)spatial);
 	CPhidget_delete((CPhidgetHandle)spatial);
-
+*/
 	return 99999;
 
 }
