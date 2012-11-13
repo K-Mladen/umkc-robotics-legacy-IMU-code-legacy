@@ -10,10 +10,11 @@
 #include <nav_msgs/Odometry>
 
 #include "odomvar.h"
-#include "velfromacc.h"
-#include "acctransform.h"
-#include "accget.h"
-#include "phidget_setup.h"
+#include "rotation.h"
+//#include "velfromacc.h"
+//#include "acctransform.h"
+//#include "accget.h"
+//#include "phidget_setup.h"
 
 int main(int argc, char *argv[])
 {
