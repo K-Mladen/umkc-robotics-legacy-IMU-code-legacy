@@ -2,22 +2,22 @@ umkc-robotics-2012-odometry
 ===========================
 Sandbox for the odometry team to make our code and make it all nice and shiny and working.
 
-accrotation.h
+rotation.h
 ------------
 
-accrotationjunk.h
-------------
-
-odometryNode.cpp
+OdometryNode.cpp
 -------------
+Main
 
-odometry_roughNode.cpp
+
+referencecode/odometry_roughNode.cpp
 -------------
 Example code from ROS, publishing to odometry
 
 odomvar.h
 -------------
-Defines structs acceleration 3d, 2d, and velocity in 2d.
+Defines structs for acceleration in phidget, robot, and field POV, as well as
+                for position in field POV
 
 phidget_setup.h
 --------------
@@ -29,7 +29,7 @@ Tester file for phidget_setup.h
 
 talker.h
 ---------------
-
+example code for publishing to ROS
 
 
 Notes
