@@ -1,12 +1,10 @@
 umkc-robotics-2012-odometry
 ===========================
 Sandbox for the odometry team to make our code and make it all nice and shiny and working.
--
-MK-- I can't seem to get this kalman thing out of my head, and I ended up finding this nice site that 
-      breaks everything down nicely for our specific situation which doesn't help any.  We just need to 
-      figure out E (the expected value I think) for the noise and it might be a lot easier to set this up
-      than it originally seemed.  stupid explanations of how the magic works.
-http://tom.pycke.be/mav/71/kalman-filtering-of-imu-data
+--
+MK-- To whom it may concern, I created a ROS project for compiling this within the ROS sandbox. to find it, log into the umkc/right machine and enter roscd odom
+
+
 
 rotation.h
 ------------
@@ -23,7 +21,7 @@ Example code from ROS, publishing to odometry
 odomvar.h
 -------------
 Defines structs for acceleration in phidget, robot, and field POV, as well as
-                for position in field POV
+                for position in field POV  TODO: convert to arrays, as well as in areas where it's used
 
 phidget_setup.h
 --------------
@@ -46,3 +44,11 @@ gcc example.c -o example -framework Phidget21 -I/Library/Frameworks/Phidget21.fr
 
 Linux
 gcc example.c -o example -lphidget21
+
+
+
+Kalman explanation MK needs to maybe read. http://tom.pycke.be/mav/71/kalman-filtering-of-imu-data
+--actually, list of reference material MK needs to go through & read
+--I don't remember--
+--I don't remember--
+ROS tut, continue it.
