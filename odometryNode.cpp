@@ -19,7 +19,7 @@
 int main(int argc, char *argv[])
 {
 	//declaring objects
-//	accphidget = //todo
+//	accphidget = //TODO
 	
 	
 	//Dealing with the Phidget.
