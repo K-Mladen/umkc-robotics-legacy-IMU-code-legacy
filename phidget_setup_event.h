@@ -1,19 +1,20 @@
 /*
 Setting up stuff for the Phidget.
 
+TODO:
+Take care of overflow errors.
+Documentation on data rate.
 */
 
 #include <stdio.h>
 #include <Phidget21/phidget21.h>
 #include <iostream>
-#include "odomvar.h"
 
-extern int event;
 using namespace std;
 
-namespace spatial	{
+namespace spatial	{ 
 
-	int spatial_setup(CPhidgetSpatialHandle &spatial);
+	int spatial_setup(CPhidgetSpatialHandle &spatial, CPhidgetSpatial_SpatialEventData* raw, int dataRate);
 
 }
 
@@ -50,26 +51,53 @@ int CCONV ErrorHandler(CPhidgetHandle spatial, void *userptr, int ErrorCode, con
 int CCONV SpatialDataHandler(CPhidgetSpatialHandle spatial, void *userptr, CPhidgetSpatial_SpatialEventDataHandle *data, int count)
 {
 
-	cout << "event " << event <<endl;;
-	event++;
-/*
-	double* raw = (double*)userptr;
-	raw = (*data[0]).acceleration;	
-*/
+	//Copying over data into external user pointer
+	//--------------------
+	CPhidgetSpatial_SpatialEventData* dataHolder = (CPhidgetSpatial_SpatialEventData*) userptr;
+
+	//copying timestamp
+	dataHolder->timestamp.seconds = data[0]->timestamp.seconds;
+	dataHolder->timestamp.microseconds = data[0]->timestamp.microseconds;
+
+	//copying stuff
+	for(int i =0; i < 3; i++)	{
+		dataHolder->acceleration[i] = data[0]->acceleration[i];
+		dataHolder->angularRate[i] = data[0]->angularRate[i];
+		dataHolder->magneticField[i] = data[0]->magneticField[i];
+	}
+	
+	
+
 	//Printing out (time in microseconds, acceleration in x axis)
 
-	int elapsed =data[0]->timestamp.seconds*1000000 + data[0]->timestamp.microseconds;
-	cout << elapsed << "," << data[0]->acceleration[0] << endl;
-	/*
-	printf("Acceleration> x: %6f  y: %6f  x: %6f\n", data[0]->acceleration[0], data[0]->acceleration[1], data[0]->acceleration[2]);
-	printf("Angular Rate> x: %6f  y: %6f  x: %6f\n", data[0]->angularRate[0], data[0]->angularRate[1], data[0]->angularRate[2]);
-	//	if(data[i]->magneticField[0] > 1)
-	printf("Magnetic Field> x: %6f  y: %6f  x: %6f\n", data[0]->magneticField[0], data[0]->magneticField[1], data[0]->magneticField[2]);
-	printf("Timestamp> seconds: %d -- microseconds: %d\n", data[0]->timestamp.seconds, data[0]->timestamp.microseconds);
-	*/
+	cout << "DATA from PHIDGET" <<endl;
+	cout << "=---------------------------------------------- " <<endl;
+	int elapsed = data[0]->timestamp.seconds*1000000 + data[0]->timestamp.microseconds;
+	cout << elapsed << endl;
+	cout << data[0]->acceleration[0] << " " <<  data[0]->acceleration[1] << " " <<  data[0]->acceleration[2]  << endl;
+	cout << data[0]->angularRate[0] <<  " " << data[0]->angularRate[1] << " " << data[0]->angularRate[2] << endl;	
+	cout << data[0]->magneticField[0] <<  " " << data[0]->magneticField[1] << " " << data[0]->magneticField[2] << endl;	
 
-	
-	
+	cout <<endl;
+
+
+	cout << "DATA Copied" <<endl;
+	cout << "=---------------------------------------------- " <<endl;
+	int copiedElapsed = data[0]->timestamp.seconds*1000000 + data[0]->timestamp.microseconds;
+	cout << copiedElapsed << endl;
+	cout << dataHolder->acceleration[0] << " " <<  dataHolder->acceleration[1] << " " <<  dataHolder->acceleration[2]  << endl;
+	cout << dataHolder->angularRate[0] <<  " " << dataHolder->angularRate[1] << " " << dataHolder->angularRate[2] << endl;	
+	cout << dataHolder->magneticField[0] <<  " " << dataHolder->magneticField[1] << " " << dataHolder->magneticField[2] << endl;	
+
+	cout <<endl;
+
+/*
+	printf("Acceleration> x: %6f  y: %6f  z: %6f\n", data[0]->acceleration[0], data[0]->acceleration[1], data[0]->acceleration[2]);
+	printf("Angular Rate> x: %6f  y: %6f  z: %6f\n", data[0]->angularRate[0], data[0]->angularRate[1], data[0]->angularRate[2]);
+	//	if(data[i]->magneticField[0] > 1)
+	printf("Magnetic Field> x: %6f  y: %6f  z: %6f\n", data[0]->magneticField[0], data[0]->magneticField[1], data[0]->magneticField[2]);
+	printf("Timestamp> seconds: %d -- microseconds: %d\n", data[0]->timestamp.seconds, data[0]->timestamp.microseconds);
+*/
 
 	return 0;
 }
@@ -104,12 +132,11 @@ int display_properties(CPhidgetHandle phid)
 	return 0;
 }
 
-int spatial::spatial_setup(CPhidgetSpatialHandle &spatial)	{
+int spatial::spatial_setup(CPhidgetSpatialHandle &spatial, CPhidgetSpatial_SpatialEventData* raw, int dataRate)	{
 	//Code taken from provided example code "Spatial-simple.c"
 	int result;
 	const char *err;	
 
-	
 	//Set the handlers to be run when the device is plugged in or opened from software, unplugged or closed from software, or generates an error.
 	CPhidget_set_OnAttach_Handler((CPhidgetHandle)spatial, AttachHandler, NULL);
 	CPhidget_set_OnDetach_Handler((CPhidgetHandle)spatial, DetachHandler, NULL);
@@ -118,8 +145,8 @@ int spatial::spatial_setup(CPhidgetSpatialHandle &spatial)	{
 	//Registers a callback that will run according to the set data rate that will return the spatial data changes
 	//Requires the handle for the Spatial, the callback handler function that will be called, 
 	//and an arbitrary pointer that will be supplied to the callback function (may be NULL)
-	//CPhidgetSpatial_set_OnSpatialData_Handler(spatial, SpatialDataHandler, (void*)(raw));
-	CPhidgetSpatial_set_OnSpatialData_Handler(spatial, SpatialDataHandler, NULL);
+	CPhidgetSpatial_set_OnSpatialData_Handler(spatial, SpatialDataHandler, raw);
+	//CPhidgetSpatial_set_OnSpatialData_Handler(spatial, SpatialDataHandler, NULL);
 
 	//open the spatial object for device connections
 	CPhidget_open((CPhidgetHandle)spatial, -1);
@@ -136,23 +163,10 @@ int spatial::spatial_setup(CPhidgetSpatialHandle &spatial)	{
 	//Display the properties of the attached spatial device
 	//display_properties((CPhidgetHandle)spatial);
 
-	//read spatial event data
-	//printf("Reading.....\n");
-	
 	//Set the data rate for the spatial events
-	CPhidgetSpatial_setDataRate(spatial, 16);
+	CPhidgetSpatial_setDataRate(spatial, dataRate);
 
-/*
-	//run until user input is read
-	printf("Press any key to end\n");
-	getchar();
-*/
-	//since user input has been read, this is a signal to terminate the program so we will close the phidget and delete the object we created
-/*
-	printf("Closing...\n");
-	CPhidget_close((CPhidgetHandle)spatial);
-	CPhidget_delete((CPhidgetHandle)spatial);
-*/
-	return 99999;
+
+	return 0;
 
 }
