@@ -1,13 +1,14 @@
 /*******************************************************************************
-*  Structs containing variables for the odometry code.                         **	Note on abbreviations:
-*		tp = type 
-*		acc = acceleration
-*		pos = position
-*		
-*/
+*  Structs containing variables for the odometry code.                         **	Note on abbreviations:													   *
+*		tp = type 															   *
+*		acc = acceleration													   *
+*		pos = position														   *
+*																			   *
+*******************************************************************************/
 
 #ifndef ODOMVAR_H
 #define ODOMVAR_H
+#include <cmath>
 
 struct tpunit
 {
@@ -17,9 +18,9 @@ struct tpunit
 	double rotx;
 	double roty;
 	double rotz;
-
-    setdata(double newx, double newy, double newz,
-	            double newrotx, double newroty, double newrotz)
+	
+    void setData(double newx, double newy, double newz,
+					double newrotx, double newroty, double newrotz)
     {
         x = newx;
         y = newy;
@@ -28,7 +29,6 @@ struct tpunit
         roty = newroty;
         rotz = newrotz;
 	}
-
 
 	tpunit()
 	{
@@ -45,17 +45,6 @@ struct tpunit
 		roty = newroty;
 		rotz = newrotz;
 	}
-	setdata(double newx, double newy, double newz,
-			double newrotx, double newroty, double newrotz)
-	{
-		x = newx; 
-		y = newy;
-		z = newz;
-		rotx = newrotx;
-		roty = newroty;
-		rotz = newrotz;
-	}
-
 };
 
 
@@ -73,21 +62,33 @@ struct cartesianCoordData
 	double rotmagnitude;
 	tpunit unit;
 
-	calculateMagnitude()
+	void calculateMagnitude()
 	{
 		magnitude = sqrt(x*x+y*y+z*z);
 		rotmagnitude = sqrt(rotx*rotx + roty*roty + rotz*rotz);
+		return;
 	}
-	setUnits()
+	void setUnits()
 	{
 		unit.setData(x/magnitude,y/magnitude,z/magnitude,
 					rotx/rotmagnitude,roty/rotmagnitude,rotz/rotmagnitude);
+		return;
 	}
-
+	cartesianCoordData addComponents(cartesianCoordData addend)
+	{
+		cartesianCoordData temp;
+		temp.x = x + addend.x;
+		temp.y = y + addend.y;
+		temp.z = z + addend.z;
+		temp.rotx = rotx + addend.rotx;
+		temp.roty = roty + addend.roty;
+		temp.rotz = rotz + addend.rotz;
+		return temp;
+	}
 	cartesianCoordData()
 	{
 		x = y = z = rotx = roty = rotz = magnitude = rotmagnitude = 0;
-		units.setData(0,0,0,0,0,0);
+		unit.setData(0,0,0,0,0,0);
 	}
     cartesianCoordData(double newx, double newy, double newz,
 			            double newrotx, double newroty, double newrotz)
@@ -102,7 +103,7 @@ struct cartesianCoordData
 		setUnits();
 	}
 
-}
+};
 
 /* --turns out structis in phidget21.h header file
 //Used to store the raw data from Phidget. 
