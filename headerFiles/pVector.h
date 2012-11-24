@@ -1,3 +1,15 @@
+/******************************************************************************
+*  pVector is a physics-vector, to avoid confusion with the C++ vector class. *
+* it has cartesian components, as well as a magnitude and a set of unit       *
+* vectors that correspond in direction to the components but with magnitude 1 *
+*  pDirection stands for pVectorDirection, and is a simplified way to keep    *
+* track of which component is being referenced.  I could have just used 0,1,2 *
+* but this will make it easier to adjust the code if someone decides to mount *
+* the phidget sideways.  Maybe it won't matter since the calibration should   *
+* take care of that but in either case this way is a bit clearer I hope.      *
+*  Definitions in pVector.cpp                        --MK                     *
+******************************************************************************/
+
 #ifndef PVECTOR_H
 #define PVECTOR_H
 
