@@ -6,8 +6,10 @@ MK-- To whom it may concern, I created a ROS project for compiling this within t
 
 
 
-rotation.h
+rotation.cpp
 ------------
+function prototype: pVector rotatePOV(pVector vec, pVector rot);
+
 
 OdometryNode.cpp
 -------------
