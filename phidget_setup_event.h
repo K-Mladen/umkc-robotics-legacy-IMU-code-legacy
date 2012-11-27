@@ -7,7 +7,8 @@ Documentation on data rate.
 */
 
 #include <stdio.h>
-#include <Phidget21/phidget21.h>
+#include <Phidget21/phidget21.h>	//mac os
+//#include <phidget21.h>			//linux
 #include <iostream>
 
 using namespace std;
