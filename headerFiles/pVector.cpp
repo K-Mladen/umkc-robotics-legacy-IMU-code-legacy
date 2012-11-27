@@ -1,6 +1,7 @@
 #include "pVector.h"
+#include <cmath>
 
-resetFlags();
+void pVector::resetFlags()
 {   //this function needs to be called any time a comp is changed.
     unitflag[0] = unitflag[1] = unitflag[2] = magflag = 0;
     return;
@@ -9,14 +10,16 @@ pVector::pVector()
 {
     //ctor
     comp[0]=comp[1]=comp[2]=0;
+	resetFlags();
     //flags are already initialized to 0
 }
-pVector::pVector(double comp0, double comp2, double comp2)
+pVector::pVector(double comp0, double comp1, double comp2)
 {
     //ctor
     comp[0]=comp0;
     comp[1]=comp1;
     comp[2]=comp2;
+	resetFlags();
     //flags are already initialized to 0
 }
 
@@ -25,12 +28,12 @@ pVector::~pVector()
     //dtor
 }
 
-double getComponent(pDirection dir)
+double pVector::getComponent(pDirection dir)
 {
     return comp[dir];
 }
 
-double getMagnitude()
+double pVector::getMagnitude()
 {
     if(!magflag)
     {
@@ -40,9 +43,9 @@ double getMagnitude()
     return magnitude;
 }
 
-double getUnitComponent(pDirection dir)
+double pVector::getUnitComponent(pDirection dir)
 {
-    if(!unitflag[dir]
+    if(!unitflag[dir])
        {
            //component by magnitude, but make sure magnitude has been found.
            unitcomp[dir] = comp[dir]/getMagnitude();
@@ -51,13 +54,13 @@ double getUnitComponent(pDirection dir)
     return unitcomp[dir];
 }
 
-void setComponent(pDirection dir, double val);
+void pVector::setComponent(pDirection dir, double val)
 {
     comp[dir] = val;
     resetFlags();
 }
 
-pVector& pVector::operator=(const pVector& rhs)
+pVector pVector::operator=(const pVector& rhs)
 {
     if (this != &rhs) // if not self assignment
     {
@@ -70,7 +73,7 @@ pVector& pVector::operator=(const pVector& rhs)
     return *this;
 }
 
-pVector& pVector::operator+=(const pVector& other);
+pVector pVector::operator+=(const pVector& other)
 {
     if (other->comp[0]!=0 && other->comp[1]!=0 && other->comp[2]!=0)
     {
@@ -82,12 +85,12 @@ pVector& pVector::operator+=(const pVector& other);
     return *this;
 }
 
-const pVector& pVector::operator+(const pVector& other) const;
+const pVector& pVector::operator+(const pVector& other) const
 {
     return pVector(*this) += other;
 }
 
-pVector& pVector::operator-=(const pVector& other);
+pVector pVector::operator-=(const pVector& other)
 {
     if (other->comp[0]!=0 && other->comp[1]!=0 && other->comp[2]!=0)
     {
@@ -99,7 +102,7 @@ pVector& pVector::operator-=(const pVector& other);
     return *this;
 }
 
-const pVector& pVector::operator-(const pVector& other) const;
+const pVector& pVector::operator-(const pVector& other) const
 {
     return pVector(*this) -= other;
 }

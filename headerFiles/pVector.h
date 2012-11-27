@@ -13,25 +13,28 @@
 #ifndef PVECTOR_H
 #define PVECTOR_H
 
+using namespace std;
+
 enum pDirection
 {
-    X = 0;
-    Y = 1;
-    Z = 2;
+    X = 0,
+    Y = 1,
+	Z = 2
 };
 
 class pVector
 {
     private:
     double comp[3], magnitude, unitcomp[3];
-    bool magflag=0, unitflag[3]={0,0,0}; //set to 1 when value is calculated
+    bool magflag;
+	bool unitflag [3]; //set to 1 when value is calculated
     //helper functions
-    resetFlags();
+    void resetFlags();
 
     public:
         //constructors & destructors
         pVector();
-        pVector(double comp[0], double comp[1], double comp[2]);
+        pVector(double comp0, double comp1, double comp2);
         virtual ~pVector();
         //accessors
         double getComponent(pDirection dir);  //Enumerated for clarity:
@@ -42,11 +45,11 @@ class pVector
         //mutators
         void setComponent(pDirection dir, double val); //Enumerated as above
         //operators
-        pVector& operator=(const pVector& other);
-        pVector& operator+=(const pVector& other);
-        const pVector& operator+(const pVector& other) const;
-        pVector& operator-=(const pVector& other);
-        const pVector& operator-(const pVector& other) const;
+        pVector operator=(const pVector& rhs);
+        pVector operator+=(const pVector& other);
+        const pVector operator+(const pVector& other) const;
+        pVector operator-=(const pVector& other);
+        const pVector operator-(const pVector& other) const;
 
 };
 
