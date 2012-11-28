@@ -65,9 +65,9 @@ pVector pVector::operator=(const pVector& rhs)
     if (this != &rhs) // if not self assignment
     {
         //assignment operator
-        comp[0]=rhs->comp[0];
-        comp[1]=rhs->comp[1];
-        comp[2]=rhs->comp[2];
+        comp[0]=rhs.comp[0];
+        comp[1]=rhs.comp[1];
+        comp[2]=rhs.comp[2];
         resetFlags();
     }
     return *this;
@@ -75,34 +75,34 @@ pVector pVector::operator=(const pVector& rhs)
 
 pVector pVector::operator+=(const pVector& other)
 {
-    if (other->comp[0]!=0 && other->comp[1]!=0 && other->comp[2]!=0)
+    if (other.comp[0]!=0 && other.comp[1]!=0 && other.comp[2]!=0)
     {
-        comp[0]+=other->comp[0];
-        comp[1]+=other->comp[1];
-        comp[2]+=other->comp[2];
+        comp[0]+=other.comp[0];
+        comp[1]+=other.comp[1];
+        comp[2]+=other.comp[2];
         resetFlags();
     }
     return *this;
 }
 
-const pVector& pVector::operator+(const pVector& other) const
+const pVector pVector::operator+(const pVector& other) const
 {
     return pVector(*this) += other;
 }
 
 pVector pVector::operator-=(const pVector& other)
 {
-    if (other->comp[0]!=0 && other->comp[1]!=0 && other->comp[2]!=0)
+    if (other.comp[0]!=0 && other.comp[1]!=0 && other.comp[2]!=0)
     {
-        comp[0]-=other->comp[0];
-        comp[1]-=other->comp[1];
-        comp[2]-=other->comp[2];
+        comp[0]-=other.comp[0];
+        comp[1]-=other.comp[1];
+        comp[2]-=other.comp[2];
         resetFlags();
     }
     return *this;
 }
 
-const pVector& pVector::operator-(const pVector& other) const
+const pVector pVector::operator-(const pVector& other) const
 {
     return pVector(*this) -= other;
 }

@@ -9,20 +9,20 @@ pVector rotatePOV(pVector vec, pVector rot)
 {
 	double thecosine = cos(rot.getMagnitude()/2),
 				 a = sin(rot.getMagnitude()/2),
-//				 b = thecosine*vec.getUnit(X),
-//				 c = thecosine*vec.getUnit(Y),
-//				 d = thecosine*vec.getUnit(Z),
-				 ab = a*thecosine*vec.getUnit(X),
-				 ac = a*thecosine*vec.getUnit(Y),
-				 ad = a*thecosine*vec.getUnit(Z),
-				 bc = thecosine*vec.getUnit(X)*thecosine*vec.getUnit(Y),
-				 bd = thecosine*vec.getUnit(X)*thecosine*vec.getUnit(Z),
-				 cd = thecosine*vec.getUnit(Y)*thecosine*vec.getUnit(Z),
-				 a2 = a*a,
-				 b2 = thecosine*vec.getUnit(X)*thecosine*vec.getUnit(X),
-				 c2 = thecosine*vec.getUnit(Y)*thecosine*vec.getUnit(Y),
-				 d2 = thecosine*vec.getUnit(Z)*thecosine*vec.getUnit(Z);
-  return pVector newVec
+//				 b = thecosine*vec.getUnitComponent(X),
+//				 c = thecosine*vec.getUnitComponent(Y),
+//				 d = thecosine*vec.getUnitComponent(Z),
+				 ab = a*thecosine*vec.getUnitComponent(X),
+				 ac = a*thecosine*vec.getUnitComponent(Y),
+				 ad = a*thecosine*vec.getUnitComponent(Z),
+				 bc = thecosine*vec.getUnitComponent(X)*thecosine*vec.getUnitComponent(Y),
+				 bd = thecosine*vec.getUnitComponent(X)*thecosine*vec.getUnitComponent(Z),
+				 cd = thecosine*vec.getUnitComponent(Y)*thecosine*vec.getUnitComponent(Z),
+//				 a2 = a*a,
+				 b2 = thecosine*vec.getUnitComponent(X)*thecosine*vec.getUnitComponent(X),
+				 c2 = thecosine*vec.getUnitComponent(Y)*thecosine*vec.getUnitComponent(Y),
+				 d2 = thecosine*vec.getUnitComponent(Z)*thecosine*vec.getUnitComponent(Z);
+  	pVector newVec
 		(
 		/*X component*/
 		(1-2*(c2+d2))*vec.getComponent(X) +
@@ -37,4 +37,5 @@ pVector rotatePOV(pVector vec, pVector rot)
 		 2*(cd+ab)*vec.getComponent(Y) +
 		(1-2*(b2+c2))*vec.getComponent(Z)
 		);
+	return newVec;
 }
