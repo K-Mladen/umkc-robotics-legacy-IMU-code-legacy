@@ -19,7 +19,10 @@ enum pDirection
 {
     X = 0,
     Y = 1,
-	Z = 2
+	Z = 2,
+	x = 0,
+	y = 1,
+	z = 2
 };
 
 class pVector
@@ -37,15 +40,15 @@ class pVector
         pVector(double comp0, double comp1, double comp2);
         virtual ~pVector();
         //accessors
-        double getComponent(pDirection dir);  //Enumerated for clarity:
+        double component(pDirection dir);  //Enumerated for clarity:
                                             // which component is desired and
                                             // in case IMU is mounted sideways.
         double getMagnitude();
-        double getUnitComponent(pDirection dir); //Enumerated as above
+        double unitComponent(pDirection dir); //Enumerated as above
         //mutators
         void setComponent(pDirection dir, double val); //Enumerated as above
         //operators
-        pVector operator=(const pVector& rhs);
+        const pVector operator=(const pVector& rhs);
         pVector operator+=(const pVector& other);
         const pVector operator+(const pVector& other) const;
         pVector operator-=(const pVector& other);

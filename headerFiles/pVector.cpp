@@ -28,7 +28,7 @@ pVector::~pVector()
     //dtor
 }
 
-double pVector::getComponent(pDirection dir)
+double pVector::component(pDirection dir)
 {
     return comp[dir];
 }
@@ -43,7 +43,7 @@ double pVector::getMagnitude()
     return magnitude;
 }
 
-double pVector::getUnitComponent(pDirection dir)
+double pVector::unitComponent(pDirection dir)
 {
     if(!unitflag[dir])
        {
@@ -60,7 +60,7 @@ void pVector::setComponent(pDirection dir, double val)
     resetFlags();
 }
 
-pVector pVector::operator=(const pVector& rhs)
+const pVector pVector::operator=(const pVector& rhs)
 {
     if (this != &rhs) // if not self assignment
     {
