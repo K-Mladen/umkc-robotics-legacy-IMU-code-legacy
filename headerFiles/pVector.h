@@ -28,7 +28,7 @@ enum pDirection
 class pVector
 {
     private:
-    double comp[3], magnitude, unitcomp[3];
+    double comp[3], mag, unitcomp[3];
     bool magflag;
 	bool unitflag [3]; //set to 1 when value is calculated
     //helper functions
@@ -43,12 +43,12 @@ class pVector
         double component(pDirection dir);  //Enumerated for clarity:
                                             // which component is desired and
                                             // in case IMU is mounted sideways.
-        double getMagnitude();
+        double magnitude();
         double unitComponent(pDirection dir); //Enumerated as above
         //mutators
-        void setComponent(pDirection dir, double val); //Enumerated as above
+        void set(pDirection dir, double val); //Enumerated as above
         //operators
-        const pVector operator=(const pVector& rhs);
+//        const pVector operator=(const pVector& rhs);
         pVector operator+=(const pVector& other);
         const pVector operator+(const pVector& other) const;
         pVector operator-=(const pVector& other);

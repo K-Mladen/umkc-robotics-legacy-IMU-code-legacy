@@ -33,14 +33,14 @@ double pVector::component(pDirection dir)
     return comp[dir];
 }
 
-double pVector::getMagnitude()
+double pVector::magnitude()
 {
     if(!magflag)
     {
-        magnitude = sqrt(comp[0]*comp[0]+comp[1]*comp[1]+comp[2]*comp[2]);
+        mag = sqrt(comp[0]*comp[0]+comp[1]*comp[1]+comp[2]*comp[2]);
         magflag = 1;
     }
-    return magnitude;
+    return mag;
 }
 
 double pVector::unitComponent(pDirection dir)
@@ -48,18 +48,18 @@ double pVector::unitComponent(pDirection dir)
     if(!unitflag[dir])
        {
            //component by magnitude, but make sure magnitude has been found.
-           unitcomp[dir] = comp[dir]/getMagnitude();
+           unitcomp[dir] = comp[dir]/magnitude();
            unitflag[dir] = 1;
        }
     return unitcomp[dir];
 }
 
-void pVector::setComponent(pDirection dir, double val)
+void pVector::set(pDirection dir, double val)
 {
     comp[dir] = val;
     resetFlags();
 }
-
+/*
 const pVector pVector::operator=(const pVector& rhs)
 {
     if (this != &rhs) // if not self assignment
@@ -71,7 +71,7 @@ const pVector pVector::operator=(const pVector& rhs)
         resetFlags();
     }
     return *this;
-}
+}*/
 
 pVector pVector::operator+=(const pVector& other)
 {
