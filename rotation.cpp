@@ -7,9 +7,9 @@
 
 pVector rotatePOV(pVector vec, pVector rot)
 {
-
-  double s = sin(rot.magnitude()),
-         c = cos(rot.magnitude());
+  double rad =  std::atan(1)/45; //(pi/4)/45 = pi/180
+  double s = sin(rot.magnitude()*rad),
+         c = cos(rot.magnitude()*rad);
   pVector newVec
     (
 	/*X component*/
