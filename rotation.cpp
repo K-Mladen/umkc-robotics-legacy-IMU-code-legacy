@@ -13,7 +13,7 @@ pVector rotatePOV(pVector vec, pVector rot)
   pVector newVec
     (
 	/*X component*/
-	(c+rot.unitComponent(X)*(1-c))*vec.component(X) +
+	(c+pow(rot.unitComponent(X),2)*(1-c))*vec.component(X) +
 	(rot.unitComponent(X)*rot.unitComponent(Y)*(1-c)
 	  - rot.unitComponent(Z)*s)*vec.component(Y) +
 	(rot.unitComponent(X)*rot.unitComponent(Z)*(1-c)
@@ -21,7 +21,7 @@ pVector rotatePOV(pVector vec, pVector rot)
 	/*Y component*/
 	(rot.unitComponent(Y)*rot.unitComponent(X)*(1-c)
 	  + rot.unitComponent(Z)*s)*vec.component(X) +
-	(c+rot.unitComponent(Y)*(1-c))*vec.component(Y) +
+	(c+pow(rot.unitComponent(Y),2)*(1-c))*vec.component(Y) +
 	(rot.unitComponent(Y)*rot.unitComponent(Z)*(1-c)
 	  - rot.unitComponent(X)*s)*vec.component(Z),
 	/*Z component*/
@@ -29,7 +29,7 @@ pVector rotatePOV(pVector vec, pVector rot)
 	  - rot.unitComponent(Y)*s)*vec.component(X) +
 	(rot.unitComponent(Z)*rot.unitComponent(Y)*(1-c)
 	  + rot.unitComponent(X)*s)*vec.component(Y) +
-	(c+rot.unitComponent(Z)*(1-c))*vec.component(Z)
+	(c+pow(rot.unitComponent(Z),2)*(1-c))*vec.component(Z)
 	);
   return newVec;
 }
