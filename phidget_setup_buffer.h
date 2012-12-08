@@ -15,10 +15,25 @@ Documentation on data rate.
 extern int event;
 using namespace std;
 
+
+
 namespace spatial	{ 
 
 	int spatial_setup(CPhidgetSpatialHandle &spatial, deque<CPhidgetSpatial_SpatialEventData>* raw, int dataRate );
+	void print(CPhidgetSpatial_SpatialEventData& data);
 }
+
+void print(CPhidgetSpatial_SpatialEventData& data)	{
+	
+	int elapsed = data.timestamp.seconds*1000000 + data.timestamp.microseconds;
+	
+	cout  << elapsed << endl;
+	cout << data.acceleration[0] << " " <<  data.acceleration[1] << " " <<  data.acceleration[2]  << endl;
+	cout << data.angularRate[0] <<  " " << data.angularRate[1] << " " << data.angularRate[2] << endl;	
+	cout << data.magneticField[0] <<  " " << data.magneticField[1] << " " << data.magneticField[2] << endl;	
+	
+}
+
 
 //callback that will run if the Spatial is attached to the computer
 int CCONV AttachHandler(CPhidgetHandle spatial, void *userptr)
@@ -84,10 +99,6 @@ int CCONV SpatialDataHandler(CPhidgetSpatialHandle spatial, void *userptr, CPhid
 	buffer->push_back(*dataHolder);
 	buffer->pop_front();
 
-	
-
-
-
 	/*
 	CPhidgetSpatial_SpatialEventData* dataHolder = (CPhidgetSpatial_SpatialEventData*) userptr;
 
@@ -102,35 +113,18 @@ int CCONV SpatialDataHandler(CPhidgetSpatialHandle spatial, void *userptr, CPhid
 		dataHolder->magneticField[i] = data[0]->magneticField[i];
 	}
 	*/
-	
-
 
 	//Printing out (time in microseconds, acceleration in x axis)
-
+/*
 	cout << "DATA from PHIDGET" <<endl;
 	cout << "=---------------------------------------------- " <<endl;
-	int elapsed = data[0]->timestamp.seconds*1000000 + data[0]->timestamp.microseconds;
-	cout << elapsed << endl;
-	cout << data[0]->acceleration[0] << " " <<  data[0]->acceleration[1] << " " <<  data[0]->acceleration[2]  << endl;
-	cout << data[0]->angularRate[0] <<  " " << data[0]->angularRate[1] << " " << data[0]->angularRate[2] << endl;	
-	cout << data[0]->magneticField[0] <<  " " << data[0]->magneticField[1] << " " << data[0]->magneticField[2] << endl;	
-
+	print(*data[0]);
 	cout <<endl;
-
-
-	
-
+*/
 	cout << "DATA Copied" <<endl;
 	cout << "=---------------------------------------------- " <<endl;
-	int copiedElapsed = data[0]->timestamp.seconds*1000000 + data[0]->timestamp.microseconds;
-	cout << copiedElapsed << endl;
-	cout << dataHolder->acceleration[0] << " " <<  dataHolder->acceleration[1] << " " <<  dataHolder->acceleration[2]  << endl;
-	cout << dataHolder->angularRate[0] <<  " " << dataHolder->angularRate[1] << " " << dataHolder->angularRate[2] << endl;	
-	cout << dataHolder->magneticField[0] <<  " " << dataHolder->magneticField[1] << " " << dataHolder->magneticField[2] << endl;	
-
+	print(*dataHolder);
 	cout <<endl;
-
-
 
 /*
 	printf("Acceleration> x: %6f  y: %6f  z: %6f\n", data[0]->acceleration[0], data[0]->acceleration[1], data[0]->acceleration[2]);

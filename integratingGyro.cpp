@@ -24,18 +24,12 @@ int main()	{
 	//CPhidgetSpatial_SpatialEventData* dataHolder = new CPhidgetSpatial_SpatialEventData;
 	CPhidgetSpatial_SpatialEventData d2;
 
-	//Deque of data points. most recent is last one.
+	//Deque of data points. most rece is last one.
 	deque<CPhidgetSpatial_SpatialEventData>* dataQueue = new deque<CPhidgetSpatial_SpatialEventData>();
 	deque<CPhidgetSpatial_SpatialEventData>::iterator it;
 
 	//How big our buffer is
-	dataQueue->resize(5);
-
-
-	for(it = dataQueue->begin(); it != dataQueue->end(); ++it)	{
-	 	//cout << it << endl;
-	}
-	
+	dataQueue->resize(5);	
 
 
 	//Open spatial, start pushing data to dataHolder
@@ -44,22 +38,17 @@ int main()	{
 	int dataRate = 16;	//data at rates faster then 8ms will be delivered to events as an array of data.
 	spatial::spatial_setup(spatial, dataQueue, dataRate);
 
-
+	int dataPoints = 10;
+	while(event < dataPoints) {}
 	
-	int dataPoints = 1000000;
-	int index =0;
-
-
-	//Busy loop until we have collected enough events.
-	//while(event < dataPoints)	{
-	while(event < dataPoints) 	{	
-		
-	}
-
-
+	
 	//printf("Closing...\n");
 	CPhidget_close((CPhidgetHandle)spatial);
 	CPhidget_delete((CPhidgetHandle)spatial);
+
+	for(it = dataQueue->begin(); it != dataQueue->end(); ++it)	{
+	 	print(*it);
+	}
 
 	return 0;
 }
