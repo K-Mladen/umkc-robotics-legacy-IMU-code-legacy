@@ -3,14 +3,15 @@
 *
 *******************************************************************************/
 
-
+//pt[i] being the value of the ith element
+//ust[i] being the time at which the ith element was sampled
 double simpsonIteration(double pt0, double pt1, double pt2,
                          int ust0, int ust1, int ust2)
 {
   /*microseconds to seconds*/
-  double t0 = ust0/1000000,
-         t1 = ust1/1000000,
-         t2 = ust2/1000000;
+  double t0 = ust0/1000000.0,
+         t1 = ust1/1000000.0,
+         t2 = ust2/1000000.0;
   /*make sure time interval is constant*/
   if ((t1 - t0)==(t2 - t1))
   {
