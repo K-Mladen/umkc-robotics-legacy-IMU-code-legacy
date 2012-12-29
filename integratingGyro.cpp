@@ -46,8 +46,9 @@ int main()	{
 		printf("mutex init success \n");
 	}
 
-	//How big our buffer is
-	//dataQueue->resize(5);	
+	//THIS IS OUR INTIAL ORIENTATION
+	double orientation[3] = {0,0,0};
+	cout << "INITIAL ORIENTATION 0 0 0" <<endl;
 
 	//Open spatial, start pushing data to dataHolder
 						//DataRate must be between 4mS and 1S
@@ -57,23 +58,61 @@ int main()	{
 
 	//INTEGRATING! YEAH! 
 
-	for(int i = 0; i<10000; i++)	{
+	for(int i = 0; i<1000; i++)	{
 		
 		//busy wait while q is empty
 		while(dataQueue->empty())	{}
 
 		//SUCCESS. NOT dropping any packets... but at same time not doing anything either 
 		pthread_mutex_lock(&mutex);
-		cout << "SIZE :: " << dataQueue->size() <<endl;
-		print(*it);
+		//cout << "SIZE :: " << dataQueue->size() <<endl;
+		
 		CPhidgetSpatial_SpatialEventData* newest = copy(*it);
-		print(*newest);
+
+		//Dealing with message q
 		dataQueue->pop_front();
 		it = dataQueue->begin();
 		pthread_mutex_unlock(&mutex);
 
-		simpsonIteration(0,0,0,0,0,0);
+
+		//adding newest pt into integQ, for integration
+		integQueue->push_back(*newest);
+		integQueue->pop_front();
+//		print(*newest);
+
+		//Simpson's integration, given past 3 data points
+		//Looping through each axis
+		double delta[3];
+		for(int i =0; i<3; i++)	{
+			double first = integQueue->at(0).angularRate[i];
+			double second = integQueue->at(1).angularRate[i];
+			double third = integQueue->at(2).angularRate[i];
+//			cout << "Getting angular rate" << endl;
+//			cout << first << " "  <<second << " " << third << endl;
+			
+			double time1 = elapsedTime(integQueue->at(0));
+			double time2 = elapsedTime(integQueue->at(1));
+			double time3 = elapsedTime(integQueue->at(2));
+//			cout << " Time points "  <<  endl;
+//			cout << time1 << " " << time2 << " " << time3 << endl;
+			
+			delta[i] = simpsonIteration(first, second, third,time1, time2, time3);			
+//			cout << "DELTA == " << delta[i] <<endl;
+			orientation[i] += delta[i]; 
+			
+		}
+		cout << "UPDATED ORIENTATION " << endl;
+
+		for(int i =0; i< 3; i++)	{
+			cout << orientation[i] << " "; 		
+		}
+		cout << endl;
+
 	}
+
+
+
+
 
 	
 	//printf("Closing...\n");
@@ -81,7 +120,7 @@ int main()	{
 	CPhidget_delete((CPhidgetHandle)spatial);
 
 	for(it = dataQueue->begin(); it != dataQueue->end(); ++it)	{
-	 	print(*it);
+	// 	print(*it);
 	}
 
 	pthread_mutex_destroy(&mutex);
