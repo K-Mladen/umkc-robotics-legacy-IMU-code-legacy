@@ -12,15 +12,34 @@ Documentation on data rate.
 //#include <phidget21.h>			//linux
 #include <iostream>
 
-extern int event;
+//extern int event;
+extern pthread_mutex_t mutex;
 using namespace std;
 
 
 
 namespace spatial	{ 
-
 	int spatial_setup(CPhidgetSpatialHandle &spatial, deque<CPhidgetSpatial_SpatialEventData>* raw, int dataRate );
 	void print(CPhidgetSpatial_SpatialEventData& data);
+	CPhidgetSpatial_SpatialEventData* copy(CPhidgetSpatial_SpatialEventData& spatial);
+}
+
+CPhidgetSpatial_SpatialEventData* copy(CPhidgetSpatial_SpatialEventData &other )	{
+
+	CPhidgetSpatial_SpatialEventData* dataHolder = (CPhidgetSpatial_SpatialEventData*)malloc(sizeof(CPhidgetSpatial_SpatialEventData));
+
+	//copying timestamp
+	dataHolder->timestamp.seconds = other.timestamp.seconds;
+	dataHolder->timestamp.microseconds = other.timestamp.microseconds;
+
+	//copying stuff
+	for(int i =0; i < 3; i++)	{
+		dataHolder->acceleration[i] = other.acceleration[i];
+		dataHolder->angularRate[i] = other.angularRate[i];
+		dataHolder->magneticField[i] = other.magneticField[i];
+	}
+
+	return dataHolder;
 }
 
 void print(CPhidgetSpatial_SpatialEventData& data)	{
@@ -67,7 +86,7 @@ int CCONV ErrorHandler(CPhidgetHandle spatial, void *userptr, int ErrorCode, con
 //count - the number of spatial data event packets included in this event
 int CCONV SpatialDataHandler(CPhidgetSpatialHandle spatial, void *userptr, CPhidgetSpatial_SpatialEventDataHandle *data, int count)
 {
-	event++;
+	//event++;
 
 	//cout << "DATA HANDLER " << endl;
 	//Making copy of data.
@@ -75,6 +94,9 @@ int CCONV SpatialDataHandler(CPhidgetSpatialHandle spatial, void *userptr, CPhid
 
 	CPhidgetSpatial_SpatialEventData* dataHolder = (CPhidgetSpatial_SpatialEventData*)malloc(sizeof(CPhidgetSpatial_SpatialEventData));
 
+	dataHolder = copy(*data[0]);
+
+/*
 	//copying timestamp
 	dataHolder->timestamp.seconds = 99;
 	dataHolder->timestamp.seconds = data[0]->timestamp.seconds;
@@ -87,7 +109,7 @@ int CCONV SpatialDataHandler(CPhidgetSpatialHandle spatial, void *userptr, CPhid
 		dataHolder->magneticField[i] = data[0]->magneticField[i];
 	}
 
-	
+*/	
 
 	//Pushing data to user given vector.
 	//---------------------
@@ -96,8 +118,10 @@ int CCONV SpatialDataHandler(CPhidgetSpatialHandle spatial, void *userptr, CPhid
 
 
 	//Get rid of oldest data, push in new one.
+	pthread_mutex_lock(&mutex);
 	buffer->push_back(*dataHolder);
-	buffer->pop_front();
+	//buffer->pop_front();
+	pthread_mutex_unlock(&mutex);
 
 	/*
 	CPhidgetSpatial_SpatialEventData* dataHolder = (CPhidgetSpatial_SpatialEventData*) userptr;
@@ -115,16 +139,20 @@ int CCONV SpatialDataHandler(CPhidgetSpatialHandle spatial, void *userptr, CPhid
 	*/
 
 	//Printing out (time in microseconds, acceleration in x axis)
+
 /*
 	cout << "DATA from PHIDGET" <<endl;
 	cout << "=---------------------------------------------- " <<endl;
 	print(*data[0]);
 	cout <<endl;
-*/
+
+
+
 	cout << "DATA Copied" <<endl;
 	cout << "=---------------------------------------------- " <<endl;
 	print(*dataHolder);
 	cout <<endl;
+*/
 
 /*
 	printf("Acceleration> x: %6f  y: %6f  z: %6f\n", data[0]->acceleration[0], data[0]->acceleration[1], data[0]->acceleration[2]);
