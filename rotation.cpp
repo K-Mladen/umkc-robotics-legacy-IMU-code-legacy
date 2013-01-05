@@ -5,6 +5,10 @@
 #include <cmath>
 #include "pVector.h"
 
+
+//vec is vector we're rotating (in phidget's POV)
+//rot is vector we're rotating about (the vector orthogonal to the plane made
+//	by the initial orientation vector and the current orientation vector)
 pVector rotatePOV(pVector vec, pVector rot)
 {
   double rad =  std::atan(1)/45; //(pi/4)/45 = pi/180
