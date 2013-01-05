@@ -1,5 +1,5 @@
 /******************************************************************************
-*  Rotate Point of view from robot frame to field frame  --MK								  *
+*  Rotate Point of view from robot frame to field frame  --MK				  *
 ******************************************************************************/
 
 #include <cmath>
@@ -36,4 +36,11 @@ pVector rotatePOV(pVector vec, pVector rot)
 	(c+pow(rot.unitComponent(Z),2)*(1-c))*vec.component(Z)
 	);
   return newVec;
+}
+
+
+pVector orientation(pVector angle)
+{
+  pVector zero, unitX(1,0,0);
+  return rotatePOV( unitX, (zero - angle) );
 }
