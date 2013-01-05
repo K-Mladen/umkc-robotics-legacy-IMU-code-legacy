@@ -12,6 +12,7 @@ Victoria Wu
 #include "simpsonIteration.h"
 //#include <stdio.h>
 #include <deque>
+//#include <complimentaryFilter.h>  
 
 //int event =0;
 
@@ -96,11 +97,27 @@ int main()	{
 //			cout << " Time points "  <<  endl;
 //			cout << time1 << " " << time2 << " " << time3 << endl;
 			
+			//rotation would go here
+			pVector vec()
+			rotatePOV()
+			
+			
 			delta[i] = simpsonIteration(first, second, third,time1, time2, time3);			
 //			cout << "DELTA == " << delta[i] <<endl;
+			
+			//ANGLE COMPLEMENTARY FILTER to the RESCUE
+			
+			
+			
+			//so now orientation[i] = angle + gyro*dt
 			orientation[i] += delta[i]; 
+			double alpha = 0.98;
+			orientation[i] = alpha*orientation[i] + (1-alpha)*acc[i];
 			
 		}
+		
+		
+		
 		cout << "UPDATED ORIENTATION " << endl;
 
 		for(int i =0; i< 3; i++)	{
