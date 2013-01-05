@@ -78,16 +78,19 @@ pVector rotatePOV(pVector vec, pVector rot)
 
 pVector orientation(pVector angle)
 {
-  return rotatePOV((pVector)(1,0,0),((pVector)(0,0,0) - angle));
+	pVector zero(0.0,0.0,0.0), unitX(1.0,0.0,0.0);
+  return rotatePOV(unitX,(zero - angle));
 }
 
 
 pVector filter(pVector accel, pVector gyrot, double alpha)
 {
   /*current time step t2 (so T=t-1 is t1 and T=t-2 is t0)*/
-  return (pVector)(
-    anglet2.set(X, accel.component(X)*(1-ALPHA)+ALPHA*gyrot.component(X),
-    anglet2.set(Y, accel.component(Y)*(1-ALPHA)+ALPHA*gyrot.component(Y),
-    anglet2.set(Z, accel.component(Z)*(1-ALPHA)+ALPHA*gyrot.component(Z),
+  pVector angle
+  (
+    accel.component(X)*(1-alpha)+alpha*gyrot.component(X),
+    accel.component(Y)*(1-alpha)+alpha*gyrot.component(Y),
+    accel.component(Z)*(1-alpha)+alpha*gyrot.component(Z)
   );
+  return angle;
 }
