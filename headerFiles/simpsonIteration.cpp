@@ -1,4 +1,6 @@
- a datapoint, keeping a running total of these datapoints          **   implements simpsons rule
+/*******************************************************************************
+* Generates a datapoint, keeping a running total of these datapoints          **
+* implements simpsons rule
 *
 *******************************************************************************/
 
