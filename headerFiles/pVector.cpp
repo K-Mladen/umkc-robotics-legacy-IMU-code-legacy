@@ -80,11 +80,11 @@ void pVector::set(double val[3])    {
     resetFlags();
 }
 
-void pVector::set(double valX, double valY, double valZ);
+void pVector::set(double valX, double valY, double valZ)
 {
-  comp(X) = valX;
-  comp(Y) = valY;
-  comp(Z) = valZ;
+  comp[X] = valX;
+  comp[Y] = valY;
+  comp[Z] = valZ;
   resetFlags();
 }
 
