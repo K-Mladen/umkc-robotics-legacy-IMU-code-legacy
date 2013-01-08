@@ -11,7 +11,7 @@ Documentation on data rate.
 #include <Phidget21/phidget21.h>	//mac os
 //#include <phidget21.h>			//linux
 #include <iostream>
-#include "headerFiles/pVector.h"
+#include "pVector.h"
 
 //extern int event;
 extern pthread_mutex_t mutex;
@@ -24,6 +24,7 @@ namespace spatial	{
 		int elapsed; 
 		pVector acceleration, angularRate, comp;
 		SpatialPVector(): elapsed(0), acceleration(pVector()), angularRate(pVector()), comp(pVector())	{}
+		
 		SpatialPVector(CPhidgetSpatial_SpatialEventData &data) {
 			//why isn't this working - undefined symbols D:
 			//elapsed = elapsedTime(data);
