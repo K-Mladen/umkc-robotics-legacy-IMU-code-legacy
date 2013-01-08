@@ -6,13 +6,24 @@ void pVector::resetFlags()
     unitflag[0] = unitflag[1] = unitflag[2] = magflag = 0;
     return;
 }
+
 pVector::pVector()
 {
     //ctor
-    comp[0]=comp[1]=comp[2]=0;
+    comp[0]=0;
+    comp[1]=0;
+    comp[2]=0;
 	resetFlags();
     //flags are already initialized to 0
 }
+
+pVector::pVector(double given[3])    {
+    for (int i =0; i< 3; i++)   {
+        comp[i] = given[i];
+    }
+    resetFlags();
+}
+
 pVector::pVector(double comp0, double comp1, double comp2)
 {
     //ctor
@@ -27,6 +38,8 @@ pVector::~pVector()
 {
     //dtor
 }
+
+
 
 double pVector::component(pDirection dir)
 {
@@ -59,6 +72,12 @@ void pVector::set(pDirection dir, double val)
     comp[dir] = val;
     resetFlags();
 }
+
+void pVector::set(double val[3])    {
+    for(int i =0; i< 3; i++)    {
+        comp[i]=val[i];
+    }
+}
 /*
 const pVector pVector::operator=(const pVector& rhs)
 {
@@ -71,8 +90,8 @@ const pVector pVector::operator=(const pVector& rhs)
         resetFlags();
     }
     return *this;
-}*/
-
+}
+*/
 pVector pVector::operator+=(const pVector& other)
 {
     if (other.comp[0]!=0 && other.comp[1]!=0 && other.comp[2]!=0)
@@ -105,4 +124,8 @@ pVector pVector::operator-=(const pVector& other)
 const pVector pVector::operator-(const pVector& other) const
 {
     return pVector(*this) -= other;
+}
+
+double& pVector::operator[] (const int nIndex)   {
+    return comp[nIndex];
 }

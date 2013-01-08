@@ -38,6 +38,7 @@ class pVector
         //constructors & destructors
         pVector();
         pVector(double comp0, double comp1, double comp2);
+        pVector(double comp[3]);
         virtual ~pVector();
         //accessors
         double component(pDirection dir);  //Enumerated for clarity:
@@ -47,13 +48,14 @@ class pVector
         double unitComponent(pDirection dir); //Enumerated as above
         //mutators
         void set(pDirection dir, double val); //Enumerated as above
+        void set(double val[3]);
         //operators
 //        const pVector operator=(const pVector& rhs);
         pVector operator+=(const pVector& other);
         const pVector operator+(const pVector& other) const;
         pVector operator-=(const pVector& other);
         const pVector operator-(const pVector& other) const;
-
+        double& operator[] (const int nIndex);
 };
 
 #endif // PVECTOR_H
