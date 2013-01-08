@@ -77,13 +77,22 @@ void pVector::set(double val[3])    {
     for(int i =0; i< 3; i++)    {
         comp[i]=val[i];
     }
+    resetFlags();
+}
+
+void pVector::set(double valX, double valY, double valZ);
+{
+  comp(X) = valX;
+  comp(Y) = valY;
+  comp(Z) = valZ;
+  resetFlags();
 }
 
 void pVector::print() {
     printf("X:%f Y:%f Z:%f", comp[0], comp[1], comp[2]); 
 }
 
-/*
+/* unneccessary
 const pVector pVector::operator=(const pVector& rhs)
 {
     if (this != &rhs) // if not self assignment
