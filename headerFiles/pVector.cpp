@@ -1,6 +1,6 @@
 #include "pVector.h"
 #include <cmath>
-
+#include <stdio.h>  //for printf
 void pVector::resetFlags()
 {   //this function needs to be called any time a comp is changed.
     unitflag[0] = unitflag[1] = unitflag[2] = magflag = 0;
@@ -78,6 +78,11 @@ void pVector::set(double val[3])    {
         comp[i]=val[i];
     }
 }
+
+void pVector::print() {
+    printf("X:%f Y:%f Z:%f", comp[0], comp[1], comp[2]); 
+}
+
 /*
 const pVector pVector::operator=(const pVector& rhs)
 {

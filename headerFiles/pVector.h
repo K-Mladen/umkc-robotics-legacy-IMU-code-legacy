@@ -49,6 +49,9 @@ class pVector
         //mutators
         void set(pDirection dir, double val); //Enumerated as above
         void set(double val[3]);
+
+        void print();
+
         //operators
 //        const pVector operator=(const pVector& rhs);
         pVector operator+=(const pVector& other);
