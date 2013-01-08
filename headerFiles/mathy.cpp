@@ -13,6 +13,7 @@
 
 #include <cmath>
 #include "pVector.h"
+#include "mathy.h"
 
 
 //pt[i] is the value of the ith element
@@ -46,40 +47,72 @@ double simpsonIteration(double pt0, double pt1, double pt2,
 //vec is vector we're rotating (in phidget's POV)
 //rot is vector we're rotating about (the vector orthogonal to the plane made
 //	by the initial orientation vector and the current orientation vector)
+
+//changing-> rot is the current orientation vector??
+
+//changing this to a set method? to change contents of vec, instead of returning new pVector?
 pVector rotatePOV(pVector vec, pVector rot)
 {
+
   double rad =  std::atan(1)/45; //(pi/4)/45 = pi/180
   double s = sin(rot.magnitude()*rad),
          c = cos(rot.magnitude()*rad);
+  
+  /*double xDir = (c+pow(rot.unitComponent(X),2)*(1-c))*vec.component(X) +
+        (rot.unitComponent(X)*rot.unitComponent(Y)*(1-c)
+        - rot.unitComponent(Z)*s)*vec.component(Y) +
+        (rot.unitComponent(X)*rot.unitComponent(Z)*(1-c)
+        + rot.unitComponent(Y)*s)*vec.component(Z);
+  
+  double yDir = (rot.unitComponent(Y)*rot.unitComponent(X)*(1-c)
+      + rot.unitComponent(Z)*s)*vec.component(X) +
+      (c+pow(rot.unitComponent(Y),2)*(1-c))*vec.component(Y) +
+      (rot.unitComponent(Y)*rot.unitComponent(Z)*(1-c)
+      - rot.unitComponent(X)*s)*vec.component(Z);
+
+  double zDir =  (rot.unitComponent(Z)*rot.unitComponent(X)*(1-c)
+          - rot.unitComponent(Y)*s)*vec.component(X) +
+          (rot.unitComponent(Z)*rot.unitComponent(Y)*(1-c)
+          + rot.unitComponent(X)*s)*vec.component(Y) +
+          (c+pow(rot.unitComponent(Z),2)*(1-c))*vec.component(Z);
+
+  vec.set(X, xDir);
+  vec.set(Y, yDir);
+  vec.set(Z, zDir);
+  */
   pVector newVec
     (
-	/*X component*/
+	//X component
 	(c+pow(rot.unitComponent(X),2)*(1-c))*vec.component(X) +
 	(rot.unitComponent(X)*rot.unitComponent(Y)*(1-c)
 	  - rot.unitComponent(Z)*s)*vec.component(Y) +
 	(rot.unitComponent(X)*rot.unitComponent(Z)*(1-c)
 	  + rot.unitComponent(Y)*s)*vec.component(Z),
-	/*Y component*/
+	// Y component
 	(rot.unitComponent(Y)*rot.unitComponent(X)*(1-c)
 	  + rot.unitComponent(Z)*s)*vec.component(X) +
 	(c+pow(rot.unitComponent(Y),2)*(1-c))*vec.component(Y) +
 	(rot.unitComponent(Y)*rot.unitComponent(Z)*(1-c)
 	  - rot.unitComponent(X)*s)*vec.component(Z),
-	/*Z component*/
+	// Z component
 	(rot.unitComponent(Z)*rot.unitComponent(X)*(1-c)
 	  - rot.unitComponent(Y)*s)*vec.component(X) +
 	(rot.unitComponent(Z)*rot.unitComponent(Y)*(1-c)
 	  + rot.unitComponent(X)*s)*vec.component(Y) +
 	(c+pow(rot.unitComponent(Z),2)*(1-c))*vec.component(Z)
 	);
-  return newVec;
+
+   return newVec;
 }
 
 
 pVector orientation(pVector angle)
 {
-	pVector zero(0.0,0.0,0.0), unitX(1.0,0.0,0.0);
+  //note+ need to change to using the constants in mathy.h 
+
+    pVector zero(0.0,0.0,0.0), unitX(1.0,0.0,0.0);
   return rotatePOV(unitX,(zero - angle));
+  // return rotatePOV(mathy::XUnitVector,(mathy::zeroVector - angle));
 }
 
 
