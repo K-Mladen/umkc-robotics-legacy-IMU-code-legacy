@@ -6,15 +6,17 @@ Victoria Wu
 
 */
 
+#include "headerFiles/pVector.h"
+#include "headerFiles/mathy.h"
 #include "phidget_setup_buffer.h"	//spatial_setup()
 #include <iostream>
 #include <pthread.h>	#mutex
-#include "simpsonIteration.h"
 //#include <stdio.h>
 #include <deque>
 //#include <complimentaryFilter.h>  
 
 //int event =0;
+
 
 //mutexes
 pthread_mutex_t mutex;	//used when writing to the deque
@@ -29,12 +31,12 @@ int main()	{
 	CPhidgetSpatial_create(&spatial);
 	
 	//A message queue of sorts. FIFO
-	deque<CPhidgetSpatial_SpatialEventData>* dataQueue = new deque<CPhidgetSpatial_SpatialEventData>();
-	deque<CPhidgetSpatial_SpatialEventData>::iterator it = dataQueue->begin();
+	spatial::PhidgetRawDataQ* dataQueue = new spatial::PhidgetRawDataQ();
+	spatial::PhidgetRawDataQ::iterator it = dataQueue->begin();
 
-	//A 3 unit q for the Simpson's integration.
-	deque<CPhidgetSpatial_SpatialEventData>* integQueue = new deque<CPhidgetSpatial_SpatialEventData>();
-	deque<CPhidgetSpatial_SpatialEventData>::iterator integ = integQueue->begin();
+	//A q of 3 PVectors for the Simpson's integration.
+	spatial::PVectorQ* integQueue = new spatial::PVectorQ();
+	spatial::PVectorQ::iterator integ = integQueue->begin();
 	integQueue->resize(3);
 
 	//Initializing Mutex
@@ -48,7 +50,7 @@ int main()	{
 	}
 
 	//THIS IS OUR INTIAL ORIENTATION
-	double orientation[3] = {0,0,0};
+	pVector initial = pVector();
 	cout << "INITIAL ORIENTATION 0 0 0" <<endl;
 
 	//Open spatial, start pushing data to dataHolder
@@ -59,9 +61,11 @@ int main()	{
 
 	//INTEGRATING! YEAH! 
 
+	//doing the first i data points
 	for(int i = 0; i<1000; i++)	{
 		
 		//busy wait while q is empty
+		//better way to do this?? 
 		while(dataQueue->empty())	{}
 
 		//SUCCESS. NOT dropping any packets... but at same time not doing anything either 
@@ -75,56 +79,70 @@ int main()	{
 		it = dataQueue->begin();
 		pthread_mutex_unlock(&mutex);
 
+		// HERE!!! and acceleration too 
+		//first find vector to about
+		spatial::SpatialPVector newestP(*newest);
+		//WAIT i am confused are we rotating about the vector formed by the initial starting vector, or the right now/most c
+		//so should it be orientation(initial) or orientation(pVector(0,0,0))
+		//make a wrapper method?
+		pVector orthog = orientation(initial);
+		newestP.acceleration = rotatePOV(newestP.acceleration, orthog);
+		newestP.angularRate = rotatePOV(newestP.angularRate, orthog);
 
 		//adding newest pt into integQ, for integration
 		integQueue->push_back(*newest);
 		integQueue->pop_front();
-//		print(*newest);
+		//print(*newest);
 
 		//Simpson's integration, given past 3 data points
 		//Looping through each axis
 		double delta[3];
+		double angularRate[3][3];	//[x][y] xth point, yth axis
+		double dTime[3];
+
+		double acc[3];
+		pVector phidgetPOV[3];
+
 		for(int i =0; i<3; i++)	{
-			double first = integQueue->at(0).angularRate[i];
-			double second = integQueue->at(1).angularRate[i];
-			double third = integQueue->at(2).angularRate[i];
-//			cout << "Getting angular rate" << endl;
-//			cout << first << " "  <<second << " " << third << endl;
-			
-			double time1 = elapsedTime(integQueue->at(0));
-			double time2 = elapsedTime(integQueue->at(1));
-			double time3 = elapsedTime(integQueue->at(2));
+			for(int k = 0; k<3; k++)	{
+				angularRate[i][k] = integQueue->at(i).angularRate[k];
+	//			cout << "Getting angular rate" << endl;
+	//			cout << first << " "  <<second << " " << third << endl;
+			}
+			pVector p;
+			//pVector p(angularRate[i][0], angularRate[i][1], angularRate[i][2]);
+			//phidgetPOV[i] = p;
+
+			dTime[i] = elapsedTime(integQueue->at(i));
 //			cout << " Time points "  <<  endl;
 //			cout << time1 << " " << time2 << " " << time3 << endl;
-			
-			//rotation would go here
-			pVector vec()
-			rotatePOV()
-			
-			
-			delta[i] = simpsonIteration(first, second, third,time1, time2, time3);			
-//			cout << "DELTA == " << delta[i] <<endl;
-			
+
+
+			//delta[i] = simpsonIteration(first, second, third,time1, time2, time3);			
+	//		cout << "DELTA == " << delta[i] <<endl;
+				
 			//ANGLE COMPLEMENTARY FILTER to the RESCUE
-			
-			
-			
 			//so now orientation[i] = angle + gyro*dt
+			/*
 			orientation[i] += delta[i]; 
 			double alpha = 0.98;
 			orientation[i] = alpha*orientation[i] + (1-alpha)*acc[i];
+			*/	
+		}	
 			
-		}
+			
 		
 		
 		
+		
+		/*
 		cout << "UPDATED ORIENTATION " << endl;
 
 		for(int i =0; i< 3; i++)	{
 			cout << orientation[i] << " "; 		
 		}
 		cout << endl;
-
+		*/
 	}
 
 
