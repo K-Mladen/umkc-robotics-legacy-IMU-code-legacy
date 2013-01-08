@@ -62,7 +62,7 @@ void integrateGyro(spatial::PVectorQ* data, pVector& current)
 //changing-> rot is the current orientation vector??
 
 //changing this to a set method? to change contents of vec, instead of returning new pVector?
-pVector rotatePOV(pVector const & vec, pVector const & rot)
+void rotatePOV(pVector & vec, pVector & rot)
 {
 
   double rad =  std::atan(1)/45; //(pi/4)/45 = pi/180
