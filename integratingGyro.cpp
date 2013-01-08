@@ -6,17 +6,14 @@ Victoria Wu
 
 */
 
+#include "headerFiles/phidget_setup_buffer.h"	//spatial_setup()
 #include "headerFiles/pVector.h"
 #include "headerFiles/mathy.h"
-#include "phidget_setup_buffer.h"	//spatial_setup()
+
 #include <iostream>
 #include <pthread.h>	#mutex
 //#include <stdio.h>
 #include <deque>
-//#include <complimentaryFilter.h>  
-
-//int event =0;
-
 
 //mutexes
 pthread_mutex_t mutex;	//used when writing to the deque
@@ -50,7 +47,8 @@ int main()	{
 	}
 
 	//THIS IS OUR INTIAL ORIENTATION
-	pVector initial = pVector();
+	pVector initial(0,0,0);
+	pVector current(0,0,0);
 	cout << "INITIAL ORIENTATION 0 0 0" <<endl;
 
 	//Open spatial, start pushing data to dataHolder
@@ -72,7 +70,7 @@ int main()	{
 		pthread_mutex_lock(&mutex);
 		//cout << "SIZE :: " << dataQueue->size() <<endl;
 		
-		CPhidgetSpatial_SpatialEventData* newest = copy(*it);
+		CPhidgetSpatial_SpatialEventData* newest = spatial::copy(*it);
 
 		//Dealing with message q
 		dataQueue->pop_front();
@@ -81,13 +79,19 @@ int main()	{
 
 		// HERE!!! and acceleration too 
 		//first find vector to about
+		spatial::print(*newest);
 		spatial::SpatialPVector newestP(*newest);
+
 		//WAIT i am confused are we rotating about the vector formed by the initial starting vector, or the right now/most c
 		//so should it be orientation(initial) or orientation(pVector(0,0,0))
 		//make a wrapper method?
-		pVector orthog = orientation(initial);
-		newestP.acceleration = rotatePOV(newestP.acceleration, orthog);
-		newestP.angularRate = rotatePOV(newestP.angularRate, orthog);
+		rotatePOV(newestP.acceleration, current);
+	 	rotatePOV(newestP.angularRate, current);
+
+		cout << endl<<  "Before Rotating" <<endl;
+		// orthog.print();
+		cout << endl << "After Rotating" << endl;
+		newestP.angularRate.print();
 
 		//adding newest pt into integQ, for integration
 		integQueue->push_back(*newest);
@@ -96,60 +100,19 @@ int main()	{
 
 		//Simpson's integration, given past 3 data points
 		//Looping through each axis
-		double delta[3];
-		double angularRate[3][3];	//[x][y] xth point, yth axis
-		double dTime[3];
-
-		double acc[3];
-		pVector phidgetPOV[3];
-
-		for(int i =0; i<3; i++)	{
-			for(int k = 0; k<3; k++)	{
-				angularRate[i][k] = integQueue->at(i).angularRate[k];
-	//			cout << "Getting angular rate" << endl;
-	//			cout << first << " "  <<second << " " << third << endl;
-			}
-			pVector p;
-			//pVector p(angularRate[i][0], angularRate[i][1], angularRate[i][2]);
-			//phidgetPOV[i] = p;
-
-			dTime[i] = elapsedTime(integQueue->at(i));
-//			cout << " Time points "  <<  endl;
-//			cout << time1 << " " << time2 << " " << time3 << endl;
-
-
-			//delta[i] = simpsonIteration(first, second, third,time1, time2, time3);			
-	//		cout << "DELTA == " << delta[i] <<endl;
+		//double delta[3];
+		
+//		integrate(spatial::PVectorQ* name, pVector& current);
 				
-			//ANGLE COMPLEMENTARY FILTER to the RESCUE
-			//so now orientation[i] = angle + gyro*dt
-			/*
-			orientation[i] += delta[i]; 
-			double alpha = 0.98;
-			orientation[i] = alpha*orientation[i] + (1-alpha)*acc[i];
-			*/	
-		}	
-			
-			
-		
-		
-		
 		
 		/*
 		cout << "UPDATED ORIENTATION " << endl;
-
-		for(int i =0; i< 3; i++)	{
-			cout << orientation[i] << " "; 		
-		}
+		current.print();
 		cout << endl;
 		*/
 	}
 
 
-
-
-
-	
 	//printf("Closing...\n");
 	CPhidget_close((CPhidgetHandle)spatial);
 	CPhidget_delete((CPhidgetHandle)spatial);
