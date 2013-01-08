@@ -39,7 +39,7 @@ double simpsonIteration(double const pt[],int const ust[])
   }
 }
 
-void integrateGyro(spatial::PVectorQ* const data, pVector& current)
+void integrateGyro(spatial::PVectorQ* data, pVector& current)
 {
   pVector delta;
   double gyros[3]{data->at(0).angularRate,data->at(1).angularRate, data->at(2).angularRate}, 
