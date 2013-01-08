@@ -9,6 +9,8 @@ namespace mathy	{
 };
 */
 
+#include "phidget_setup_buffer.h"
+
 double simpsonIteration(double const pt[], int const ust[]);
 void integrateGyro(spatial::PVectorQ* data, pVector& current);
 pVector rotatePOV(pVector & vec, pVector & rot);
