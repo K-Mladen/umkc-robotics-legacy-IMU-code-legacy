@@ -49,7 +49,7 @@ class pVector
         //mutators
         void set(pDirection dir, double val); //Enumerated as above
         void set(double val[3]);
-
+        void set(double valX, double valY, double valZ);
         void print();
 
         //operators
