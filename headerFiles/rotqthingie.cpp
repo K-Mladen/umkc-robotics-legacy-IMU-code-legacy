@@ -1,5 +1,6 @@
 /******************************************************************************
-*  Rotate Point of view from robot frame to field frame  --MK								  *
+*  despite weird naming, this is a part of an eigenvalue based error checking *
+*   algorithm for the quaternion derived rotation matrix                      *
 ******************************************************************************/
 
 #include <cmath>
