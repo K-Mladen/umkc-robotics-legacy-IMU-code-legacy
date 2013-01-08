@@ -6,14 +6,10 @@ Take care of overflow errors.
 Documentation on data rate.
 */
 
-#ifndef PHIDGET_SETUP_BUFFER_H
-#define PHIDGET_SETUP_BUFFER_H
-	
-
 #include <stdio.h>
 #include <deque>
-#include <Phidget21/phidget21.h>	//mac os
-//#include <phidget21.h>			//linux
+//#include <Phidget21/phidget21.h>	//mac os
+#include <phidget21.h>			//linux
 #include <iostream>
 #include "pVector.h"
 
@@ -58,11 +54,11 @@ namespace spatial	{
 
 
 //Returns elapsed time in Microseconds
-int spatial::elapsedTime(CPhidgetSpatial_SpatialEventData& data)	{
+int elapsedTime(CPhidgetSpatial_SpatialEventData& data)	{
 	return data.timestamp.seconds*1000000 + data.timestamp.microseconds;
 }
 
-CPhidgetSpatial_SpatialEventData* spatial::copy(CPhidgetSpatial_SpatialEventData &other )	{
+CPhidgetSpatial_SpatialEventData* copy(CPhidgetSpatial_SpatialEventData &other )	{
 
 	CPhidgetSpatial_SpatialEventData* dataHolder = (CPhidgetSpatial_SpatialEventData*)malloc(sizeof(CPhidgetSpatial_SpatialEventData));
 
@@ -80,7 +76,7 @@ CPhidgetSpatial_SpatialEventData* spatial::copy(CPhidgetSpatial_SpatialEventData
 	return dataHolder;
 }
 
-void spatial::print(CPhidgetSpatial_SpatialEventData& data)	{
+void print(CPhidgetSpatial_SpatialEventData& data)	{
 	
 	int elapsed = elapsedTime(data);
 	
@@ -132,7 +128,7 @@ int CCONV SpatialDataHandler(CPhidgetSpatialHandle spatial, void *userptr, CPhid
 
 	CPhidgetSpatial_SpatialEventData* dataHolder = (CPhidgetSpatial_SpatialEventData*)malloc(sizeof(CPhidgetSpatial_SpatialEventData));
 
-	dataHolder = spatial::copy(*data[0]);
+	dataHolder = copy(*data[0]);
 
 /*
 	//copying timestamp
@@ -273,6 +269,3 @@ int spatial::spatial_setup(CPhidgetSpatialHandle &spatial, deque<CPhidgetSpatial
 	return 0;
 
 }
-
-/*PHIDGET_SETUP_BUFFER_H*/
-#endif 
