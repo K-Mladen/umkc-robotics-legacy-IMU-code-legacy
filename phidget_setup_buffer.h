@@ -11,19 +11,46 @@ Documentation on data rate.
 #include <Phidget21/phidget21.h>	//mac os
 //#include <phidget21.h>			//linux
 #include <iostream>
+#include "headerFiles/pVector.h"
 
 //extern int event;
 extern pthread_mutex_t mutex;
 using namespace std;
 
 
-
 namespace spatial	{ 
+
+	struct SpatialPVector	{
+		int elapsed; 
+		pVector acceleration, angularRate, comp;
+		SpatialPVector(): elapsed(0), acceleration(pVector()), angularRate(pVector()), comp(pVector())	{}
+		SpatialPVector(CPhidgetSpatial_SpatialEventData &data) {
+			//why isn't this working - undefined symbols D:
+			//elapsed = elapsedTime(data);
+			elapsed = data.timestamp.seconds*1000000 + data.timestamp.microseconds;
+			acceleration.set(data.acceleration);
+			angularRate.set(data.angularRate);
+			comp.set(data.magneticField);
+		}
+/*
+		rotate(SpatialPVector& spatial, pVector about)	{
+
+		}	*/
+	};
+
+	typedef deque<CPhidgetSpatial_SpatialEventData> PhidgetRawDataQ; 
+	typedef deque<SpatialPVector> PVectorQ;
+
 	int spatial_setup(CPhidgetSpatialHandle &spatial, deque<CPhidgetSpatial_SpatialEventData>* raw, int dataRate );
 	void print(CPhidgetSpatial_SpatialEventData& data);
 	CPhidgetSpatial_SpatialEventData* copy(CPhidgetSpatial_SpatialEventData& spatial);
 	int elapsedTime(CPhidgetSpatial_SpatialEventData& spatial);
+	int elapsedTime(SpatialPVector& vec) {return vec.elapsed;};
+
+
 }
+
+
 
 //Returns elapsed time in Microseconds
 int elapsedTime(CPhidgetSpatial_SpatialEventData& data)	{
@@ -52,10 +79,10 @@ void print(CPhidgetSpatial_SpatialEventData& data)	{
 	
 	int elapsed = elapsedTime(data);
 	
-	cout  << "Time elapsed: " << elapsed << endl;
-	cout << "Acc " << data.acceleration[0] << " " <<  data.acceleration[1] << " " <<  data.acceleration[2]  << endl;
-	cout << "Ang " << data.angularRate[0] <<  " " << data.angularRate[1] << " " << data.angularRate[2] << endl;	
-	cout << "Mag " << data.magneticField[0] <<  " " << data.magneticField[1] << " " << data.magneticField[2] << endl;	
+	cout  << elapsed << "\t";
+	//cout << "Acc " << data.acceleration[0] << " " <<  data.acceleration[1] << " " <<  data.acceleration[2]  << endl;
+	cout << data.angularRate[0] <<  "\t" << data.angularRate[1] << "\t" << data.angularRate[2] << endl;	
+	//cout << "Mag " << data.magneticField[0] <<  " " << data.magneticField[1] << " " << data.magneticField[2] << endl;	
 	
 }
 
