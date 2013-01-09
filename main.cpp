@@ -27,7 +27,7 @@ int main()	{
 	//Constants
 	//-----------------------------------
 	int dataRate = 16; 					//milliSeconds
-	double TAU = 300;					//used to calculate alpha
+	double TAU = 20000;					//used to calculate alpha
     double alpha = TAU/(TAU+dataRate);	
 
 	pVector initial(0,0,0);				//initial, arbitray orientation
@@ -77,7 +77,7 @@ int main()	{
 	spatial::spatial_setup(spatial, dataQueue, dataRate);
 
 	//doing the first i data points
-	for(int i = 0; i<1; i++)	
+	for(int i = 0; i<100000; i++)	
 	{
 		//Getting data from Phidget
 		//-----------------------------------
@@ -98,14 +98,13 @@ int main()	{
 		#ifdef DEBUG_ROTATION
 			cout << endl << "Before Rotation" << endl;
 			spatial::print(newestP);
-			cout <<endl;
 		#endif
+
+		pVector about = orientation(current);
 		
-		cout << "TESTING FROM OUTSIDE, parameters" << endl << "ABOUT" ;
-		current.print();
-		cout << endl;
-		newestP.acceleration = rotatePOV(newestP.acceleration, current);	//NOT WORKING - giving me NAN
-	 	newestP.angularRate = rotatePOV(newestP.angularRate, current);
+		newestP.acceleration = rotatePOV(newestP.acceleration, about);	//WORKING - accurate...
+	 	newestP.angularRate = rotatePOV(newestP.angularRate, about);
+	 	newestP.magneticField = rotatePOV(newestP.magneticField, about);
 
 	 	#ifdef DEBUG_ROTATION
 	 		cout << endl << "After rotation" <<endl;
@@ -117,14 +116,16 @@ int main()	{
 
 		integQueue->push_back(newestP);
 		integQueue->pop_front();
-		//print(*newest);
-
-
+		
 		//Simpson's integration
 		//-----------------------------------
 		integrateGyro(integQueue, current);
-        
 
+		#ifdef DEBUG_INTEGRATE
+			cout<< endl << "AFTER INTEGRATION, current orientation" <<endl;
+			current.print();
+			cout << endl;
+		#endif
 
 		//Filtering
 		//-----------------------------------
@@ -134,7 +135,7 @@ int main()	{
 			current.print();		
 		#endif
         
-        filter(integQueue->at(2).acceleration, current, alpha);				
+        filter(integQueue->at(2).magneticField, current, alpha);				
 		
 		#ifdef DEBUG_FILTERING
 			cout << endl << "AFTER FILTERED" <<endl;
