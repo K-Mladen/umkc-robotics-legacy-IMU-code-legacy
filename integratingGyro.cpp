@@ -9,6 +9,7 @@ Victoria Wu
 #include "headerFiles/phidget_setup_buffer.h"	//spatial_setup()
 #include "headerFiles/pVector.h"
 #include "headerFiles/mathy.h"
+//#include "headerFiles/phidget_Stuff.h"
 
 #include <iostream>
 #include <pthread.h>	#mutex
