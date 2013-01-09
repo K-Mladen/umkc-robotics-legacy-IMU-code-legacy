@@ -3,17 +3,15 @@ Integrating data from the gyro.
 
 TODO: Some sort of criti section control?
 Victoria Wu
-
 */
 
+
+#include "headerFiles/debug.h"
 #include "headerFiles/phidget_setup_buffer.h"	//spatial_setup()
 #include "headerFiles/pVector.h"
 #include "headerFiles/mathy.h"
-//#include "headerFiles/phidget_Stuff.h"
 
 #include <iostream>
-//#include <pthread.h>	#mutex
-//#include <stdio.h>
 #include <deque>
 
 //mutexes
@@ -22,7 +20,7 @@ pthread_mutex_t mutex;	//used when writing to the deque
 using namespace std;
 
 int main()	{
-	double TAU = 100;
+	double TAU = 300;
 
 	//Creating/Initializing Spatial Handle
 	CPhidgetSpatialHandle spatial = 0;
@@ -50,68 +48,54 @@ int main()	{
 	//THIS IS OUR INTIAL ORIENTATION
 	pVector initial(0,0,0);
 	pVector current(0,0,0);
-	cout << "INITIAL ORIENTATION 0 0 0" <<endl;
 
 	//Open spatial, start pushing data to dataHolder
 						//DataRate must be between 4mS and 1S
 						//dataRate is an "averaging time" - data is averaged over x mS, and sent every x mS
 	int dataRate = 16;	//data at rates faster then 8ms will be delivered to events as an array of data.
 	spatial::spatial_setup(spatial, dataQueue, dataRate);
+	
 	double alpha = TAU/(TAU+dataRate);
 	//INTEGRATING! YEAH! 
 
 	//doing the first i data points
 	for(int i = 0; i<1000; i++)	
 	{
-		
-		//busy wait while q is empty
-		//better way to do this?? 
+				
+		//Getting data from Phidget
 		while(dataQueue->empty())	{}
 
-		//SUCCESS. NOT dropping any packets... but at same time not doing anything either 
 		pthread_mutex_lock(&mutex);
-		//cout << "SIZE :: " << dataQueue->size() <<endl;
-		
 		CPhidgetSpatial_SpatialEventData* newest = spatial::copy(*it);
-
-		//Dealing with message q
 		dataQueue->pop_front();
 		it = dataQueue->begin();
 		pthread_mutex_unlock(&mutex);
 
-		// HERE!!! and acceleration too 
-		//first find vector to about
-		spatial::print(*newest);
+		//Convert data to pVector, rotate to initial reference frame
 		spatial::SpatialPVector newestP(*newest);
-
-		//WAIT i am confused are we rotating about the vector formed by the initial starting vector, or the right now/most c
-		//so should it be orientation(initial) or orientation(pVector(0,0,0))
-		//make a wrapper method?
 		rotatePOV(newestP.acceleration, current);
 	 	rotatePOV(newestP.angularRate, current);
 
-		cout << endl<<  "Before Rotating" <<endl;
-		// orthog.print();
-		cout << endl << "After Rotating" << endl;
-		//newestP.angularRate.print();
-
-		//adding newest pt into integQ, for integration
+		//Adding newest point to integQueue for simpson's integration
 		integQueue->push_back(*newest);
 		integQueue->pop_front();
 		//print(*newest);
 
-		//Simpson's integration, given past 3 data points
-		//Looping through each axis
-		//double delta[3];
-		
+		//Simpson's integration
 		integrateGyro(integQueue, current);
+        
+		#ifdef DEBUG
+			cout << endl << "BEFORE FILTERED" <<endl;
+			current.print();		
+		#endif
+
         filter(integQueue->at(2).acceleration, current, alpha);				
 		
-		/*
-		cout << "UPDATED ORIENTATION " << endl;
-		current.print();
-		cout << endl;
-		*/
+		#ifdef DEBUG
+			cout << endl << "AFTER FILTERED" <<endl;
+			current.print();	
+			cout << endl;	
+		#endif
 	}
 
 
