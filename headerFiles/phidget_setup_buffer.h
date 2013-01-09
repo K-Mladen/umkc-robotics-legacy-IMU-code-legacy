@@ -49,7 +49,7 @@ namespace spatial	{
 	void print(CPhidgetSpatial_SpatialEventData& data);
 	CPhidgetSpatial_SpatialEventData* copy(CPhidgetSpatial_SpatialEventData& spatial);
 	int elapsedTime(CPhidgetSpatial_SpatialEventData& spatial);
-	int elapsedTime(SpatialPVector& vec) {return vec.elapsed;};
+	int elapsedTimePVec(SpatialPVector& vec);
 }
 
 /*PHIDGET_SETUP_BUFFER_H*/

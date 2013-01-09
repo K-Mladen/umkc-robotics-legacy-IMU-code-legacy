@@ -1,6 +1,10 @@
 #include "phidget_setup_buffer.h"
 #include  "phidget_Stuff.h"
 
+int spatial::elapsedTimePVec(SpatialPVector& vec)	{
+	return vec.elapsed;
+}
+
 //Returns elapsed time in Microseconds
 int spatial::elapsedTime(CPhidgetSpatial_SpatialEventData& data)	{
 	return data.timestamp.seconds*1000000 + data.timestamp.microseconds;
