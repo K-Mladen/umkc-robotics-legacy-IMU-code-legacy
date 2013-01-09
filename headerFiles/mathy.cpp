@@ -22,9 +22,9 @@
 double simpsonIteration(double pt[],int  ust[])
 {
   /*microseconds to seconds*/
-  double t0 = ust[0]/USPERSECOND,
-         t1 = ust[1]/USPERSECOND,
-         t2 = ust[2]/USPERSECOND;
+  double t0 = ust[0]/US_PER_SECOND,
+         t1 = ust[1]/US_PER_SECOND,
+         t2 = ust[2]/US_PER_SECOND;
 
   /*make sure time interval is constant*/
   if ((t1 - t0)==(t2 - t1))

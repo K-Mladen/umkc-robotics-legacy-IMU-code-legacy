@@ -8,7 +8,7 @@ int spatial::elapsedTimePVec(SpatialPVector& vec)	{
 
 //Returns elapsed time in Microseconds
 int spatial::elapsedTime(CPhidgetSpatial_SpatialEventData& data)	{
-	return (int)(data.timestamp.seconds*USPERSECOND + data.timestamp.microseconds);
+	return (int)(data.timestamp.seconds*US_PER_SECOND + data.timestamp.microseconds);
 }
 
 CPhidgetSpatial_SpatialEventData* spatial::copy(CPhidgetSpatial_SpatialEventData &other )	{
