@@ -29,6 +29,14 @@ CPhidgetSpatial_SpatialEventData* spatial::copy(CPhidgetSpatial_SpatialEventData
 	return dataHolder;
 }
 
+void spatial::print(SpatialPVector& data)	{
+	cout  << data.elapsed << "\t";
+	//cout << "Acc " << data.acceleration[0] << " " <<  data.acceleration[1] << " " <<  data.acceleration[2]  << endl;
+	cout << data.angularRate[0] <<  "\t" << data.angularRate[1] << "\t" << data.angularRate[2] << endl;	
+	//cout << "Mag " << data.magneticField[0] <<  " " << data.magneticField[1] << " " << data.magneticField[2] << endl;	
+	
+}
+
 void spatial::print(CPhidgetSpatial_SpatialEventData& data)	{
 	
 	int elapsed = elapsedTime(data);
