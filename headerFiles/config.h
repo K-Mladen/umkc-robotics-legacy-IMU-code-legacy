@@ -2,5 +2,5 @@
 #define DEBUG //remove this line when done debugging
 #endif
 
-int ustos = 1000000;
+double USPERSECOND = 1000000;
 

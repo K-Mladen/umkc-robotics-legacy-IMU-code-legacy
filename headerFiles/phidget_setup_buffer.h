@@ -12,8 +12,8 @@ Documentation on data rate.
 
 #include <stdio.h>
 #include <deque>
-//#include <Phidget21/phidget21.h>	//mac os
-#include <phidget21.h>			//linux
+#include <Phidget21/phidget21.h>	//mac os
+//#include <phidget21.h>			//linux
 #include <iostream>
 #include "pVector.h"
 
@@ -45,6 +45,7 @@ namespace spatial	{
 	typedef deque<CPhidgetSpatial_SpatialEventData> PhidgetRawDataQ; 
 	typedef deque<SpatialPVector> PVectorQ;
 
+	//data rate in milliseconds, must be between 4ms and 1s
 	int spatial_setup(CPhidgetSpatialHandle &spatial, deque<CPhidgetSpatial_SpatialEventData>* raw, int dataRate );
 	void print(CPhidgetSpatial_SpatialEventData& data);
 	CPhidgetSpatial_SpatialEventData* copy(CPhidgetSpatial_SpatialEventData& spatial);
