@@ -1,3 +1,4 @@
+#include "config.h"
 #include "phidget_setup_buffer.h"
 #include  "phidget_Stuff.h"
 

@@ -3,6 +3,8 @@
 
 #include <cstdlib>
 #include <pthread.h>
+#include "config.h"
+
 //#include <stdlib.h>
 extern pthread_mutex_t mutex;
 
