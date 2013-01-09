@@ -18,7 +18,7 @@
 
 //pt[i] is the value of the ith element
 //ust[i] is the time (in us) at which the ith element was sampled
-double simpsonIteration(double const pt[],int const ust[])
+double simpsonIteration(double pt[],int  ust[])
 {
   /*microseconds to seconds*/
   double t0 = ust[0]/1000000.0,
@@ -42,12 +42,19 @@ double simpsonIteration(double const pt[],int const ust[])
 void integrateGyro(spatial::PVectorQ* data, pVector& current)
 {
   pVector delta;
-  double gyros[3]{data->at(0).angularRate,data->at(1).angularRate, data->at(2).angularRate}, 
-         times[3]{data->at(0).elapsed,data->at(1).elapsed,data->at(2).elapsed};
+  double gyros[3][3];
+
+  for(int i =0; i< 3; i++)  {
+    for(int k = 0; k<3; k++)  {
+      gyros[i][k] = data->at(i).angularRate[k];
+    }
+  }
+
+  int times[3] = {data->at(0).elapsed,data->at(1).elapsed,data->at(2).elapsed};
   delta.set(
-    simpsonIteration(gyros[0],times[0]),
-    simpsonIteration(gyros[1],times[1]),
-    simpsonIteration(gyros[2],times[2])
+    simpsonIteration(gyros[0],times),
+    simpsonIteration(gyros[1],times),
+    simpsonIteration(gyros[2],times)
   );
   current += delta;
   return;
@@ -62,7 +69,7 @@ void integrateGyro(spatial::PVectorQ* data, pVector& current)
 //changing-> rot is the current orientation vector??
 
 //changing this to a set method? to change contents of vec, instead of returning new pVector?
-pVector rotatePOV(pVector & vec, pVector & rot)
+void rotatePOV(pVector & vec, pVector & rot)
 {
 
   double rad =  std::atan(1)/45; //(pi/4)/45 = pi/180
@@ -87,8 +94,8 @@ pVector rotatePOV(pVector & vec, pVector & rot)
           + rot.unitComponent(X)*s)*vec.component(Y) +
           (c+pow(rot.unitComponent(Z),2)*(1-c))*vec.component(Z);
 
-  return vec.set(xDir, yDir, zDir);
-
+  vec.set(xDir, yDir, zDir);
+  return;
 /*  pVector newVec
     (
 	//X component
@@ -120,8 +127,10 @@ pVector orientation(pVector & angle)
 {
   //note+ need to change to using the constants in mathy.h 
 
-    pVector zero(0.0,0.0,0.0), unitX(1.0,0.0,0.0);
-  return rotatePOV(unitX,(zero - angle));
+    pVector zero(0.0,0.0,0.0); pVector unitX(1.0,0.0,0.0);
+    zero -= angle;
+    rotatePOV(unitX,zero);
+    return unitX;
   // return rotatePOV(mathy::XUnitVector,(mathy::zeroVector - angle));
 }
 
