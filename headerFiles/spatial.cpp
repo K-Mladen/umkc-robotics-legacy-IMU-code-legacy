@@ -1,5 +1,5 @@
 #include "config.h"
-#include "phidget_setup_buffer.h"
+#include "spatial.h"
 #include  "phidget_Stuff.h"
 
 int spatial::elapsedTimePVec(SpatialPVector& vec)	{
