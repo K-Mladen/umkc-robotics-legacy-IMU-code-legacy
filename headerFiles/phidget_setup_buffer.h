@@ -30,8 +30,8 @@ namespace spatial	{
 
 	struct SpatialPVector	{
 		int elapsed; 
-		pVector acceleration, angularRate, comp;
-		SpatialPVector(): elapsed(0), acceleration(pVector()), angularRate(pVector()), comp(pVector())	{}
+		pVector acceleration, angularRate, magneticField;
+		SpatialPVector(): elapsed(0), acceleration(pVector()), angularRate(pVector()), magneticField(pVector())	{}
 		
 		SpatialPVector(CPhidgetSpatial_SpatialEventData &data) {
 			//why isn't this working - undefined symbols D:
@@ -39,7 +39,7 @@ namespace spatial	{
 			elapsed = data.timestamp.seconds*1000000 + data.timestamp.microseconds;
 			acceleration.set(data.acceleration);
 			angularRate.set(data.angularRate);
-			comp.set(data.magneticField);
+			magneticField.set(data.magneticField);
 		}
 /*
 		rotate(SpatialPVector& spatial, pVector about)	{
@@ -53,6 +53,7 @@ namespace spatial	{
 	//data rate in milliseconds, must be between 4ms and 1s
 	int spatial_setup(CPhidgetSpatialHandle &spatial, deque<CPhidgetSpatial_SpatialEventData>* raw, int dataRate );
 	void print(CPhidgetSpatial_SpatialEventData& data);
+	void print(SpatialPVector& data);
 	CPhidgetSpatial_SpatialEventData* copy(CPhidgetSpatial_SpatialEventData& spatial);
 	int elapsedTime(CPhidgetSpatial_SpatialEventData& spatial);
 	int elapsedTimePVec(SpatialPVector& vec);

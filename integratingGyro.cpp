@@ -2,7 +2,7 @@
 Integrating data from the gyro. 
 
 TODO: Some sort of criti section control?
-Victoria Wu
+
 */
 
 
@@ -23,11 +23,16 @@ pthread_mutex_t mutex;	//used when writing to the deque
 using namespace std;
 
 int main()	{
-	int dataRate = 16; //data at rates faster than 8ms will be delivered to events as an array of data
-	double TAU = 300;
-	//THIS IS OUR INTIAL ORIENTATION
-	pVector initial(0,0,0);
-	pVector current(0,0,0);
+
+	//Constants
+	//-----------------------------------
+	int dataRate = 16; 					//milliSeconds
+	double TAU = 300;					//used to calculate alpha
+    double alpha = TAU/(TAU+dataRate);	
+
+	pVector initial(0,0,0);				//initial, arbitray orientation
+	pVector current(0,0,0);				//current orientation
+
 /*	ifstream cfg;
 	if(cfg.open("odometryConstants.cfg");)
 	{
@@ -42,7 +47,6 @@ int main()	{
 	}
 */
 
-    double alpha = TAU/(TAU+dataRate);
 	//Creating/Initializing Spatial Handle
 	//-----------------------------------
 	CPhidgetSpatialHandle spatial = 0;
@@ -70,10 +74,7 @@ int main()	{
 
 	//Setting up Phidget
 	//-----------------------------------
-	int dataRate = 16;	
 	spatial::spatial_setup(spatial, dataQueue, dataRate);
-	
-	//INTEGRATING! YEAH! 
 
 	//doing the first i data points
 	for(int i = 0; i<1000; i++)	
@@ -82,15 +83,23 @@ int main()	{
 		//-----------------------------------
 		while(dataQueue->empty())	{}
 
+			//Copied event data is TESTED and WORKING.
 		pthread_mutex_lock(&mutex);
+		it = dataQueue->begin();
 		CPhidgetSpatial_SpatialEventData* newest = spatial::copy(*it);
 		dataQueue->pop_front();
-		it = dataQueue->begin();
 		pthread_mutex_unlock(&mutex);
+
 
 		//Convert data to pVector, rotate to initial reference frame
 		//-----------------------------------
 		spatial::SpatialPVector newestP(*newest);
+		
+		cout << endl <<"Original NEWEST "  <<endl;
+		spatial::print(*newest);
+		cout << endl << "Converted to a PVector" <<endl;
+		spatial::print(newestP);
+
 		#ifdef DEBUG
 			cout << endl << "Before Rotation" << endl;
 		#endif
