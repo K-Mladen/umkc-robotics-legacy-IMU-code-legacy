@@ -6,13 +6,16 @@ Victoria Wu
 */
 
 
-#include "headerFiles/debug.h"
-#include "headerFiles/phidget_setup_buffer.h"	//spatial_setup()
-#include "headerFiles/pVector.h"
-#include "headerFiles/mathy.h"
 
 #include <iostream>
+#include <fstream>
 #include <deque>
+
+#include "headerFiles/config.h" //includes debud directives and global constants 
+#include "headerFiles/phidget_setup_buffer.h"	//spatial_setup()
+#include "headerFiles/pVector.h" //pvector class
+#include "headerFiles/mathy.h"	 //math related methods,eg rotation integration
+
 
 //mutexes
 pthread_mutex_t mutex;	//used when writing to the deque
@@ -20,8 +23,23 @@ pthread_mutex_t mutex;	//used when writing to the deque
 using namespace std;
 
 int main()	{
+	int dataRate = 16; //data at rates faster than 8ms will be delivered to events as an array of data
 	double TAU = 300;
+/*	ifstream cfg;
+	if(cfg.open("odometryConstants.cfg");)
+	{
+	cfg 
+	>> dataRate
+	>> TAU;
+	cfg.close();
+	} else {
+	//default values
+	datarate = 16;
+	TAU = 300;
+	}
+*/
 
+    double alpha = TAU/(TAU+dataRate);
 	//Creating/Initializing Spatial Handle
 	CPhidgetSpatialHandle spatial = 0;
 	CPhidgetSpatial_create(&spatial);
@@ -52,10 +70,8 @@ int main()	{
 	//Open spatial, start pushing data to dataHolder
 						//DataRate must be between 4mS and 1S
 						//dataRate is an "averaging time" - data is averaged over x mS, and sent every x mS
-	int dataRate = 16;	//data at rates faster then 8ms will be delivered to events as an array of data.
 	spatial::spatial_setup(spatial, dataQueue, dataRate);
 	
-	double alpha = TAU/(TAU+dataRate);
 	//INTEGRATING! YEAH! 
 
 	//doing the first i data points

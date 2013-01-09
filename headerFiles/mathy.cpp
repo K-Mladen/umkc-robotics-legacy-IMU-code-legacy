@@ -12,6 +12,7 @@
 *******************************************************************************/
 
 #include <cmath>
+#include "config.h"
 #include "pVector.h"
 #include "mathy.h"
 

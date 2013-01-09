@@ -1,6 +1,8 @@
 #include "pVector.h"
 #include <cmath>
 #include <stdio.h>  //for printf
+#include "config.h"
+
 void pVector::resetFlags()
 {   //this function needs to be called any time a comp is changed.
     unitflag[0] = unitflag[1] = unitflag[2] = magflag = 0;
