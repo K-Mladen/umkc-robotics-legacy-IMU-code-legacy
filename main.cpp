@@ -77,7 +77,7 @@ int main()	{
 	spatial::spatial_setup(spatial, dataQueue, dataRate);
 
 	//doing the first i data points
-	for(int i = 0; i<1000; i++)	
+	for(int i = 0; i<1; i++)	
 	{
 		//Getting data from Phidget
 		//-----------------------------------
@@ -93,45 +93,50 @@ int main()	{
 
 		//Convert data to pVector, rotate to initial reference frame
 		//-----------------------------------
-		spatial::SpatialPVector newestP(*newest);
-		
-		cout << endl <<"Original NEWEST "  <<endl;
-		spatial::print(*newest);
-		cout << endl << "Converted to a PVector" <<endl;
-		spatial::print(newestP);
+		spatial::SpatialPVector newestP(*newest);	//TESTED AND WORKING
 
-		#ifdef DEBUG
+		#ifdef DEBUG_ROTATION
 			cout << endl << "Before Rotation" << endl;
+			spatial::print(newestP);
+			cout <<endl;
 		#endif
 		
-		rotatePOV(newestP.acceleration, current);
-	 	rotatePOV(newestP.angularRate, current);
+		cout << "TESTING FROM OUTSIDE, parameters" << endl << "ABOUT" ;
+		current.print();
+		cout << endl;
+		newestP.acceleration = rotatePOV(newestP.acceleration, current);	//NOT WORKING - giving me NAN
+	 	newestP.angularRate = rotatePOV(newestP.angularRate, current);
 
-	 	#ifdef DEBG
-	 		newestP.print();
+	 	#ifdef DEBUG_ROTATION
 	 		cout << endl << "After rotation" <<endl;
+	 		spatial::print(newestP);
 	 	#endif
 
 		//Adding newest point to integQueue for simpson's integration
 		//-----------------------------------
-		integQueue->push_back(*newest);
+
+		integQueue->push_back(newestP);
 		integQueue->pop_front();
 		//print(*newest);
+
 
 		//Simpson's integration
 		//-----------------------------------
 		integrateGyro(integQueue, current);
         
-		#ifdef DEBUG
-			cout << endl << "BEFORE FILTERED" <<endl;
-			current.print();		
-		#endif
+
 
 		//Filtering
 		//-----------------------------------
+
+		#ifdef DEBUG_FILTERING
+			cout << endl << "BEFORE FILTERED" <<endl;
+			current.print();		
+		#endif
+        
         filter(integQueue->at(2).acceleration, current, alpha);				
 		
-		#ifdef DEBUG
+		#ifdef DEBUG_FILTERING
 			cout << endl << "AFTER FILTERED" <<endl;
 			current.print();	
 			cout << endl;	
