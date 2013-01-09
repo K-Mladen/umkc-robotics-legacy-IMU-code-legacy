@@ -22,7 +22,7 @@ pthread_mutex_t mutex;	//used when writing to the deque
 using namespace std;
 
 int main()	{
-
+	double TAU = 100;
 
 	//Creating/Initializing Spatial Handle
 	CPhidgetSpatialHandle spatial = 0;
@@ -57,11 +57,12 @@ int main()	{
 						//dataRate is an "averaging time" - data is averaged over x mS, and sent every x mS
 	int dataRate = 16;	//data at rates faster then 8ms will be delivered to events as an array of data.
 	spatial::spatial_setup(spatial, dataQueue, dataRate);
-
+	double alpha = TAU/(TAU+dataRate);
 	//INTEGRATING! YEAH! 
 
 	//doing the first i data points
-	for(int i = 0; i<1000; i++)	{
+	for(int i = 0; i<1000; i++)	
+	{
 		
 		//busy wait while q is empty
 		//better way to do this?? 
@@ -104,7 +105,7 @@ int main()	{
 		//double delta[3];
 		
 		integrateGyro(integQueue, current);
-				
+        filter(integQueue->at(2).acceleration, current, alpha);				
 		
 		/*
 		cout << "UPDATED ORIENTATION " << endl;

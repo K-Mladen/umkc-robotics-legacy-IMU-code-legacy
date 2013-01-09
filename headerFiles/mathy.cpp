@@ -135,14 +135,14 @@ pVector orientation(pVector & angle)
 }
 
 
-pVector filter(pVector & accel, pVector & gyrot, double alpha)
+void filter(pVector & accel, pVector & current, double alpha)
 {
   /*current time step t2 (so T=t-1 is t1 and T=t-2 is t0)*/
   pVector angle
   (
-    accel.component(X)*(1-alpha)+alpha*gyrot.component(X),
-    accel.component(Y)*(1-alpha)+alpha*gyrot.component(Y),
-    accel.component(Z)*(1-alpha)+alpha*gyrot.component(Z)
+    accel.component(X)*(1-alpha)+alpha*current.component(X),
+    accel.component(Y)*(1-alpha)+alpha*current.component(Y),
+    accel.component(Z)*(1-alpha)+alpha*current.component(Z)
   );
-  return angle;
+  current = angle;
 }

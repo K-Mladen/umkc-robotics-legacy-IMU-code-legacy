@@ -15,6 +15,6 @@ double simpsonIteration(double pt[], int ust[]);
 void integrateGyro(spatial::PVectorQ* data, pVector& current);
 void rotatePOV(pVector & vec, pVector & rot);
 pVector orientation(pVector & angle);
-pVector filter(pVector & accel, pVector & gyrot, double alpha);
+void filter(pVector & accel, pVector & gyrot, double alpha);
 
 #endif
