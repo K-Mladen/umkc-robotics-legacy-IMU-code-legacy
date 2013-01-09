@@ -4,7 +4,7 @@
 
 
 #include <pthread.h>
-
+#include <stdlib.h>
 extern pthread_mutex_t mutex;
 
 //callback that will run if the Spatial is attached to the computer
