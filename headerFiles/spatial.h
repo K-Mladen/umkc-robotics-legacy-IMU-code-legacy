@@ -13,9 +13,9 @@ Helper methods to transition from Phidget Events to SpatialPVectors.
 
 //#include <isthismac.h> //#define's MACOS on mac, if MACOS isn't already defined
 //#ifdef MACOS
-//#include <Phidget21/phidget21.h>	//mac os
+#include <Phidget21/phidget21.h>	//mac os
 //#else
-#include <phidget21.h>			//linux
+//#include <phidget21.h>			//linux
 //#endif
 
 #include <iostream>

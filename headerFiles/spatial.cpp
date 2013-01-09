@@ -35,7 +35,7 @@ void spatial::print(SpatialPVector& data)	{
 	//cout << "Acc " << data.acceleration[0] << " " <<  data.acceleration[1] << " " <<  data.acceleration[2]  << endl;
 	cout << data.angularRate[0] <<  "\t" << data.angularRate[1] << "\t" << data.angularRate[2] << endl;	
 	//cout << "Mag " << data.magneticField[0] <<  " " << data.magneticField[1] << " " << data.magneticField[2] << endl;	
-	
+	cout <<endl;
 }
 
 void spatial::print(CPhidgetSpatial_SpatialEventData& data)	{
@@ -46,7 +46,7 @@ void spatial::print(CPhidgetSpatial_SpatialEventData& data)	{
 	//cout << "Acc " << data.acceleration[0] << " " <<  data.acceleration[1] << " " <<  data.acceleration[2]  << endl;
 	cout << data.angularRate[0] <<  "\t" << data.angularRate[1] << "\t" << data.angularRate[2] << endl;	
 	//cout << "Mag " << data.magneticField[0] <<  " " << data.magneticField[1] << " " << data.magneticField[2] << endl;	
-	
+	cout <<endl;
 }
 
 
