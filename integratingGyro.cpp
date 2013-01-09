@@ -92,7 +92,7 @@ int main()	{
 		cout << endl<<  "Before Rotating" <<endl;
 		// orthog.print();
 		cout << endl << "After Rotating" << endl;
-		newestP.angularRate.print();
+		//newestP.angularRate.print();
 
 		//adding newest pt into integQ, for integration
 		integQueue->push_back(*newest);
@@ -103,7 +103,7 @@ int main()	{
 		//Looping through each axis
 		//double delta[3];
 		
-//		integrate(spatial::PVectorQ* name, pVector& current);
+		integrateGyro(integQueue, current);
 				
 		
 		/*
