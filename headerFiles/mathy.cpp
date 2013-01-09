@@ -105,37 +105,40 @@ pVector rotatePOV(pVector & vec, pVector & rot)
   rot.print();
   cout << "Unit compoements" << rot.unitComponent(X); 
   cout << endl;
-  
-  double rad =  std::atan(1)/45; //(pi/4)/45 = pi/180
-  double s = sin(rot.magnitude()*rad),
-         c = cos(rot.magnitude()*rad);
-  pVector newVec
-    (
-  /*X component*/
-  (c+pow(rot.unitComponent(X),2)*(1-c))*vec.component(X) +
-  (rot.unitComponent(X)*rot.unitComponent(Y)*(1-c)
-    - rot.unitComponent(Z)*s)*vec.component(Y) +
-  (rot.unitComponent(X)*rot.unitComponent(Z)*(1-c)
-    + rot.unitComponent(Y)*s)*vec.component(Z),
-  /*Y component*/
-  (rot.unitComponent(Y)*rot.unitComponent(X)*(1-c)
-    + rot.unitComponent(Z)*s)*vec.component(X) +
-  (c+pow(rot.unitComponent(Y),2)*(1-c))*vec.component(Y) +
-  (rot.unitComponent(Y)*rot.unitComponent(Z)*(1-c)
-    - rot.unitComponent(X)*s)*vec.component(Z),
-  /*Z component*/
-  (rot.unitComponent(Z)*rot.unitComponent(X)*(1-c)
-    - rot.unitComponent(Y)*s)*vec.component(X) +
-  (rot.unitComponent(Z)*rot.unitComponent(Y)*(1-c)
-    + rot.unitComponent(X)*s)*vec.component(Y) +
-  (c+pow(rot.unitComponent(Z),2)*(1-c))*vec.component(Z)
-  );
-    cout << "AFTER ROTATING, from within ROTATE pov" << endl;
-    newVec.print();
+  if(rot.magnitude() == 0)
+  {
+    return vec;
+  } else {
+    double rad =  std::atan(1)/45; //(pi/4)/45 = pi/180
+    double s = sin(rot.magnitude()*rad),
+           c = cos(rot.magnitude()*rad);
+    pVector newVec
+      (
+    /*X component*/
+    (c+pow(rot.unitComponent(X),2)*(1-c))*vec.component(X) +
+    (rot.unitComponent(X)*rot.unitComponent(Y)*(1-c)
+      - rot.unitComponent(Z)*s)*vec.component(Y) +
+    (rot.unitComponent(X)*rot.unitComponent(Z)*(1-c)
+      + rot.unitComponent(Y)*s)*vec.component(Z),
+    /*Y component*/
+    (rot.unitComponent(Y)*rot.unitComponent(X)*(1-c)
+      + rot.unitComponent(Z)*s)*vec.component(X) +
+    (c+pow(rot.unitComponent(Y),2)*(1-c))*vec.component(Y) +
+    (rot.unitComponent(Y)*rot.unitComponent(Z)*(1-c)
+      - rot.unitComponent(X)*s)*vec.component(Z),
+    /*Z component*/
+    (rot.unitComponent(Z)*rot.unitComponent(X)*(1-c)
+      - rot.unitComponent(Y)*s)*vec.component(X) +
+    (rot.unitComponent(Z)*rot.unitComponent(Y)*(1-c)
+      + rot.unitComponent(X)*s)*vec.component(Y) +
+    (c+pow(rot.unitComponent(Z),2)*(1-c))*vec.component(Z)
+    );
+      cout << "AFTER ROTATING, from within ROTATE pov" << endl;
+      newVec.print();
 
-    cout <<endl;
-  return newVec;
-
+      cout <<endl;
+    return newVec;
+  }
 }
 
 
@@ -161,4 +164,4 @@ void filter(pVector & accel, pVector & current, double alpha)
     accel.component(Z)*(1-alpha)+alpha*current.component(Z)
   );
   current = angle;
-}
+}	
