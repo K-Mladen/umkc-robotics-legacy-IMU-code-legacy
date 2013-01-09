@@ -22,7 +22,7 @@ namespace mathy	{
 };
 */
 
-#include "phidget_setup_buffer.h"
+#include "spatial.h"
 
 
 double simpsonIteration(double pt[], int ust[]);

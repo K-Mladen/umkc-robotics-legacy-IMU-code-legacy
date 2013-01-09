@@ -99,12 +99,8 @@ pVector rotatePOV(pVector & vec, pVector & rot)
   cout << endl;
   vec.set(xDir, yDir, zDir);
   return;*/
-  cout << endl << "VEC" << endl;
-  vec.print();
-  cout << endl << "ABOUT, ROT" <<endl;
-  rot.print();
-  cout << "Unit compoements" << rot.unitComponent(X); 
-  cout << endl;
+
+
   if(rot.magnitude() == 0)
   {
     return vec;
@@ -133,10 +129,7 @@ pVector rotatePOV(pVector & vec, pVector & rot)
       + rot.unitComponent(X)*s)*vec.component(Y) +
     (c+pow(rot.unitComponent(Z),2)*(1-c))*vec.component(Z)
     );
-      cout << "AFTER ROTATING, from within ROTATE pov" << endl;
-      newVec.print();
 
-      cout <<endl;
     return newVec;
   }
 }

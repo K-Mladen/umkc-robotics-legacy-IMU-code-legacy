@@ -12,10 +12,13 @@
 //#define DEBUG_ROTATION 
 #endif
 
-#ifndef DEBUG_FILERING
-//#define DEBUG_FILERING
+#ifndef DEBUG_FILTERING
+#define DEBUG_FILTERING
 #endif
 
+#ifndef DEBUG_INTEGRATE
+#define DEBUG_INTEGRATE
+#endif
 
 //DEBUG
 #endif	
