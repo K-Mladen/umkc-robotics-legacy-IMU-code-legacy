@@ -12,7 +12,7 @@ TODO: Some sort of criti section control?
 #include <deque>
 
 #include "headerFiles/config.h" //includes debud directives and global constants 
-#include "headerFiles/phidget_setup_buffer.h"	//spatial_setup()
+#include "headerFiles/spatial.h"	//spatial_setup()
 #include "headerFiles/pVector.h" //pvector class
 #include "headerFiles/mathy.h"	 //math related methods,eg rotation integration
 
