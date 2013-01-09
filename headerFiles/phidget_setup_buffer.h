@@ -12,8 +12,13 @@ Documentation on data rate.
 
 #include <stdio.h>
 #include <deque>
+
+#ifdef MACOS
 #include <Phidget21/phidget21.h>	//mac os
-//#include <phidget21.h>			//linux
+#else
+#include <phidget21.h>			//linux
+#endif
+
 #include <iostream>
 #include "pVector.h"
 
