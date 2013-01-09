@@ -1,3 +1,16 @@
+
+/*****************************************************************************
+*  simpsonIteration -- implements a step in simpsons rule. sum them to get     *
+*    an integral                                                               *
+*                                                                              *
+*  rotationPOV -- finds vector in 'global POV', given robot's POV and angle    *
+*    between the POV's                                                         *
+*                                                                              *
+*  orientation -- wrapper; gets robot's orientation given the ^  angle         *
+*                                                                              *
+*  filter -- implements complementary filter                                   *
+*                                                                              *
+*******************************************************************************/
 #ifndef mathy
 #define mathy
 
@@ -11,9 +24,10 @@ namespace mathy	{
 
 #include "phidget_setup_buffer.h"
 
+
 double simpsonIteration(double pt[], int ust[]);
 void integrateGyro(spatial::PVectorQ* data, pVector& current);
-void rotatePOV(pVector & vec, pVector & rot);
+pVector rotatePOV(pVector & vec, pVector & rot);
 pVector orientation(pVector & angle);
 void filter(pVector & accel, pVector & gyrot, double alpha);
 
