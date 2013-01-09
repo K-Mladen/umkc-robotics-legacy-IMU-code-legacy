@@ -12,7 +12,7 @@ Victoria Wu
 //#include "headerFiles/phidget_Stuff.h"
 
 #include <iostream>
-#include <pthread.h>	#mutex
+//#include <pthread.h>	#mutex
 //#include <stdio.h>
 #include <deque>
 
@@ -34,7 +34,7 @@ int main()	{
 
 	//A q of 3 PVectors for the Simpson's integration.
 	spatial::PVectorQ* integQueue = new spatial::PVectorQ();
-	spatial::PVectorQ::iterator integ = integQueue->begin();
+//	spatial::PVectorQ::iterator integ = integQueue->begin();
 	integQueue->resize(3);
 
 	//Initializing Mutex

@@ -2,7 +2,7 @@
 #ifndef PHIDGET_STUFF_H
 #define PHIDGET_STUFF_H
 
-
+#include <cstdlib>
 #include <pthread.h>
 
 extern pthread_mutex_t mutex;
