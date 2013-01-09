@@ -1,9 +1,7 @@
 /*
-Setting up stuff for the Phidget.
+Helper methods to transition from Phidget Events to SpatialPVectors.
 
-TODO:
-Take care of overflow errors.
-Documentation on data rate.
+
 */
 
 
