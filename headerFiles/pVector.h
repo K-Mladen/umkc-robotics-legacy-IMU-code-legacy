@@ -25,7 +25,7 @@ enum pDirection
   z = 2
 };
 
-namespace vector{
+namespace pVector{
   class pVector
   {
     private:
