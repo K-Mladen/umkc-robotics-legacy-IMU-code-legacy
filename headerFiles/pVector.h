@@ -60,6 +60,7 @@ namespace vector{
       pVector operator-=(const pVector& other);
       const pVector operator-(const pVector& other) const;
       double& operator[] (const int nIndex);
+      double& operator[] (const dir nIndex);
   };
 }
 
