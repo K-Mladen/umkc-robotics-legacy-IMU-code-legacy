@@ -2,6 +2,15 @@
 #include "spatial.h"
 #include  "phidget_Stuff.h"
 
+
+
+void spatial::zeroGyro(SpatialPVector &data)	{
+	for(int i =0; i< 3; i++)	{
+		data.angularRate[i] = data.angularRate[i] - GYRO_OFFSET[i];	
+	}
+	
+}
+
 int spatial::elapsedTimePVec(SpatialPVector& vec)	{
 	return vec.elapsed;
 }

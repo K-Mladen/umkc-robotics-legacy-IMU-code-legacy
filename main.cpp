@@ -99,8 +99,15 @@ int main()	{
 		//-----------------------------------
 		spatial::SpatialPVector newestP(*newest);	//TESTED AND WORKING
 
-		#ifdef DEBUG_ROTATION
-			cout << endl << "Before Rotation" << endl;
+		#ifdef DEBUG_ZERO_GYRO
+			cout << endl << "Before Zeroing" << endl;
+			spatial::print(newestP);
+		#endif
+
+		spatial::zeroGyro(newestP);
+
+		#ifdef DEBUG_ZERO_GYRO
+			cout << endl << "After Zeroing" << endl;
 			spatial::print(newestP);
 		#endif
 

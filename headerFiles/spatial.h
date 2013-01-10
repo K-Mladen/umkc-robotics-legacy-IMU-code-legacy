@@ -56,6 +56,9 @@ namespace spatial	{
 	CPhidgetSpatial_SpatialEventData* copy(CPhidgetSpatial_SpatialEventData& spatial);
 	int elapsedTime(CPhidgetSpatial_SpatialEventData& spatial);
 	int elapsedTimePVec(SpatialPVector& vec);
+
+	//Zeroes offset in the Gyro
+	void zeroGyro(SpatialPVector &data);
 }
 
 /*PHIDGET_SETUP_BUFFER_H*/
