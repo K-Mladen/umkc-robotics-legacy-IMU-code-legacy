@@ -27,7 +27,7 @@ const double US_PER_SECOND = 1000000;
 const int dataRate = 16;
 const double TAU = 20000;
 
-const double GYRO_OFFSET[3] = {-0.283139, -0.0655911. -0.340913};
+const double GYRO_OFFSET[3] = {-0.283139, -0.0655911, -0.340913};
 
 
 #endif
