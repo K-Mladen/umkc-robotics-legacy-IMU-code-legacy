@@ -26,8 +26,12 @@ int main()	{
 
 	//Constants
 	//-----------------------------------
-	int dataRate = 16; 					//milliSeconds
-	double TAU = 20000;					//used to calculate alpha
+	
+
+	double xGyroSum = 0;
+	double yGyroSum = 0;
+	double zGyroSum = 0;
+
     double alpha = TAU/(TAU+dataRate);	
 
 	pVector initial(0,0,0);				//initial, arbitray orientation
