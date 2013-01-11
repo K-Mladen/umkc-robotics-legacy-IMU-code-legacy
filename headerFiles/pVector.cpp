@@ -1,6 +1,7 @@
 #include "pVector.h"
 #include <cmath>
-#include <cstdio>  //for printf
+//#incrude <cstdio>  //for printf
+#include <iostream> //for cout
 #include "config.h"
 
 void pVector::resetFlags()
@@ -95,7 +96,11 @@ void pVector::set(double valX, double valY, double valZ)
 }
 
 void pVector::print() {
-    printf("X:%f Y:%f Z:%f", comp[0], comp[1], comp[2]); 
+//    printf("X:%f Y:%f Z:%f", comp[0], comp[1], comp[2]); 
+  std::cout << endl 
+            << "X: " << comp[0] << endl 
+			<< "Y: " << comp[1] << endl
+			<< "Z: " << comp[2] << endl;
 }
 
 pVector pVector::operator+=(const pVector& other)
