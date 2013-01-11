@@ -25,9 +25,14 @@ enum pDirection
   z = 2
 };
 
+<<<<<<< HEAD
 //namespace pVector{
   class pVector
   {
+=======
+class pVector
+{
+>>>>>>> 1d60bd76e6d5b361a572411eebad7226059a8420
     private:
     double comp[3], mag, unitcomp[3];
     bool magflag;
@@ -60,7 +65,13 @@ enum pDirection
       pVector operator-=(const pVector& other);
       const pVector operator-(const pVector& other) const;
       double& operator[] (const int nIndex);
+<<<<<<< HEAD
   };
 //}
+=======
+      double& operator[] (const pDirection nIndex);
+};
+
+>>>>>>> 1d60bd76e6d5b361a572411eebad7226059a8420
 
 #endif // PVECTOR_H
