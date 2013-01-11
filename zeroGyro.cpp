@@ -12,13 +12,13 @@ Zeroing out the gyro...
 #include "headerFiles/spatial.h"	//spatial_setup()
 #include "headerFiles/pVector.h" //pvector class
 
-pthread_mutex_t mutex;	//used when writing to the deque
+extern pthread_mutex_t mutex;	//used when writing to the deque
 
 int main()	{
 
 	double gyroSum[3] = {0,0,0};
 	double gyroOffset[3] = {0,0,0};
-	int events = 1000;
+	int events = 5000;
 
 	//Creating/Initializing Spatial Handle
 	//-----------------------------------
