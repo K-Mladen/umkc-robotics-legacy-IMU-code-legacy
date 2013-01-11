@@ -42,6 +42,10 @@ pVector::~pVector()
 }
 
 
+double pVector::component(int dir)
+{
+    return comp[dir];
+}
 
 double pVector::component(pDirection dir)
 {
