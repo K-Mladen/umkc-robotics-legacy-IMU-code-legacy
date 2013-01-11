@@ -8,22 +8,25 @@
 
 #ifdef DEBUG
 
+	#ifndef DEBUG_ZERO_GYRO
+	//#define DEBUG_ZERO_GYRO
+	#endif
+
 	#ifndef DEBUG_ROTATION
 	//#define DEBUG_ROTATION 
 	#endif
 
-	#ifndef DEBUG_FILTERING
-	//#define DEBUG_FILTERING
-	#endif
-
 	#ifndef DEBUG_INTEGRATE
-	//#define DEBUG_INTEGRATE
+	#define DEBUG_INTEGRATE
 	#endif
 
-	#ifndef DEBUG_ZERO_GYRO
-	#define DEBUG_ZERO_GYRO
+	#ifndef DEBUG_FILTERING
+	#define DEBUG_FILTERING
 	#endif
 
+	#ifndef DEBUG_LIVE_GRAPH
+	#define DEBUG_LIVE_GRAPH
+	#endif
 
 //DEBUG
 #endif	
