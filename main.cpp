@@ -27,15 +27,17 @@ int main()	{
 	//Constants
 	//-----------------------------------
 	
-
-	double xGyroSum = 0;
-	double yGyroSum = 0;
-	double zGyroSum = 0;
-
     double alpha = TAU/(TAU+dataRate);	
 
 	pVector initial(0,0,0);				//initial, arbitray orientation
 	pVector current(0,0,0);				//current orientation
+
+	//Writing out to file for live graph
+	//-----------------------------------
+	#ifdef DEBUG_LIVE_GRAPH
+		fstream fout;
+		fout.open("phidget.csv", fstream::out);
+	#endif
 
 /*	ifstream cfg;
 	if(cfg.open("odometryConstants.cfg");)
@@ -113,7 +115,7 @@ int main()	{
 
 		pVector about = orientation(current);
 		
-		newestP.acceleration = rotatePOV(newestP.acceleration, about);	//WORKING - accurate...
+		newestP.acceleration = rotatePOV(newestP.acceleration, about);	//WORKING - currently testing
 	 	newestP.angularRate = rotatePOV(newestP.angularRate, about);
 	 	newestP.magneticField = rotatePOV(newestP.magneticField, about);
 
@@ -145,9 +147,18 @@ int main()	{
 			cout << endl << "BEFORE FILTERED" <<endl;
 			current.print();		
 		#endif
-        
+		
         filter(integQueue->at(2).magneticField, current, alpha);				
 		
+
+		#ifdef DEBUG_LIVE_GRAPH
+			cout << endl << "LIVE GRAPHING filtered data" << endl;
+			for(inti =0; i< 3; i++)	{
+				fout << current.component(i) << ","; 	
+			}
+			fout << endl;
+		#endif
+
 		#ifdef DEBUG_FILTERING
 			cout << endl << "AFTER FILTERED" <<endl;
 			current.print();	
@@ -162,5 +173,10 @@ int main()	{
 	CPhidget_delete((CPhidgetHandle)spatial);
 
 	pthread_mutex_destroy(&mutex);
+	
+	#ifdef DEBUG_LIVE_GRAPH
+		fout.close();
+	#endif
+
 	return 0;
 }

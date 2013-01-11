@@ -41,6 +41,7 @@ class pVector
       pVector(double comp[3]);
       virtual ~pVector();
       //accessors
+      double component(int dir);
       double component(pDirection dir);  //Enumerated for clarity:
                                           // which component is desired and
                                           // in case IMU is mounted sideways.
