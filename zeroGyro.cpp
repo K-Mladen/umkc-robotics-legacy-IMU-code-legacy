@@ -59,16 +59,8 @@ int main()	{
 		dataQueue->pop_front();
 		pthread_mutex_unlock(&mutex);
 
-//		cout << gyroSum[i] << endl;
 		for(int i =0; i < 3; i++)	{
-			// cout << "data" << endl;
-			// cout << newest->angularRate[i] << " " << endl;
 			gyroSum[i]= gyroSum[i] + newest->angularRate[i];
-		}
-		// cout << endl;
-		for(int i =0; i< 3; i++)	{
-			// cout << "gyroSum" << endl;
-			// cout << gyroSum[i] << " " << endl << endl;
 		}
 		
 	}
@@ -76,10 +68,14 @@ int main()	{
 
 	//Finding our "zeroes"
 	//-----------------------------------
+	fstream fout;
+	fout.open("gyroOffset.txt", fstream::out);
 	for(int i =0; i< 3; i++)	{
 		gyroOffset[i] = gyroSum[i]/events;
 		cout << "Gyro Offset axis " << i << ": " << gyroOffset[i] << endl;
+		fout << "Gyro Offset axis " << i << ": " << gyroOffset[i] << endl;
 	}	
+	fout.close();
 
 	//Odds and Ends.
 	//-----------------------------------
