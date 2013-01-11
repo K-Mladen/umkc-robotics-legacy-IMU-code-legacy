@@ -146,7 +146,3 @@ double& pVector::operator[] (const int nIndex)   {
     return comp[nIndex];
 }
 
-double& pVector::operator[] (const dir nIndex)
-{
-  return comp[nIndex];
-}

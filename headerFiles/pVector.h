@@ -25,7 +25,7 @@ enum pDirection
   z = 2
 };
 
-namespace pVector{
+//namespace pVector{
   class pVector
   {
     private:
@@ -60,8 +60,7 @@ namespace pVector{
       pVector operator-=(const pVector& other);
       const pVector operator-(const pVector& other) const;
       double& operator[] (const int nIndex);
-      double& operator[] (const dir nIndex);
   };
-}
+//}
 
 #endif // PVECTOR_H
