@@ -5,7 +5,7 @@
 #include <pthread.h>
 #include "config.h"
 
-extern pthread_mutex_t mutex;
+pthread_mutex_t mutex;
 
 //callback that will run if the Spatial is attached to the computer
 int CCONV AttachHandler(CPhidgetHandle spatial, void *userptr)

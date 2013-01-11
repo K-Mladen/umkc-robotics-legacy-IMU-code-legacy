@@ -18,7 +18,7 @@ TODO: Some sort of criti section control?
 
 
 //mutexes
-pthread_mutex_t mutex;	//used when writing to the deque
+extern pthread_mutex_t mutex;	//used when writing to the deque
 
 using namespace std;
 
