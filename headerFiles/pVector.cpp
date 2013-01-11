@@ -150,7 +150,10 @@ double& pVector::operator[] (const int nIndex)   {
     return comp[nIndex];
 }
 
+<<<<<<< HEAD
+=======
 double& pVector::operator[] (const pDirection nIndex)
 {
   return comp[nIndex];
 }
+>>>>>>> 1d60bd76e6d5b361a572411eebad7226059a8420
