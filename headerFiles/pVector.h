@@ -17,48 +17,51 @@ using namespace std;
 
 enum pDirection
 {
-    X = 0,
-    Y = 1,
-	Z = 2,
-	x = 0,
-	y = 1,
-	z = 2
+  X = 0,
+  Y = 1,
+  Z = 2,
+  x = 0,
+  y = 1,
+  z = 2
 };
 
-class pVector
-{
+namespace pVector{
+  class pVector
+  {
     private:
     double comp[3], mag, unitcomp[3];
     bool magflag;
-	bool unitflag [3]; //set to 1 when value is calculated
+      bool unitflag [3]; //set to 1 when value is calculated
     //helper functions
     void resetFlags();
 
     public:
-        //constructors & destructors
-        pVector();
-        pVector(double comp0, double comp1, double comp2);
-        pVector(double comp[3]);
-        virtual ~pVector();
-        //accessors
-        double component(pDirection dir);  //Enumerated for clarity:
-                                            // which component is desired and
-                                            // in case IMU is mounted sideways.
-        double magnitude();
-        double unitComponent(pDirection dir); //Enumerated as above
-        //mutators
-        void set(pDirection dir, double val); //Enumerated as above
-        void set(double val[3]);
-        void set(double valX, double valY, double valZ);
-        void print();
+      //constructors & destructors
+      pVector();
+      pVector(double comp0, double comp1, double comp2);
+      pVector(double comp[3]);
+      virtual ~pVector();
+      //accessors
+      double component(pDirection dir);  //Enumerated for clarity:
+                                          // which component is desired and
+                                          // in case IMU is mounted sideways.
+      double magnitude();
+      double unitComponent(pDirection dir); //Enumerated as above
+      //mutators
+      void set(pDirection dir, double val); //Enumerated as above
+      void set(double val[3]);
+      void set(double valX, double valY, double valZ);
+      void print();
 
-        //operators
-//        const pVector operator=(const pVector& rhs);
-        pVector operator+=(const pVector& other);
-        const pVector operator+(const pVector& other) const;
-        pVector operator-=(const pVector& other);
-        const pVector operator-(const pVector& other) const;
-        double& operator[] (const int nIndex);
-};
+      //operators
+//      const pVector operator=(const pVector& rhs);
+      pVector operator+=(const pVector& other);
+      const pVector operator+(const pVector& other) const;
+      pVector operator-=(const pVector& other);
+      const pVector operator-(const pVector& other) const;
+      double& operator[] (const int nIndex);
+      double& operator[] (const dir nIndex);
+  };
+}
 
 #endif // PVECTOR_H
