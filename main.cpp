@@ -34,10 +34,16 @@ int main()	{
 
 	//Writing out to file for live graph
 	//-----------------------------------
-	#ifdef DEBUG_LIVE_GRAPH
-		fstream fout;
-		fout.open("phidget.csv", fstream::out);
-		fout << "X Axis, Y Axis, Z Axis" << endl;
+	#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
+		fstream foutCurrentOr;
+		foutCurrentOr.open("current_orientation.csv", fstream::out);
+		foutCurrentOr << "X Axis, Y Axis, Z Axis" << endl;
+	#endif
+
+	#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
+		fstream foutPhidgetRaw;
+		foutPhidgetRaw.open("raw_phidget.csv", fstream::out);
+		foutPhidgetRaw << "X Axis, Y Axis, Z Axis" << endl;
 	#endif
 
 /*	ifstream cfg;
@@ -97,6 +103,13 @@ int main()	{
 		dataQueue->pop_front();
 		pthread_mutex_unlock(&mutex);
 
+		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
+			cout << endl << "LIVE GRAPHING raw phidget" << endl;
+			for(int i =0; i< 3; i++)	{
+				foutPhidgetRaw << newest->angularRate[i]  << ","; 	
+			}
+			foutPhidgetRaw << endl;
+		#endif
 
 		//Convert data to pVector, rotate to initial reference frame
 		//-----------------------------------
@@ -152,12 +165,14 @@ int main()	{
         filter(integQueue->at(2).magneticField, current, alpha);				
 		
 
-		#ifdef DEBUG_LIVE_GRAPH
-			cout << endl << "LIVE GRAPHING filtered data" << endl;
+
+
+		#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
+			cout << endl << "LIVE GRAPHING filtered current orientation" << endl;
 			for(int i =0; i< 3; i++)	{
-				fout << current.component(i) << ","; 	
+				foutCurrentOr << current.component(i) << ","; 	
 			}
-			fout << endl;
+			foutCurrentOr << endl;
 		#endif
 
 		#ifdef DEBUG_FILTERING
@@ -175,8 +190,12 @@ int main()	{
 
 	pthread_mutex_destroy(&mutex);
 	
-	#ifdef DEBUG_LIVE_GRAPH
-		fout.close();
+	#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
+		foutCurrentOr.close();
+	#endif
+
+	#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
+		foutCurrentOr.close();
 	#endif
 
 	return 0;
