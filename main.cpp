@@ -32,6 +32,7 @@ int main()	{
 	pVector initial(0,0,0);				//initial, arbitray orientation
 	pVector current(0,0,0);				//current orientation
 
+
 	//Writing out to file for live graph
 	//-----------------------------------
 	#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
@@ -43,7 +44,7 @@ int main()	{
 	#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
 		fstream foutPhidgetRaw;
 		foutPhidgetRaw.open("raw_phidget.csv", fstream::out);
-		foutPhidgetRaw << "X Axis, Y Axis, Z Axis" << endl;
+		foutPhidgetRaw << "X Axis, Y Axis, Z Axis, X Avg, Y Avg, Z Avg" << endl;
 	#endif
 
 /*	ifstream cfg;
@@ -107,6 +108,9 @@ int main()	{
 			cout << endl << "LIVE GRAPHING raw phidget" << endl;
 			for(int i =0; i< 3; i++)	{
 				foutPhidgetRaw << newest->angularRate[i]  << ","; 	
+			}
+			for(int i =0; i< 3; i++)	{
+				foutPhidgetRaw << GYRO_OFFSET[i] << ",";
 			}
 			foutPhidgetRaw << endl;
 		#endif
@@ -194,8 +198,8 @@ int main()	{
 		foutCurrentOr.close();
 	#endif
 
-	#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
-		foutCurrentOr.close();
+	#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
+		foutPhidgetRaw.close();
 	#endif
 
 	return 0;
