@@ -37,6 +37,7 @@ int main()	{
 	#ifdef DEBUG_LIVE_GRAPH
 		fstream fout;
 		fout.open("phidget.csv", fstream::out);
+		fout << "X Axis, Y Axis, Z Axis" << endl;
 	#endif
 
 /*	ifstream cfg;
