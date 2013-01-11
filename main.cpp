@@ -153,7 +153,7 @@ int main()	{
 
 		#ifdef DEBUG_LIVE_GRAPH
 			cout << endl << "LIVE GRAPHING filtered data" << endl;
-			for(inti =0; i< 3; i++)	{
+			for(int i =0; i< 3; i++)	{
 				fout << current.component(i) << ","; 	
 			}
 			fout << endl;
