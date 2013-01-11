@@ -1,6 +1,6 @@
 #include "pVector.h"
 #include <cmath>
-#include <stdio.h>  //for printf
+#include <cstdio>  //for printf
 #include "config.h"
 
 void pVector::resetFlags()
@@ -42,10 +42,6 @@ pVector::~pVector()
 }
 
 
-double pVector::component(int dir)  
-{
-    return comp[dir];
-}
 
 double pVector::component(pDirection dir)
 {
@@ -149,9 +145,3 @@ const pVector pVector::operator-(const pVector& other) const
 double& pVector::operator[] (const int nIndex)   {
     return comp[nIndex];
 }
-
-double& pVector::operator[] (const pDirection nIndex)
-{
-  return comp[nIndex];
-}
-

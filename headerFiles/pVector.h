@@ -25,11 +25,10 @@ enum pDirection
   z = 2
 };
 
-
-
-class pVector
-{
-    private:
+//namespace pVector{
+  class pVector
+  {
+	private:
     double comp[3], mag, unitcomp[3];
     bool magflag;
       bool unitflag [3]; //set to 1 when value is calculated
@@ -43,7 +42,6 @@ class pVector
       pVector(double comp[3]);
       virtual ~pVector();
       //accessors
-      double component(int dir);
       double component(pDirection dir);  //Enumerated for clarity:
                                           // which component is desired and
                                           // in case IMU is mounted sideways.
@@ -56,14 +54,13 @@ class pVector
       void print();
 
       //operators
-//      const pVector operator=(const pVector& rhs);
       pVector operator+=(const pVector& other);
       const pVector operator+(const pVector& other) const;
       pVector operator-=(const pVector& other);
       const pVector operator-(const pVector& other) const;
       double& operator[] (const int nIndex);
-      double& operator[] (const pDirection nIndex);
-};
+  };
+//}
 
 
 #endif // PVECTOR_H
