@@ -38,13 +38,15 @@ int main()	{
 	#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
 		fstream foutCurrentOr;
 		foutCurrentOr.open("current_orientation.csv", fstream::out);
+		foutCurrentOr << "@ Current Orientation, rotated and filtered." << endl;
 		foutCurrentOr << "X Axis, Y Axis, Z Axis" << endl;
 	#endif
 
 	#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
 		fstream foutPhidgetRaw;
 		foutPhidgetRaw.open("raw_phidget.csv", fstream::out);
-		foutPhidgetRaw << "X Axis, Y Axis, Z Axis, X Avg, Y Avg, Z Avg" << endl;
+		foutPhidgetRaw << "@ Raw Phidget data." << endl;
+		foutPhidgetRaw << "X Axis, Y Axis, Z Axis, X Avg, Y Avg, Z Avg, X Zeroed, Y Zeroed, Z Zeroed" << endl;
 	#endif
 
 /*	ifstream cfg;
@@ -112,7 +114,6 @@ int main()	{
 			for(int i =0; i< 3; i++)	{
 				foutPhidgetRaw << GYRO_OFFSET[i] << ",";
 			}
-			foutPhidgetRaw << endl;
 		#endif
 
 		//Convert data to pVector, rotate to initial reference frame
@@ -129,6 +130,13 @@ int main()	{
 		#ifdef DEBUG_ZERO_GYRO
 			cout << endl << "After Zeroing" << endl;
 			spatial::print(newestP);
+		#endif
+
+		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
+			for(int i =0; i< 3; i++)	{
+				foutPhidgetRaw << newest->angularRate[i]  << ","; 	
+			}		
+			foutPhidgetRaw << endl;
 		#endif
 
 		pVector about = orientation(current);
@@ -174,7 +182,8 @@ int main()	{
 		#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
 			cout << endl << "LIVE GRAPHING filtered current orientation" << endl;
 			for(int i =0; i< 3; i++)	{
-				foutCurrentOr << current.component(i) << ","; 	
+				foutCurrentOr << current.component(i) << ",";
+				cout << current.component(i) << ","; 	
 			}
 			foutCurrentOr << endl;
 		#endif
