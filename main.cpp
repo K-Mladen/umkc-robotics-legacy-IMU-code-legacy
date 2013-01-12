@@ -49,6 +49,14 @@ int main()	{
 		foutPhidgetRaw << "X Axis, Y Axis, Z Axis, X Avg, Y Avg, Z Avg, X Zeroed, Y Zeroed, Z Zeroed" << endl;
 	#endif
 
+	#ifdef DEBUG_LIVE_GRAPH_ROTATION
+		fstream foutRotation;
+		foutRotation.open("rotatedGyro.csv", fstream::out);
+		foutRotation << "@ Rotated gyro data, after zeroing." << endl;
+		foutRotation << " X rotated, Y rotated, Z rotated" << endl;
+	#endif
+
+
 /*	ifstream cfg;
 	if(cfg.open("odometryConstants.cfg");)
 	{
@@ -145,9 +153,11 @@ int main()	{
 	 	newestP.angularRate = rotatePOV(newestP.angularRate, about);
 	 	newestP.magneticField = rotatePOV(newestP.magneticField, about);
 
-	 	#ifdef DEBUG_ROTATION
-	 		cout << endl << "After rotation" <<endl;
-	 		spatial::print(newestP);
+	 	#ifdef DEBUG_LIVE_GRAPH_ROTATION
+	 		for(int i =0; i< 3; i++)	{
+	 			foutRotation << newestP.angularRate[i] << ","; 
+	 		}
+	 		foutRotation << endl;
 	 	#endif
 
 		//Adding newest point to integQueue for simpson's integration
@@ -209,6 +219,10 @@ int main()	{
 
 	#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
 		foutPhidgetRaw.close();
+	#endif
+
+	#ifdef DEBUG_LIVE_GRAPH_ROTATION
+		foutRotation.close();
 	#endif
 
 	return 0;
