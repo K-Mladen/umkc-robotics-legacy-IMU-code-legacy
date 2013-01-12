@@ -5,6 +5,7 @@
 #include <pthread.h>
 #include "config.h"
 
+//Mutex, used with event handler in setting up the shared deque
 pthread_mutex_t mutex;
 
 //callback that will run if the Spatial is attached to the computer
