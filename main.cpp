@@ -38,21 +38,21 @@ int main()	{
 
 	#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
 		fstream foutPhidgetRaw;
-		foutPhidgetRaw.open("raw_phidget.csv", fstream::out);
+		foutPhidgetRaw.open("dataPoints/raw_phidget.csv", fstream::out);
 		foutPhidgetRaw << "@ Raw Phidget data, non zeroed, avg constant, then zeroed." << endl;
 		foutPhidgetRaw << "X Axis, Y Axis, Z Axis, X Avg, Y Avg, Z Avg, X Zeroed, Y Zeroed, Z Zeroed" << endl;
 	#endif
 
 	#ifdef DEBUG_LIVE_GRAPH_ROTATION
 		fstream foutRotation;
-		foutRotation.open("rotatedGyro.csv", fstream::out);
+		foutRotation.open("dataPoints/rotatedGyro.csv", fstream::out);
 		foutRotation << "@ Rotated gyro data, after zeroing." << endl;
 		foutRotation << " X rotated, Y rotated, Z rotated" << endl;
 	#endif
 
 	#ifdef DEBUG_LIVE_GRAPH_DELTA
 		fstream foutDelta;
-		foutDelta.open("gyroDelta.csv", fstream::out);
+		foutDelta.open("dataPoints/gyroDelta.csv", fstream::out);
 		foutDelta << "@ delta of gyroscope in global ref frame, after rotation, before filtering." << endl;
 		foutDelta << "X delta, Y delta, Z delta " << endl;
 	#endif
@@ -60,7 +60,7 @@ int main()	{
 
 	#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
 		fstream foutCurrentOr;
-		foutCurrentOr.open("current_orientation.csv", fstream::out);
+		foutCurrentOr.open("dataPoints/current_orientation.csv", fstream::out);
 		foutCurrentOr << "@ Current Orientation, rotated, then non filtered and filtered." << endl;
 		foutCurrentOr << "X None, Y none, Z none, X filtered, Y filtered, Z filtered " << endl;
 	#endif
