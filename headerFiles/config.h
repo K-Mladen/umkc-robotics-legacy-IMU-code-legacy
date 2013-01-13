@@ -21,7 +21,7 @@
 	#endif
 
 	#ifndef DEBUG_FILTERING
-	//#define DEBUG_FILTERING
+	#define DEBUG_FILTERING
 	#endif
 
 	//"@ Raw Phidget data, non zeroed, avg constant, then zeroed." 
@@ -32,6 +32,11 @@
 	//"@ Rotated gyro data, after zeroing
 	#ifndef DEBUG_LIVE_GRAPH_ROTATION
 	#define DEBUG_LIVE_GRAPH_ROTATION 
+	#endif
+
+	//
+	#ifndef DEBUG_LIVE_GRAPH_DELTA
+	#define DEBUG_LIVE_GRAPH_DELTA
 	#endif
 
 	//"@ Current Orientation, rotated, then non filtered and filtered."

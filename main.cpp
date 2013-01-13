@@ -31,21 +31,15 @@ int main()	{
 
 	pVector initial(0,0,0);				//initial, arbitray orientation
 	pVector current(0,0,0);				//current orientation
-
+	pVector delta(0,0,0);				//delta, (debugging)
 
 	//Writing out to file for live graph
-	//-----------------------------------
-	#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
-		fstream foutCurrentOr;
-		foutCurrentOr.open("current_orientation.csv", fstream::out);
-		foutCurrentOr << "@ Current Orientation, rotated and filtered." << endl;
-		foutCurrentOr << "X Axis, Y Axis, Z Axis" << endl;
-	#endif
+	//----------------------------------
 
 	#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
 		fstream foutPhidgetRaw;
 		foutPhidgetRaw.open("raw_phidget.csv", fstream::out);
-		foutPhidgetRaw << "@ Raw Phidget data." << endl;
+		foutPhidgetRaw << "@ Raw Phidget data, non zeroed, avg constant, then zeroed." << endl;
 		foutPhidgetRaw << "X Axis, Y Axis, Z Axis, X Avg, Y Avg, Z Avg, X Zeroed, Y Zeroed, Z Zeroed" << endl;
 	#endif
 
@@ -54,6 +48,21 @@ int main()	{
 		foutRotation.open("rotatedGyro.csv", fstream::out);
 		foutRotation << "@ Rotated gyro data, after zeroing." << endl;
 		foutRotation << " X rotated, Y rotated, Z rotated" << endl;
+	#endif
+
+	#ifdef DEBUG_LIVE_GRAPH_DELTA
+		fstream foutDelta;
+		foutDelta.open("gyroDelta.csv", fstream::out);
+		foutDelta << "@ delta of gyroscope in global ref frame, after rotation, before filtering." << endl;
+		foutDelta << "X delta, Y delta, Z delta " << endl;
+	#endif
+
+
+	#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
+		fstream foutCurrentOr;
+		foutCurrentOr.open("current_orientation.csv", fstream::out);
+		foutCurrentOr << "@ Current Orientation, rotated, then non filtered and filtered." << endl;
+		foutCurrentOr << "X None, Y none, Z none, X filtered, Y filtered, Z filtered " << endl;
 	#endif
 
 
@@ -109,7 +118,7 @@ int main()	{
 
 			//Copied event data is TESTED and WORKING.
 		pthread_mutex_lock(&mutex);
-		it = dataQueue->begin();
+ 		it = dataQueue->begin();
 		CPhidgetSpatial_SpatialEventData* newest = spatial::copy(*it);
 		dataQueue->pop_front();
 		pthread_mutex_unlock(&mutex);
@@ -143,7 +152,7 @@ int main()	{
 		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
 			for(int i =0; i< 3; i++)	{
 				foutPhidgetRaw << newest->angularRate[i]  << ","; 	
-			}		
+		   	}		
 			foutPhidgetRaw << endl;
 		#endif
 
@@ -168,7 +177,15 @@ int main()	{
 		
 		//Simpson's integration
 		//-----------------------------------
-		integrateGyro(integQueue, current);
+		delta = integrateGyro(integQueue, current);
+
+
+		#ifdef DEBUG_LIVE_GRAPH_DELTA
+			for(int i =0; i< 3; i++)	{
+				foutDelta << delta.component(i) << ",";				
+			}
+			foutDelta << endl;
+		#endif
 
 		#ifdef DEBUG_INTEGRATE
 			cout<< endl << "AFTER INTEGRATION, current orientation" <<endl;
@@ -182,6 +199,15 @@ int main()	{
 		#ifdef DEBUG_FILTERING
 			cout << endl << "BEFORE FILTERED" <<endl;
 			current.print();		
+		#endif
+
+		#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
+			cout << endl << "LIVE GRAPHING unfiltered current orientation" << endl;
+			for(int i =0; i< 3; i++)	{
+				foutCurrentOr << current.component(i) << ",";
+				cout << current.component(i) << ","; 	
+			}
+			foutCurrentOr << endl;
 		#endif
 		
         filter(integQueue->at(2).magneticField, current, alpha);				
@@ -225,5 +251,10 @@ int main()	{
 		foutRotation.close();
 	#endif
 
+	#ifdef DEBUG_LIVE_GRAPH_DELTA
+		foutDelta.close();
+	#endif
+
 	return 0;
 }
+ 
