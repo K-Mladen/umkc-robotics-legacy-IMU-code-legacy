@@ -13,7 +13,7 @@
 #ifdef DEBUG
 
 	#ifndef DEBUG_RAW_GYRO
-	#define DEBUG_RAW_GYRO
+	//#define DEBUG_RAW_GYRO
 	#endif
 
 	#ifndef DEBUG_ZERO_GYRO
@@ -60,7 +60,7 @@ const double US_PER_SECOND = 1000000;
 const int dataRate = 16;
 const double TAU = 20000;
 
-const double GYRO_OFFSET[3] = {-0.225902, 0.0424094, -0.25949};
+const double GYRO_OFFSET[3] = {-0.260092, 0.0562493, -0.262105};
 
 
 //CONFIG_H
