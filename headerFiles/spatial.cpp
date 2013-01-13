@@ -58,6 +58,13 @@ void spatial::print(CPhidgetSpatial_SpatialEventData& data)	{
 	cout <<endl;
 }
 
+void spatial::set(SpatialPVector& newestP, CPhidgetSpatial_SpatialEventData &data)	{
+	newestP.elapsed = data.timestamp.seconds*US_PER_SECOND + data.timestamp.microseconds;
+	newestP.acceleration.set(data.acceleration);	
+	newestP.angularRate.set(data.angularRate);
+	newestP.magneticField.set(data.magneticField);
+}
+
 
 
 int spatial::spatial_setup(CPhidgetSpatialHandle &spatial, deque<CPhidgetSpatial_SpatialEventData>* raw, int dataRate)	{

@@ -11,11 +11,12 @@ Helper methods to transition from Phidget Events to SpatialPVectors.
 #include <stdio.h>
 #include <deque>
 
-//#include <isthismac.h> //#define's MACOS on mac, if MACOS isn't already defined
+//#include <isthismac.h> //#define s MACOS on mac, if MACOS isn't already defined
 //#ifdef MACOS
-//#include <Phidget21/phidget21.h>	//mac os
-//#else
-#include <phidget21.h>			//linux
+#include <Phidget21/phidget21.h>	//mac os
+//#endif
+//#ifndef MACOS
+//#include <phidget21.h>			//linux
 //#endif
 
 #include <iostream>
@@ -35,7 +36,7 @@ namespace spatial	{
 		SpatialPVector(CPhidgetSpatial_SpatialEventData &data) {
 			//why isn't this working - undefined symbols D:
 			//elapsed = elapsedTime(data);
-			elapsed = data.timestamp.seconds*1000000 + data.timestamp.microseconds;
+			elapsed = data.timestamp.seconds*US_PER_SECOND + data.timestamp.microseconds;
 			acceleration.set(data.acceleration);
 			angularRate.set(data.angularRate);
 			magneticField.set(data.magneticField);
@@ -57,6 +58,7 @@ namespace spatial	{
 	int elapsedTime(CPhidgetSpatial_SpatialEventData& spatial);
 	int elapsedTimePVec(SpatialPVector& vec);
 
+	void set(SpatialPVector& newestP, CPhidgetSpatial_SpatialEventData &data);
 	//Zeroes offset in the Gyro
 	void zeroGyro(SpatialPVector &data);
 }
