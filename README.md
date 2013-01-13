@@ -27,6 +27,8 @@ gcc example.c -o example -framework Phidget21
 Linux
 gcc example.c -o example -lphidget21
 
+*NOTE* = The timestamp for phidget Events counts from when phidget is attached. 
+
 
 
 Kalman explanation MK needs to maybe read. http://tom.pycke.be/mav/71/kalman-filtering-of-imu-data
