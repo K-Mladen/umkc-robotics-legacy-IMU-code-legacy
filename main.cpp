@@ -40,7 +40,9 @@ int main()	{
 		fstream foutPhidgetRaw;
 		foutPhidgetRaw.open("dataPoints/raw_phidget.csv", fstream::out);
 		foutPhidgetRaw << "@ Raw Phidget data, non zeroed, avg constant, then zeroed." << endl;
-		foutPhidgetRaw << "X Axis, Y Axis, Z Axis, X Avg, Y Avg, Z Avg, X Zeroed, Y Zeroed, Z Zeroed" << endl;
+		foutPhidgetRaw << "X Raw Gyro, Y Raw Gyro, Z Raw Gyro" 
+				<< "X Avg Raw Gyro, Y Avg Raw Gyro, Z Avg Raw Gyro" << 
+			 "X Zeroed Raw, Y Zeroed Raw, Z Zeroed Raw" << endl;
 	#endif
 
 	#ifdef DEBUG_LIVE_GRAPH_ROTATION
@@ -62,7 +64,7 @@ int main()	{
 		fstream foutCurrentOr;
 		foutCurrentOr.open("dataPoints/current_orientation.csv", fstream::out);
 		foutCurrentOr << "@ Current Orientation, rotated, then non filtered and filtered." << endl;
-		foutCurrentOr << "X None, Y none, Z none, X filtered, Y filtered, Z filtered " << endl;
+		foutCurrentOr << "X Current NF, Y Current NF, Z Current NF, X Current F, Y Current F, Z Current F " << endl;
 	#endif
 
 
