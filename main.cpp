@@ -162,7 +162,7 @@ int main()	{
 
 		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
 			for(int i =0; i< 3; i++)	{
-				foutPhidgetRaw << newest->angularRate[i]  << ","; 	
+				foutPhidgetRaw << newestP.angularRate[i]  << ","; 	
 		   	}		
 			foutPhidgetRaw << endl;
 		#endif
