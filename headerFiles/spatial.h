@@ -60,7 +60,7 @@ namespace spatial	{
 
 	void set(SpatialPVector& newestP, CPhidgetSpatial_SpatialEventData &data);
 	//Zeroes offset in the Gyro
-	void zeroGyro(SpatialPVector &data);
+	void zero(SpatialPVector &data);
 }
 
 /*PHIDGET_SETUP_BUFFER_H*/
