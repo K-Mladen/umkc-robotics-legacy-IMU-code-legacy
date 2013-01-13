@@ -61,7 +61,6 @@ const int dataRate = 16;
 const double TAU = 20000;
 
 const double GYRO_OFFSET[3] = {-0.260092, 0.0562493, -0.262105};
-
-
+const double ACC_OFFSET[3] = {0.00943341, 0.0474827, 0.999374};
 //CONFIG_H
 #endif
