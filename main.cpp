@@ -146,7 +146,7 @@ int main()	{
 
 		//Convert data to pVector, rotate to initial reference frame
 		//-----------------------------------
-		spatial::set(newestP, *newest);	//TESTED AND WORKING
+		spatial::set(newestP, *newest);	//TESTED AND WORKING TAKE 2
 
 		#ifdef DEBUG_ZERO_GYRO
 			cout << endl << "Before Zeroing" << endl;
@@ -218,7 +218,6 @@ int main()	{
 				foutCurrentOr << current.component(i) << ",";
 				cout << current.component(i) << ","; 	
 			}
-			foutCurrentOr << endl;
 		#endif
 		
         filter(integQueue->at(2).magneticField, current, alpha);				
