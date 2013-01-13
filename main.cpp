@@ -33,6 +33,8 @@ int main()	{
 	pVector current(0,0,0);				//current orientation
 	pVector delta(0,0,0);				//delta, (debugging)
 
+	int timeStamp = 0;					//time of current data event in milliSec (debugging)
+
 	spatial::SpatialPVector newestP;	
 	//Writing out to file for live graph
 	//----------------------------------
@@ -65,7 +67,7 @@ int main()	{
 		fstream foutCurrentOr;
 		foutCurrentOr.open("dataPoints/current_orientation.csv", fstream::out);
 		foutCurrentOr << "@ Current Orientation, rotated, then non filtered and filtered." << endl;
-		foutCurrentOr << "X Current NF, Y Current NF, Z Current NF, X Current F, Y Current F, Z Current F " << endl;
+		foutCurrentOr << "timestamp, X Current NF, Y Current NF, Z Current NF, X Current F, Y Current F, Z Current F " << endl;
 	#endif
 
 
@@ -148,6 +150,8 @@ int main()	{
 		//-----------------------------------
 		spatial::set(newestP, *newest);	//TESTED AND WORKING TAKE 2
 
+		timeStamp = newestP.elapsed;
+
 		#ifdef DEBUG_ZERO_GYRO
 			cout << endl << "Before Zeroing" << endl;
 			spatial::print(newestP);
@@ -214,6 +218,7 @@ int main()	{
 
 		#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
 			cout << endl << "LIVE GRAPHING unfiltered current orientation" << endl;
+			foutCurrentOr << timeStamp << ",";
 			for(int i =0; i< 3; i++)	{
 				foutCurrentOr << current.component(i) << ",";
 				cout << current.component(i) << ","; 	
