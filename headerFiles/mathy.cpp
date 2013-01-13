@@ -40,14 +40,14 @@ double simpsonIteration(double pt[],int  ust[])
   }
 }
 
-void integrateGyro(spatial::PVectorQ* data, pVector& current)
+pVector integrateGyro(spatial::PVectorQ* data, pVector& current)
 {
   pVector delta;
-  double gyros[3][3];
+  double gyros[3][3]; //ith axis, kth element
 
   for(int i =0; i< 3; i++)  {
     for(int k = 0; k<3; k++)  {
-      gyros[i][k] = data->at(i).angularRate[k];
+      gyros[k][i] = data->at(i).angularRate[k];
     }
   }
 
@@ -58,7 +58,7 @@ void integrateGyro(spatial::PVectorQ* data, pVector& current)
     simpsonIteration(gyros[2],times)
   );
   current += delta;
-  return;
+  return delta;
 }
 
 
