@@ -18,7 +18,7 @@ int main()	{
 
 	double gyroSum[3] = {0,0,0};
 	double gyroOffset[3] = {0,0,0};
-	int events = 5000;
+	int events = 10000;
 
 	//Creating/Initializing Spatial Handle
 	//-----------------------------------
@@ -59,6 +59,8 @@ int main()	{
 		dataQueue->pop_front();
 		pthread_mutex_unlock(&mutex);
 
+		if(i%100 ==0)	cout << "event: " << i << endl;
+
 		for(int i =0; i < 3; i++)	{
 			gyroSum[i]= gyroSum[i] + newest->angularRate[i];
 		}
@@ -68,6 +70,7 @@ int main()	{
 
 	//Finding our "zeroes"
 	//-----------------------------------
+	cout << "Writing to gyroOffset.txt" <<endl;
 	fstream fout;
 	fout.open("gyroOffset.txt", fstream::out);
 	for(int i =0; i< 3; i++)	{
