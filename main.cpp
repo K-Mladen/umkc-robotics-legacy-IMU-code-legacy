@@ -33,6 +33,7 @@ int main()	{
 	pVector current(0,0,0);				//current orientation
 	pVector delta(0,0,0);				//delta, (debugging)
 
+	spatial::SpatialPVector newestP;	
 	//Writing out to file for live graph
 	//----------------------------------
 
@@ -40,8 +41,8 @@ int main()	{
 		fstream foutPhidgetRaw;
 		foutPhidgetRaw.open("dataPoints/raw_phidget.csv", fstream::out);
 		foutPhidgetRaw << "@ Raw Phidget data, non zeroed, avg constant, then zeroed." << endl;
-		foutPhidgetRaw << "X Raw Gyro, Y Raw Gyro, Z Raw Gyro" 
-				<< "X Avg Raw Gyro, Y Avg Raw Gyro, Z Avg Raw Gyro" << 
+		foutPhidgetRaw << "X Raw Gyro, Y Raw Gyro, Z Raw Gyro," 
+				<< "X Avg Raw Gyro, Y Avg Raw Gyro, Z Avg Raw Gyro," << 
 			 "X Zeroed Raw, Y Zeroed Raw, Z Zeroed Raw" << endl;
 	#endif
 
@@ -125,6 +126,14 @@ int main()	{
 		dataQueue->pop_front();
 		pthread_mutex_unlock(&mutex);
 
+		#ifdef DEBUG_RAW_GYRO
+			cout << "Raw phidget data" << endl;
+			for(int i =0; i< 3; i++)	{
+				cout << newest->angularRate[i]  << ","; 	
+			}
+			cout << endl;
+		#endif
+		
 		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
 			cout << endl << "LIVE GRAPHING raw phidget" << endl;
 			for(int i =0; i< 3; i++)	{
@@ -137,7 +146,7 @@ int main()	{
 
 		//Convert data to pVector, rotate to initial reference frame
 		//-----------------------------------
-		spatial::SpatialPVector newestP(*newest);	//TESTED AND WORKING
+		spatial::set(newestP, *newest);	//TESTED AND WORKING
 
 		#ifdef DEBUG_ZERO_GYRO
 			cout << endl << "Before Zeroing" << endl;

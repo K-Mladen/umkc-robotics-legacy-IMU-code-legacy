@@ -12,8 +12,12 @@
 
 #ifdef DEBUG
 
+	#ifndef DEBUG_RAW_GYRO
+	#define DEBUG_RAW_GYRO
+	#endif
+
 	#ifndef DEBUG_ZERO_GYRO
-	//#define DEBUG_ZERO_GYRO
+	#define DEBUG_ZERO_GYRO
 	#endif
 
 	#ifndef DEBUG_INTEGRATE
@@ -21,7 +25,7 @@
 	#endif
 
 	#ifndef DEBUG_FILTERING
-	#define DEBUG_FILTERING
+	//#define DEBUG_FILTERING
 	#endif
 
 	//"@ Raw Phidget data, non zeroed, avg constant, then zeroed." 
