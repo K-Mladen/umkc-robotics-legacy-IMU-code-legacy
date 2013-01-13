@@ -42,10 +42,13 @@ int main()	{
 	#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
 		fstream foutPhidgetRaw;
 		foutPhidgetRaw.open("dataPoints/raw_phidget.csv", fstream::out);
-		foutPhidgetRaw << "@ Raw Phidget data, non zeroed, avg constant, then zeroed." << endl;
+		foutPhidgetRaw << "@ Raw Gyro and Acc data, non zeroed, avg constant, then zeroed." << endl;
 		foutPhidgetRaw << "X Raw Gyro, Y Raw Gyro, Z Raw Gyro," 
 				<< "X Avg Raw Gyro, Y Avg Raw Gyro, Z Avg Raw Gyro," << 
-			 "X Zeroed Raw, Y Zeroed Raw, Z Zeroed Raw" << endl;
+			 "X Zeroed Raw, Y Zeroed Raw, Z Zeroed Raw," <<
+			 "X Raw Acc, Y Raw Acc, Z Raw Acc," << 
+			 "X Avg Raw Acc, Y Avg Raw Acc, Z Avg Raw Acc," <<
+			 "X Zeroed Acc, Y Zeroed Acc, Z Zeroed Acc" << endl;
 	#endif
 
 	#ifdef DEBUG_LIVE_GRAPH_ROTATION
@@ -136,15 +139,6 @@ int main()	{
 			cout << endl;
 		#endif
 		
-		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
-			cout << endl << "LIVE GRAPHING raw phidget" << endl;
-			for(int i =0; i< 3; i++)	{
-				foutPhidgetRaw << newest->angularRate[i]  << ","; 	
-			}
-			for(int i =0; i< 3; i++)	{
-				foutPhidgetRaw << GYRO_OFFSET[i] << ",";
-			}
-		#endif
 
 		//Convert data to pVector, rotate to initial reference frame
 		//-----------------------------------
@@ -152,30 +146,49 @@ int main()	{
 
 		timeStamp = newestP.elapsed;
 
-		#ifdef DEBUG_ZERO_GYRO
-			cout << endl << "Before Zeroing" << endl;
-			spatial::print(newestP);
-		#endif
-
-		spatial::zeroGyro(newestP);
-
-		#ifdef DEBUG_ZERO_GYRO
-			cout << endl << "After Zeroing" << endl;
-			spatial::print(newestP);
-		#endif
-
-		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
-			for(int i =0; i< 3; i++)	{
-				foutPhidgetRaw << newestP.angularRate[i]  << ","; 	
-		   	}		
-			foutPhidgetRaw << endl;
-		#endif
-
 		pVector about = orientation(current);
 		
 		newestP.acceleration = rotatePOV(newestP.acceleration, about);	//WORKING - currently testing
 	 	newestP.angularRate = rotatePOV(newestP.angularRate, about);
 	 	newestP.magneticField = rotatePOV(newestP.magneticField, about);
+	
+		#ifdef DEBUG_ZERO_GYRO
+			cout << endl << "Before Zeroing" << endl;
+			spatial::print(newestP);
+		#endif
+
+		spatial::zero(newestP);	//Zeroing of Acc must  be done AFTER rotation
+
+		#ifdef DEBUG_ZERO_GYRO
+			cout << endl << "After Zeroing" << endl;
+			spatial::print(newestP);
+		#endif
+		
+		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
+			cout << endl << "LIVE GRAPHING raw phidget" << endl;
+			//Graphing Gyro stuff
+			for(int i =0; i< 3; i++)	{
+				foutPhidgetRaw << newest->angularRate[i]  << ","; 	
+			}
+			for(int i =0; i< 3; i++)	{
+				foutPhidgetRaw << GYRO_OFFSET[i] << ",";
+			}
+			for(int i =0; i< 3; i++)	{
+				foutPhidgetRaw << newestP.angularRate[i]  << ","; 	
+		   	}		
+		   	//Graphing Acc stuff
+			for(int i =0; i< 3; i++)	{
+				foutPhidgetRaw << newest->acceleration[i]  << ","; 	
+			}
+			for(int i =0; i< 3; i++)	{
+				foutPhidgetRaw << ACC_OFFSET[i] << ",";
+			}
+			for(int i =0; i< 3; i++)	{
+				foutPhidgetRaw << newestP.acceleration[i]  << ","; 	
+		   	}
+			foutPhidgetRaw << endl;
+		#endif
+
 
 	 	#ifdef DEBUG_LIVE_GRAPH_ROTATION
 	 		for(int i =0; i< 3; i++)	{
