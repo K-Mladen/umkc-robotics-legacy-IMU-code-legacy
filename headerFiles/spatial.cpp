@@ -4,13 +4,16 @@
 
 
 
-void spatial::zero(SpatialPVector &data)	{
+void spatial::zeroGyro(SpatialPVector &data)	{
 	for(int i =0; i< 3; i++)	{
 		data.angularRate[i] = data.angularRate[i] - GYRO_OFFSET[i];	
+	}
+}
+
+void spatial::zeroAcc(SpatialPVector &data)	{
+	for(int i =0; i< 3; i++)	{
 		data.acceleration[i] = data.acceleration[i] - ACC_OFFSET[i];
 	}
-
-	
 }
 
 int spatial::elapsedTimePVec(SpatialPVector& vec)	{
