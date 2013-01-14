@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kst version="2.0">
     <data>
-        <source reader="ASCII file" file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="../Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv">
+        <source reader="ASCII file" file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv">
             <properties vector="INDEX" interpretation="1" delimiters="#" columntype="2" columndelimiter="," headerstart="2" fields="1" readfields="true" usedot="true" columnwidthisconst="false" readunits="false" units="0"/>
         </source>
     </data>
     <variables>
-        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="../Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" field="INDEX" start="0" count="-1" skip="-1" doAve="false" initialVNum="1" initialXNum="1"/>
-        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="../Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" field="X Raw Gyro" start="0" count="-1" skip="-1" doAve="false" initialVNum="2" initialXNum="13"/>
-        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="../Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" field="Y Raw Gyro" start="0" count="-1" skip="-1" doAve="false" initialVNum="3" initialXNum="25"/>
-        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="../Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" field="Z Raw Gyro" start="0" count="-1" skip="-1" doAve="false" initialVNum="4" initialXNum="37"/>
-        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="../Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" field="X Avg Raw Gyro" start="0" count="-1" skip="-1" doAve="false" initialVNum="5" initialXNum="49"/>
-        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="../Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" field="Y Avg Raw Gyro" start="0" count="-1" skip="-1" doAve="false" initialVNum="6" initialXNum="61"/>
-        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="../Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" field="Z Avg Raw Gyro" start="0" count="-1" skip="-1" doAve="false" initialVNum="7" initialXNum="73"/>
-        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="../Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" field="X Zeroed Raw" start="0" count="-1" skip="-1" doAve="false" initialVNum="8" initialXNum="85"/>
-        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="../Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" field="Y Zeroed Raw" start="0" count="-1" skip="-1" doAve="false" initialVNum="9" initialXNum="97"/>
-        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="../Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" field="Z Zeroed Raw" start="0" count="-1" skip="-1" doAve="false" initialVNum="10" initialXNum="109"/>
-        <string value="2013-01-13 14:41:52" initialTNum="1"/>
-        <string value="2013-01-13 14:41:52" initialTNum="2"/>
+        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv" field="INDEX" start="0" count="-1" skip="-1" doAve="false" initialVNum="1" initialXNum="1"/>
+        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv" field="X Raw Gyro" start="0" count="-1" skip="-1" doAve="false" initialVNum="2" initialXNum="13"/>
+        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv" field="Y Raw Gyro" start="0" count="-1" skip="-1" doAve="false" initialVNum="3" initialXNum="25"/>
+        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv" field="Z Raw Gyro" start="0" count="-1" skip="-1" doAve="false" initialVNum="4" initialXNum="37"/>
+        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv" field="X Zeroed Raw" start="0" count="-1" skip="-1" doAve="false" initialVNum="8" initialXNum="85"/>
+        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv" field="Y Zeroed Raw" start="0" count="-1" skip="-1" doAve="false" initialVNum="9" initialXNum="97"/>
+        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv" field="Z Zeroed Raw" start="0" count="-1" skip="-1" doAve="false" initialVNum="10" initialXNum="109"/>
+        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv" field="X Raw Acc" start="0" count="-1" skip="-1" doAve="false" initialVNum="11" initialXNum="121"/>
+        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv" field="Y Raw Acc" start="0" count="-1" skip="-1" doAve="false" initialVNum="12" initialXNum="133"/>
+        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv" field="Z Raw Acc" start="0" count="-1" skip="-1" doAve="false" initialVNum="13" initialXNum="145"/>
+        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv" field="X Avg Raw Acc" start="0" count="-1" skip="-1" doAve="false" initialVNum="14" initialXNum="157"/>
+        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv" field="Y Avg Raw Acc" start="0" count="-1" skip="-1" doAve="false" initialVNum="15" initialXNum="169"/>
+        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv" field="Z Avg Raw Acc" start="0" count="-1" skip="-1" doAve="false" initialVNum="16" initialXNum="181"/>
+        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv" field="X Zeroed/Rot Acc" start="0" count="-1" skip="-1" doAve="false" initialVNum="20" initialXNum="229"/>
+        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv" field="Y Zeroed/Rot Acc" start="0" count="-1" skip="-1" doAve="false" initialVNum="21" initialXNum="241"/>
+        <datavector file="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints/raw_phidget.csv" fileRelative="raw_phidget.csv" field="Z Zeroed/Rot Acc" start="0" count="-1" skip="-1" doAve="false" initialVNum="22" initialXNum="253"/>
+        <string value="2013-01-13 20:10:52" initialTNum="1"/>
+        <string value="2013-01-13 20:10:52" initialTNum="2"/>
         <string value="raw_phidget.csv" initialTNum="3"/>
         <string value="/Users/vptarmigan/Documents/umkc-robotics-2012-odometry/dataPoints" initialTNum="4"/>
     </variables>
@@ -26,28 +32,145 @@
         <curve xvector="INDEX (V1)" yvector="X Raw Gyro (V2)" color="#0000ff" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="0" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="0" initialCNum="1"/>
         <curve xvector="INDEX (V1)" yvector="Y Raw Gyro (V3)" color="#008000" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="1" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="17" initialCNum="2"/>
         <curve xvector="INDEX (V1)" yvector="Z Raw Gyro (V4)" color="#000000" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="2" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="0" initialCNum="3"/>
-        <curve xvector="INDEX (V1)" yvector="X Avg Raw Gyro (V5)" color="#ff00ff" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="3" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="0" initialCNum="4"/>
-        <curve xvector="INDEX (V1)" yvector="Y Avg Raw Gyro (V6)" color="#4682b4" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="4" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="0" initialCNum="5"/>
-        <curve xvector="INDEX (V1)" yvector="Z Avg Raw Gyro (V7)" color="#501010" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="5" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="0" initialCNum="6"/>
         <curve xvector="INDEX (V1)" yvector="X Zeroed Raw (V8)" color="#105010" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="6" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="0" initialCNum="7"/>
         <curve xvector="INDEX (V1)" yvector="Y Zeroed Raw (V9)" color="#aa0000" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="7" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="0" initialCNum="8"/>
         <curve xvector="INDEX (V1)" yvector="Z Zeroed Raw (V10)" color="#0000aa" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="8" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="0" initialCNum="9"/>
+        <curve xvector="INDEX (V1)" yvector="X Raw Acc (V11)" color="#0000ff" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="0" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="0" initialCNum="10"/>
+        <curve xvector="INDEX (V1)" yvector="Y Raw Acc (V12)" color="#008000" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="1" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="16" initialCNum="11"/>
+        <curve xvector="INDEX (V1)" yvector="Z Raw Acc (V13)" color="#000000" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="2" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="-1" initialCNum="12"/>
+        <curve xvector="INDEX (V1)" yvector="X Avg Raw Acc (V14)" color="#ff00ff" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="3" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="0" initialCNum="13"/>
+        <curve xvector="INDEX (V1)" yvector="Y Avg Raw Acc (V15)" color="#4682b4" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="4" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="0" initialCNum="14"/>
+        <curve xvector="INDEX (V1)" yvector="Z Avg Raw Acc (V16)" color="#501010" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="5" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="0" initialCNum="15"/>
+        <curve xvector="INDEX (V1)" yvector="X Zeroed/Rot Acc (V20)" color="#005500" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="0" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="0" initialCNum="19"/>
+        <curve xvector="INDEX (V1)" yvector="Y Zeroed/Rot Acc (V21)" color="#000000" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="1" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="253231107" initialCNum="20"/>
+        <curve xvector="INDEX (V1)" yvector="Z Zeroed/Rot Acc (V22)" color="#aa00aa" headcolor="#000000" barfillcolor="#000000" haslines="true" linewidth="1" linestyle="0" haspoints="false" pointtype="2" pointdensity="0" hasbars="false" ignoreautoscale="false" hashead="false" headtype="0" initialCNum="21"/>
     </relations>
     <graphics>
-        <view name="View &amp;1" width="1433" height="759" color="#f9fff2" style="1">
-            <plot tiedxzoom="false" tiedyzoom="false" leftlabelvisible="true" bottomlabelvisible="true" rightlabelvisible="true" toplabelvisible="true" globalfont="Lucida Grande,12,-1,5,50,0,0,0,0,0" globalfontscale="10" globalfontcolor="#000000" showlegend="true" hidebottomaxislabel="false" hidetopaxislabel="false" hideleftaxislabel="false" hiderightaxislabel="false" initialPlotNum="5" name="Plot">
-                <position x="716.5698" y="630.496" z="500"/>
-                <rect x="-713.4867" y="-125.514" width="1426.9734" height="251.028"/>
-                <relativesize width="0.9951" height="0.3303" centerx="0.4997" centery="0.8296" posx="0.00214999999999996" posy="0.66445" leftx="0.00214999999999996" lefty="0.99475" rightx="0.99725" righty="0.99475" fixaspect="false" lockpostodata="false"/>
+        <view name="View &amp;1" width="1433" height="749" color="#f9fff2" style="1">
+            <plot tiedxzoom="true" tiedyzoom="true" leftlabelvisible="true" bottomlabelvisible="true" rightlabelvisible="true" toplabelvisible="true" globalfont="Lucida Grande,12,-1,5,50,0,0,0,0,0" globalfontscale="10" globalfontcolor="#000000" showlegend="true" hidebottomaxislabel="false" hidetopaxislabel="false" hideleftaxislabel="false" hiderightaxislabel="false" initialPlotNum="10" name="Plot">
+                <position x="1073.2056" y="622.2" z="500"/>
+                <rect x="-356.7792" y="-123.8625" width="713.5584" height="247.725"/>
+                <relativesize width="0.4976" height="0.3303" centerx="0.7484" centery="0.8296" posx="0.4996" posy="0.66445" leftx="0.4996" lefty="0.99475" rightx="0.9972" righty="0.99475" fixaspect="false" lockpostodata="false"/>
                 <transform m11="1" m12="0" m13="0" m21="0" m22="1" m23="0" m31="0" m32="0" m33="1"/>
                 <pen style="1" width="0" miterlimit="2" cap="16" joinStyle="64">
                     <brush color="#000000" style="1"/>
                 </pen>
                 <brush color="#f9fff2" style="1"/>
                 <legend auto="true" title="" font="Lucida Grande,6,-1,5,50,0,0,0,0,0" fontscale="6" color="#000000" verticaldisplay="true" name="Legend">
-                    <position x="-606.626342013608" y="-38.2927134533898" z="500"/>
-                    <rect x="0" y="0" width="119" height="32"/>
-                    <relativesize width="0.0889363282405203" height="0.172946797241499" centerx="0.0713156186514817" centery="0.449776717829789" posx="0.0268474545312215" posy="0.36330331920904" leftx="0.0268474545312215" lefty="0.536250116450538" rightx="0.115783782771742" righty="0.536250116450538" fixaspect="false" lockpostodata="false"/>
+                    <position x="259.24979805473" y="34.0751351351351" z="500"/>
+                    <rect x="-61.5" y="-23.5" width="138" height="47"/>
+                    <relativesize width="0.22644564313865" height="0.258632549181456" centerx="0.88180620109863" centery="0.759046004320457" posx="0.768583379529305" posy="0.62972972972973" leftx="0.768583379529305" lefty="0.888362278911185" rightx="0.995029022667955" righty="0.888362278911185" fixaspect="false" lockpostodata="false"/>
+                    <transform m11="1" m12="0" m13="0" m21="0" m22="1" m23="0" m31="0" m32="0" m33="1"/>
+                    <pen style="1" width="0" miterlimit="2" cap="16" joinStyle="64">
+                        <brush color="#000000" style="1"/>
+                    </pen>
+                    <brush color="#f9fff2" style="1"/>
+                </legend>
+                <cartesianrender name="Cartesian Plot" type="1">
+                    <relation tag="Z Raw Acc vs INDEX (C12)"/>
+                    <relation tag="Z Avg Raw Acc vs INDEX (C15)"/>
+                    <relation tag="Z Zeroed/Rot Acc vs INDEX (C21)"/>
+                </cartesianrender>
+                <plotaxis id="xaxis" visible="true" log="false" reversed="false" autobaseoffset="true" baseoffset="false" interpret="false" interpretation="1" display="4" majortickmode="5" minortickcount="5" autominortickcount="true" drawmajorticks="true" drawminorticks="true" drawmajorgridlines="true" drawminorgridlines="false" drawmajorgridlinecolor="#a0a0a4" drawminorgridlinecolor="#a0a0a4" drawmajorgridlinestyle="2" drawminorgridlinestyle="2" drawmajorgridlinewidth="1" drawminorgridlinewidth="1" significantdigits="9" rotation="0" zoommode="0" timezonename="GMT" timezoneoffset="0">
+                    <plotmarkers xaxis="true" linecolor="#000000" linestyle="1" linewidth="1" curvemode="0"/>
+                </plotaxis>
+                <plotaxis id="yaxis" visible="true" log="false" reversed="false" autobaseoffset="true" baseoffset="false" interpret="false" interpretation="1" display="4" majortickmode="5" minortickcount="5" autominortickcount="true" drawmajorticks="true" drawminorticks="true" drawmajorgridlines="true" drawminorgridlines="false" drawmajorgridlinecolor="#a0a0a4" drawminorgridlinecolor="#a0a0a4" drawmajorgridlinestyle="2" drawminorgridlinestyle="2" drawmajorgridlinewidth="1" drawminorgridlinewidth="1" significantdigits="9" rotation="0" zoommode="1" timezonename="GMT" timezoneoffset="0">
+                    <plotmarkers xaxis="false" linecolor="#000000" linestyle="1" linewidth="1" curvemode="0"/>
+                </plotaxis>
+                <plotlabel id="leftlabel" visible="true" overridetext="G's" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="rightlabel" visible="true" overridetext="" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="toplabel" visible="true" overridetext="Raw v Zeroed/Rotated Acc data, Z axis" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="bottomlabel" visible="true" overridetext="INDEX" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="numberlabel" visible="true" overridetext="" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
+                <projectionrect x="0" y="-0.03300392375" width="1949" height="1.0682688975"/>
+            </plot>
+            <plot tiedxzoom="true" tiedyzoom="true" leftlabelvisible="true" bottomlabelvisible="true" rightlabelvisible="true" toplabelvisible="true" globalfont="Lucida Grande,12,-1,5,50,0,0,0,0,0" globalfontscale="10" globalfontcolor="#000000" showlegend="true" hidebottomaxislabel="false" hidetopaxislabel="false" hideleftaxislabel="false" hiderightaxislabel="false" initialPlotNum="9" name="Plot">
+                <position x="1073.2056" y="374.475" z="500"/>
+                <rect x="-356.7792" y="-123.8625" width="713.5584" height="247.725"/>
+                <relativesize width="0.4976" height="0.3303" centerx="0.7484" centery="0.4993" posx="0.4996" posy="0.33415" leftx="0.4996" lefty="0.66445" rightx="0.9972" righty="0.66445" fixaspect="false" lockpostodata="false"/>
+                <transform m11="1" m12="0" m13="0" m21="0" m22="1" m23="0" m31="0" m32="0" m33="1"/>
+                <pen style="1" width="0" miterlimit="2" cap="16" joinStyle="64">
+                    <brush color="#000000" style="1"/>
+                </pen>
+                <brush color="#f9fff2" style="1"/>
+                <legend auto="true" title="" font="Lucida Grande,6,-1,5,50,0,0,0,0,0" fontscale="6" color="#000000" verticaldisplay="true" name="Legend">
+                    <position x="-249.560691065329" y="-87.4721787185078" z="500"/>
+                    <rect x="0" y="0" width="138" height="47"/>
+                    <relativesize width="0.22644564313865" height="0.258632549181456" centerx="0.147809741740254" centery="0.2195092655468" posx="0.0345869201709296" posy="0.0901929909560723" leftx="0.0345869201709296" lefty="0.348825540137528" rightx="0.261032563309579" righty="0.348825540137528" fixaspect="false" lockpostodata="false"/>
+                    <transform m11="1" m12="0" m13="0" m21="0" m22="1" m23="0" m31="0" m32="0" m33="1"/>
+                    <pen style="1" width="0" miterlimit="2" cap="16" joinStyle="64">
+                        <brush color="#000000" style="1"/>
+                    </pen>
+                    <brush color="#f9fff2" style="1"/>
+                </legend>
+                <cartesianrender name="Cartesian Plot" type="1">
+                    <relation tag="Y Raw Acc vs INDEX (C11)"/>
+                    <relation tag="Y Avg Raw Acc vs INDEX (C14)"/>
+                    <relation tag="Y Zeroed/Rot Acc vs INDEX (C20)"/>
+                </cartesianrender>
+                <plotaxis id="xaxis" visible="true" log="false" reversed="false" autobaseoffset="true" baseoffset="false" interpret="false" interpretation="1" display="4" majortickmode="5" minortickcount="5" autominortickcount="true" drawmajorticks="true" drawminorticks="true" drawmajorgridlines="true" drawminorgridlines="false" drawmajorgridlinecolor="#a0a0a4" drawminorgridlinecolor="#a0a0a4" drawmajorgridlinestyle="2" drawminorgridlinestyle="2" drawmajorgridlinewidth="1" drawminorgridlinewidth="1" significantdigits="9" rotation="0" zoommode="0" timezonename="GMT" timezoneoffset="0">
+                    <plotmarkers xaxis="true" linecolor="#000000" linestyle="1" linewidth="1" curvemode="0"/>
+                </plotaxis>
+                <plotaxis id="yaxis" visible="true" log="false" reversed="false" autobaseoffset="true" baseoffset="false" interpret="false" interpretation="1" display="4" majortickmode="5" minortickcount="5" autominortickcount="true" drawmajorticks="true" drawminorticks="true" drawmajorgridlines="true" drawminorgridlines="false" drawmajorgridlinecolor="#a0a0a4" drawminorgridlinecolor="#a0a0a4" drawmajorgridlinestyle="2" drawminorgridlinestyle="2" drawmajorgridlinewidth="1" drawminorgridlinewidth="1" significantdigits="9" rotation="0" zoommode="1" timezonename="GMT" timezoneoffset="0">
+                    <plotmarkers xaxis="false" linecolor="#000000" linestyle="1" linewidth="1" curvemode="181873584"/>
+                </plotaxis>
+                <plotlabel id="leftlabel" visible="true" overridetext="G's" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="rightlabel" visible="true" overridetext="" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="toplabel" visible="true" overridetext="Raw v Zeroed/Rotated Acc data, Y axis" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="bottomlabel" visible="true" overridetext="INDEX" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="numberlabel" visible="true" overridetext="" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
+                <projectionrect x="0" y="-0.020198425" width="1949" height="0.01181985"/>
+            </plot>
+            <plot tiedxzoom="true" tiedyzoom="true" leftlabelvisible="true" bottomlabelvisible="true" rightlabelvisible="true" toplabelvisible="true" globalfont="Lucida Grande,12,-1,5,50,0,0,0,0,0" globalfontscale="10" globalfontcolor="#000000" showlegend="true" hidebottomaxislabel="false" hidetopaxislabel="false" hideleftaxislabel="false" hiderightaxislabel="false" initialPlotNum="8" name="Plot">
+                <position x="1073.2056" y="126.825" z="500"/>
+                <rect x="-356.7792" y="-123.8625" width="713.5584" height="247.725"/>
+                <relativesize width="0.4976" height="0.3303" centerx="0.7484" centery="0.1691" posx="0.4996" posy="0.00395000000000001" leftx="0.4996" lefty="0.33425" rightx="0.9972" righty="0.33425" fixaspect="false" lockpostodata="false"/>
+                <transform m11="1" m12="0" m13="0" m21="0" m22="1" m23="0" m31="0" m32="0" m33="1"/>
+                <pen style="1" width="0" miterlimit="2" cap="16" joinStyle="64">
+                    <brush color="#000000" style="1"/>
+                </pen>
+                <brush color="#f9fff2" style="1"/>
+                <legend auto="true" title="" font="Lucida Grande,6,-1,5,50,0,0,0,0,0" fontscale="6" color="#000000" verticaldisplay="true" name="Legend">
+                    <position x="-251.631284903191" y="-80.9685374177631" z="500"/>
+                    <rect x="0" y="0" width="138" height="47"/>
+                    <relativesize width="0.22644564313865" height="0.258632549181456" centerx="0.144412082658418" centery="0.255297634239851" posx="0.0311892610890929" posy="0.125981359649123" leftx="0.0311892610890929" lefty="0.384613908830578" rightx="0.257634904227743" righty="0.384613908830578" fixaspect="false" lockpostodata="false"/>
+                    <transform m11="1" m12="0" m13="0" m21="0" m22="1" m23="0" m31="0" m32="0" m33="1"/>
+                    <pen style="1" width="0" miterlimit="2" cap="16" joinStyle="64">
+                        <brush color="#000000" style="1"/>
+                    </pen>
+                    <brush color="#f9fff2" style="1"/>
+                </legend>
+                <cartesianrender name="Cartesian Plot" type="1">
+                    <relation tag="X Raw Acc vs INDEX (C10)"/>
+                    <relation tag="X Avg Raw Acc vs INDEX (C13)"/>
+                    <relation tag="X Zeroed/Rot Acc vs INDEX (C19)"/>
+                </cartesianrender>
+                <plotaxis id="xaxis" visible="true" log="false" reversed="false" autobaseoffset="true" baseoffset="false" interpret="false" interpretation="1" display="4" majortickmode="5" minortickcount="5" autominortickcount="true" drawmajorticks="true" drawminorticks="true" drawmajorgridlines="true" drawminorgridlines="false" drawmajorgridlinecolor="#a0a0a4" drawminorgridlinecolor="#a0a0a4" drawmajorgridlinestyle="2" drawminorgridlinestyle="2" drawmajorgridlinewidth="1" drawminorgridlinewidth="1" significantdigits="9" rotation="0" zoommode="0" timezonename="GMT" timezoneoffset="0">
+                    <plotmarkers xaxis="true" linecolor="#000000" linestyle="1" linewidth="1" curvemode="0"/>
+                </plotaxis>
+                <plotaxis id="yaxis" visible="true" log="false" reversed="false" autobaseoffset="true" baseoffset="false" interpret="false" interpretation="1" display="4" majortickmode="5" minortickcount="5" autominortickcount="true" drawmajorticks="true" drawminorticks="true" drawmajorgridlines="true" drawminorgridlines="false" drawmajorgridlinecolor="#a0a0a4" drawminorgridlinecolor="#a0a0a4" drawmajorgridlinestyle="2" drawminorgridlinestyle="2" drawmajorgridlinewidth="1" drawminorgridlinewidth="1" significantdigits="9" rotation="0" zoommode="1" timezonename="GMT" timezoneoffset="0">
+                    <plotmarkers xaxis="false" linecolor="#000000" linestyle="1" linewidth="1" curvemode="0"/>
+                </plotaxis>
+                <plotlabel id="leftlabel" visible="true" overridetext="G" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="rightlabel" visible="true" overridetext="" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="toplabel" visible="true" overridetext="Raw v Zeroed/Rotated Acc data, X axis" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="bottomlabel" visible="true" overridetext="INDEX" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="numberlabel" visible="true" overridetext="" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
+                <projectionrect x="0" y="0.007695735" width="1949" height="0.03014193"/>
+            </plot>
+            <plot tiedxzoom="true" tiedyzoom="true" leftlabelvisible="true" bottomlabelvisible="true" rightlabelvisible="true" toplabelvisible="true" globalfont="Lucida Grande,12,-1,5,50,0,0,0,0,0" globalfontscale="7.77964473009227" globalfontcolor="#000000" showlegend="true" hidebottomaxislabel="false" hidetopaxislabel="false" hideleftaxislabel="false" hiderightaxislabel="false" initialPlotNum="5" name="Plot">
+                <position x="2.99790794979079" y="497.690789473684" z="500"/>
+                <rect x="0" y="0" width="713.002440725244" height="247.367105263158"/>
+                <relativesize width="0.497559274755927" height="0.330263157894737" centerx="0.250871687587169" centery="0.829605263157895" posx="0.00209205020920502" posy="0.664473684210526" leftx="0.00209205020920502" lefty="0.994736842105263" rightx="0.499651324965132" righty="0.994736842105263" fixaspect="false" lockpostodata="false"/>
+                <transform m11="1" m12="0" m13="0" m21="0" m22="1" m23="0" m31="0" m32="0" m33="1"/>
+                <pen style="1" width="0" miterlimit="2" cap="16" joinStyle="64">
+                    <brush color="#000000" style="1"/>
+                </pen>
+                <brush color="#f9fff2" style="1"/>
+                <legend auto="true" title="" font="Lucida Grande,6,-1,5,50,0,0,0,0,0" fontscale="4.66778683805536" color="#000000" verticaldisplay="true" name="Legend">
+                    <position x="102.487014913481" y="85.8912713374408" z="500"/>
+                    <rect x="0" y="0" width="95" height="26"/>
+                    <relativesize width="0.156028835355426" height="0.143355654060172" centerx="0.104861872208935" centery="0.434981146239127" posx="0.0268474545312216" posy="0.363303319209041" leftx="0.0268474545312216" lefty="0.506658973269213" rightx="0.182876289886648" righty="0.506658973269213" fixaspect="false" lockpostodata="false"/>
                     <transform m11="1" m12="0" m13="0" m21="0" m22="1" m23="0" m31="0" m32="0" m33="1"/>
                     <pen style="1" width="0" miterlimit="2" cap="16" joinStyle="64">
                         <brush color="#000000" style="1"/>
@@ -61,29 +184,29 @@
                 <plotaxis id="xaxis" visible="true" log="false" reversed="false" autobaseoffset="true" baseoffset="false" interpret="false" interpretation="1" display="4" majortickmode="5" minortickcount="5" autominortickcount="true" drawmajorticks="true" drawminorticks="true" drawmajorgridlines="true" drawminorgridlines="false" drawmajorgridlinecolor="#a0a0a4" drawminorgridlinecolor="#a0a0a4" drawmajorgridlinestyle="2" drawminorgridlinestyle="2" drawmajorgridlinewidth="1" drawminorgridlinewidth="1" significantdigits="9" rotation="0" zoommode="0" timezonename="GMT" timezoneoffset="0">
                     <plotmarkers xaxis="true" linecolor="#000000" linestyle="1" linewidth="1" curvemode="0"/>
                 </plotaxis>
-                <plotaxis id="yaxis" visible="true" log="false" reversed="false" autobaseoffset="true" baseoffset="false" interpret="false" interpretation="1" display="4" majortickmode="5" minortickcount="5" autominortickcount="true" drawmajorticks="true" drawminorticks="true" drawmajorgridlines="true" drawminorgridlines="false" drawmajorgridlinecolor="#a0a0a4" drawminorgridlinecolor="#a0a0a4" drawmajorgridlinestyle="2" drawminorgridlinestyle="2" drawmajorgridlinewidth="1" drawminorgridlinewidth="1" significantdigits="9" rotation="0" zoommode="0" timezonename="GMT" timezoneoffset="0">
+                <plotaxis id="yaxis" visible="true" log="false" reversed="false" autobaseoffset="true" baseoffset="false" interpret="false" interpretation="1" display="4" majortickmode="5" minortickcount="5" autominortickcount="true" drawmajorticks="true" drawminorticks="true" drawmajorgridlines="true" drawminorgridlines="false" drawmajorgridlinecolor="#a0a0a4" drawminorgridlinecolor="#a0a0a4" drawmajorgridlinestyle="2" drawminorgridlinestyle="2" drawmajorgridlinewidth="1" drawminorgridlinewidth="1" significantdigits="9" rotation="0" zoommode="1" timezonename="GMT" timezoneoffset="0">
                     <plotmarkers xaxis="false" linecolor="#000000" linestyle="1" linewidth="1" curvemode="0"/>
                 </plotaxis>
-                <plotlabel id="leftlabel" visible="true" overridetext="Deg/S" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
-                <plotlabel id="rightlabel" visible="true" overridetext="" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
-                <plotlabel id="toplabel" visible="true" overridetext="Raw VS Zeroed gyro data, Z axis" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
-                <plotlabel id="bottomlabel" visible="true" overridetext="INDEX" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
-                <plotlabel id="numberlabel" visible="true" overridetext="" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
-                <projectionrect x="0" y="-0.64754" width="834" height="0.933135"/>
+                <plotlabel id="leftlabel" visible="true" overridetext="Deg/S" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="7.77964473009227" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="rightlabel" visible="true" overridetext="" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="7.77964473009227" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="toplabel" visible="true" overridetext="Raw VS Zeroed gyro data, Z axis" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="7.77964473009227" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="bottomlabel" visible="true" overridetext="INDEX" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="7.77964473009227" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="numberlabel" visible="true" overridetext="" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="7.77964473009227" fontcolor="#000000" fontuseglobal="true"/>
+                <projectionrect x="0" y="-0.66686075" width="1949" height="0.9521715"/>
             </plot>
-            <plot tiedxzoom="false" tiedyzoom="false" leftlabelvisible="true" bottomlabelvisible="true" rightlabelvisible="true" toplabelvisible="true" globalfont="Lucida Grande,12,-1,5,50,0,0,0,0,0" globalfontscale="10" globalfontcolor="#000000" showlegend="true" hidebottomaxislabel="false" hidetopaxislabel="false" hideleftaxislabel="false" hiderightaxislabel="false" initialPlotNum="2" name="Plot">
-                <position x="719" y="125" z="500"/>
-                <rect x="-713.5" y="-125.5" width="1427" height="251"/>
-                <relativesize width="0.995118549511855" height="0.330263157894737" centerx="0.50139470013947" centery="0.164473684210526" posx="0.00383542538354254" posy="-0.000657894736842124" leftx="0.00383542538354254" lefty="0.329605263157895" rightx="0.998953974895398" righty="0.329605263157895" fixaspect="false" lockpostodata="false"/>
+            <plot tiedxzoom="true" tiedyzoom="true" leftlabelvisible="true" bottomlabelvisible="true" rightlabelvisible="true" toplabelvisible="true" globalfont="Lucida Grande,12,-1,5,50,0,0,0,0,0" globalfontscale="7.77964473009227" globalfontcolor="#000000" showlegend="true" hidebottomaxislabel="false" hidetopaxislabel="false" hideleftaxislabel="false" hiderightaxislabel="false" initialPlotNum="2" name="Plot">
+                <position x="2.99790794979079" y="2.95657894736842" z="500"/>
+                <rect x="0" y="0" width="713.002440725244" height="247.367105263158"/>
+                <relativesize width="0.497559274755927" height="0.330263157894737" centerx="0.250871687587169" centery="0.169078947368421" posx="0.00209205020920502" posy="0.00394736842105263" leftx="0.00209205020920502" lefty="0.334210526315789" rightx="0.499651324965132" righty="0.334210526315789" fixaspect="false" lockpostodata="false"/>
                 <transform m11="1" m12="0" m13="0" m21="0" m22="1" m23="0" m31="0" m32="0" m33="1"/>
                 <pen style="1" width="0" miterlimit="2" cap="16" joinStyle="64">
                     <brush color="#000000" style="1"/>
                 </pen>
                 <brush color="#f9fff2" style="1"/>
-                <legend auto="true" title="" font="Lucida Grande,6,-1,5,50,0,0,0,0,0" fontscale="6" color="#000000" verticaldisplay="true" name="Legend">
-                    <position x="-603.350508150638" y="-74.0170234188544" z="500"/>
-                    <rect x="0" y="0" width="119" height="32"/>
-                    <relativesize width="0.0889345602316783" height="0.172972972972973" centerx="0.0737723326446722" centery="0.256664738276463" posx="0.029305052528833" posy="0.170178251789976" leftx="0.029305052528833" lefty="0.343151224762949" rightx="0.118239612760511" righty="0.343151224762949" fixaspect="false" lockpostodata="false"/>
+                <legend auto="true" title="" font="Lucida Grande,6,-1,5,50,0,0,0,0,0" fontscale="4.66778683805536" color="#000000" verticaldisplay="true" name="Legend">
+                    <position x="103.983352492629" y="50.8647369058928" z="500"/>
+                    <rect x="0" y="0" width="96" height="26"/>
+                    <relativesize width="0.157671244148641" height="0.143355654060172" centerx="0.108140674603154" centery="0.241856078820062" posx="0.0293050525288329" posy="0.170178251789976" leftx="0.0293050525288329" lefty="0.313533905850148" rightx="0.186976296677474" righty="0.313533905850148" fixaspect="false" lockpostodata="false"/>
                     <transform m11="1" m12="0" m13="0" m21="0" m22="1" m23="0" m31="0" m32="0" m33="1"/>
                     <pen style="1" width="0" miterlimit="2" cap="16" joinStyle="64">
                         <brush color="#000000" style="1"/>
@@ -100,26 +223,26 @@
                 <plotaxis id="yaxis" visible="true" log="false" reversed="false" autobaseoffset="true" baseoffset="false" interpret="false" interpretation="1" display="4" majortickmode="5" minortickcount="5" autominortickcount="true" drawmajorticks="true" drawminorticks="true" drawmajorgridlines="true" drawminorgridlines="false" drawmajorgridlinecolor="#a0a0a4" drawminorgridlinecolor="#a0a0a4" drawmajorgridlinestyle="2" drawminorgridlinestyle="2" drawmajorgridlinewidth="1" drawminorgridlinewidth="1" significantdigits="9" rotation="0" zoommode="1" timezonename="GMT" timezoneoffset="0">
                     <plotmarkers xaxis="false" linecolor="#000000" linestyle="1" linewidth="1" curvemode="277816505"/>
                 </plotaxis>
-                <plotlabel id="leftlabel" visible="true" overridetext="Deg/S" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
-                <plotlabel id="rightlabel" visible="true" overridetext="" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
-                <plotlabel id="toplabel" visible="true" overridetext="Raw VS zeroed gyro data, X axis" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
-                <plotlabel id="bottomlabel" visible="true" overridetext="INDEX" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
-                <plotlabel id="numberlabel" visible="true" overridetext="" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
-                <projectionrect x="0" y="-63.9203265" width="834" height="2644.893993"/>
+                <plotlabel id="leftlabel" visible="true" overridetext="Deg/S" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="7.77964473009227" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="rightlabel" visible="true" overridetext="" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="7.77964473009227" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="toplabel" visible="true" overridetext="Raw VS zeroed gyro data, X axis" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="7.77964473009227" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="bottomlabel" visible="true" overridetext="INDEX" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="7.77964473009227" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="numberlabel" visible="true" overridetext="" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="7.77964473009227" fontcolor="#000000" fontuseglobal="true"/>
+                <projectionrect x="0" y="-1.325267825" width="1949" height="1.94366865"/>
             </plot>
-            <plot tiedxzoom="false" tiedyzoom="false" leftlabelvisible="true" bottomlabelvisible="true" rightlabelvisible="true" toplabelvisible="true" globalfont="Lucida Grande,12,-1,5,50,0,0,0,0,0" globalfontscale="10" globalfontcolor="#000000" showlegend="true" hidebottomaxislabel="false" hidetopaxislabel="false" hideleftaxislabel="false" hiderightaxislabel="false" initialPlotNum="3" name="Plot">
-                <position x="3" y="254" z="500"/>
-                <rect x="0" y="0" width="1427" height="251"/>
-                <relativesize width="0.995118549511855" height="0.330263157894737" centerx="0.499651324965132" centery="0.499342105263158" posx="0.00209205020920502" posy="0.334210526315789" leftx="0.00209205020920502" lefty="0.664473684210526" rightx="0.99721059972106" righty="0.664473684210526" fixaspect="false" lockpostodata="false"/>
+            <plot tiedxzoom="true" tiedyzoom="true" leftlabelvisible="true" bottomlabelvisible="true" rightlabelvisible="true" toplabelvisible="true" globalfont="Lucida Grande,12,-1,5,50,0,0,0,0,0" globalfontscale="7.77964473009227" globalfontcolor="#000000" showlegend="true" hidebottomaxislabel="false" hidetopaxislabel="false" hideleftaxislabel="false" hiderightaxislabel="false" initialPlotNum="3" name="Plot">
+                <position x="2.99790794979079" y="250.323684210526" z="500"/>
+                <rect x="0" y="0" width="713.002440725244" height="247.367105263158"/>
+                <relativesize width="0.497559274755927" height="0.330263157894737" centerx="0.250871687587169" centery="0.499342105263158" posx="0.00209205020920502" posy="0.334210526315789" leftx="0.00209205020920502" lefty="0.664473684210526" rightx="0.499651324965132" righty="0.664473684210526" fixaspect="false" lockpostodata="false"/>
                 <transform m11="1" m12="0" m13="0" m21="0" m22="1" m23="0" m31="0" m32="0" m33="1"/>
                 <pen style="1" width="0" miterlimit="2" cap="16" joinStyle="64">
                     <brush color="#000000" style="1"/>
                 </pen>
                 <brush color="#f9fff2" style="1"/>
-                <legend auto="true" title="" font="Lucida Grande,6,-1,5,50,0,0,0,0,0" fontscale="6" color="#000000" verticaldisplay="true" name="Legend">
-                    <position x="110.643730904867" y="49.3606800629291" z="500"/>
-                    <rect x="0" y="0" width="119" height="32"/>
-                    <relativesize width="0.0889345602316783" height="0.172972972972973" centerx="0.074141701829972" centery="0.245192865205022" posx="0.0296744217141329" posy="0.158706378718535" leftx="0.0296744217141329" lefty="0.331679351691508" rightx="0.118608981945811" righty="0.331679351691508" fixaspect="false" lockpostodata="false"/>
+                <legend auto="true" title="" font="Lucida Grande,6,-1,5,50,0,0,0,0,0" fontscale="4.66778683805536" color="#000000" verticaldisplay="true" name="Legend">
+                    <position x="104.208247285464" y="48.7841164949791" z="500"/>
+                    <rect x="0" y="0" width="96" height="26"/>
+                    <relativesize width="0.157671244148641" height="0.143355654060172" centerx="0.108510043788453" centery="0.230384205748621" posx="0.0296744217141328" posy="0.158706378718535" leftx="0.0296744217141328" lefty="0.302062032778706" rightx="0.187345665862774" righty="0.302062032778706" fixaspect="false" lockpostodata="false"/>
                     <transform m11="1" m12="0" m13="0" m21="0" m22="1" m23="0" m31="0" m32="0" m33="1"/>
                     <pen style="1" width="0" miterlimit="2" cap="16" joinStyle="64">
                         <brush color="#000000" style="1"/>
@@ -133,16 +256,17 @@
                 <plotaxis id="xaxis" visible="true" log="false" reversed="false" autobaseoffset="true" baseoffset="false" interpret="false" interpretation="1" display="4" majortickmode="5" minortickcount="5" autominortickcount="true" drawmajorticks="true" drawminorticks="true" drawmajorgridlines="true" drawminorgridlines="false" drawmajorgridlinecolor="#a0a0a4" drawminorgridlinecolor="#a0a0a4" drawmajorgridlinestyle="2" drawminorgridlinestyle="2" drawmajorgridlinewidth="1" drawminorgridlinewidth="1" significantdigits="9" rotation="0" zoommode="0" timezonename="GMT" timezoneoffset="0">
                     <plotmarkers xaxis="true" linecolor="#000000" linestyle="1" linewidth="1" curvemode="0"/>
                 </plotaxis>
-                <plotaxis id="yaxis" visible="true" log="false" reversed="false" autobaseoffset="true" baseoffset="false" interpret="false" interpretation="1" display="4" majortickmode="5" minortickcount="5" autominortickcount="true" drawmajorticks="true" drawminorticks="true" drawmajorgridlines="true" drawminorgridlines="false" drawmajorgridlinecolor="#a0a0a4" drawminorgridlinecolor="#a0a0a4" drawmajorgridlinestyle="2" drawminorgridlinestyle="2" drawmajorgridlinewidth="1" drawminorgridlinewidth="1" significantdigits="9" rotation="0" zoommode="0" timezonename="GMT" timezoneoffset="0">
+                <plotaxis id="yaxis" visible="true" log="false" reversed="false" autobaseoffset="true" baseoffset="false" interpret="false" interpretation="1" display="4" majortickmode="5" minortickcount="5" autominortickcount="true" drawmajorticks="true" drawminorticks="true" drawmajorgridlines="true" drawminorgridlines="false" drawmajorgridlinecolor="#a0a0a4" drawminorgridlinecolor="#a0a0a4" drawmajorgridlinestyle="2" drawminorgridlinestyle="2" drawmajorgridlinewidth="1" drawminorgridlinewidth="1" significantdigits="9" rotation="0" zoommode="1" timezonename="GMT" timezoneoffset="0">
                     <plotmarkers xaxis="false" linecolor="#000000" linestyle="1" linewidth="1" curvemode="0"/>
                 </plotaxis>
-                <plotlabel id="leftlabel" visible="true" overridetext="Deg/S" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
-                <plotlabel id="rightlabel" visible="true" overridetext="" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
-                <plotlabel id="toplabel" visible="true" overridetext="Raw VS Zero gyro data, Y axis" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
-                <plotlabel id="bottomlabel" visible="true" overridetext="INDEX" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
-                <plotlabel id="numberlabel" visible="true" overridetext="" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="10" fontcolor="#000000" fontuseglobal="true"/>
-                <projectionrect x="0" y="-0.313059" width="834" height="0.675609"/>
+                <plotlabel id="leftlabel" visible="true" overridetext="Deg/S" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="7.77964473009227" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="rightlabel" visible="true" overridetext="" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="7.77964473009227" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="toplabel" visible="true" overridetext="Raw VS Zero gyro data, Y axis" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="7.77964473009227" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="bottomlabel" visible="true" overridetext="INDEX" autolabel="true" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="7.77964473009227" fontcolor="#000000" fontuseglobal="true"/>
+                <plotlabel id="numberlabel" visible="true" overridetext="" autolabel="false" font="Lucida Grande,12,-1,5,50,0,0,0,0,0" fontscale="7.77964473009227" fontcolor="#000000" fontuseglobal="true"/>
+                <projectionrect x="0" y="-3.60705925" width="1949" height="8.9770485"/>
             </plot>
         </view>
+        <view name="View &amp;2" width="1433" height="749" color="#f9fff2" style="1"/>
     </graphics>
 </kst>
