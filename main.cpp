@@ -48,7 +48,7 @@ int main()	{
 			 "X Zeroed Raw, Y Zeroed Raw, Z Zeroed Raw," <<
 			 "X Raw Acc, Y Raw Acc, Z Raw Acc," << 
 			 "X Avg Raw Acc, Y Avg Raw Acc, Z Avg Raw Acc," <<
-			 "X Zeroed Acc, Y Zeroed Acc, Z Zeroed Acc" << endl;
+			 "X Zeroed/Rot Acc, Y Zeroed/Rot Acc, Z Zeroed/Rot Acc" << 	endl;
 	#endif
 
 	#ifdef DEBUG_LIVE_GRAPH_ROTATION
@@ -144,6 +144,22 @@ int main()	{
 		//-----------------------------------
 		spatial::set(newestP, *newest);	//TESTED AND WORKING TAKE 2
 
+		spatial::zeroGyro(newestP);
+
+		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
+			cout << endl << "LIVE GRAPHING raw phidget" << endl;
+			//Graphing Gyro stuff
+			for(int i =0; i< 3; i++)	{
+				foutPhidgetRaw << newest->angularRate[i]  << ","; 	
+			}
+			for(int i =0; i< 3; i++)	{
+				foutPhidgetRaw << GYRO_OFFSET[i] << ",";
+			}
+			for(int i =0; i< 3; i++)	{
+				foutPhidgetRaw << newestP.angularRate[i]  << ","; 	
+		   	}
+		#endif	
+
 		timeStamp = newestP.elapsed;
 
 		pVector about = orientation(current);
@@ -157,25 +173,14 @@ int main()	{
 			spatial::print(newestP);
 		#endif
 
-		spatial::zero(newestP);	//Zeroing of Acc must  be done AFTER rotation
+		spatial::zeroAcc(newestP);	//Zeroing of Acc (subtracting gravity) must  be done AFTER rotation???
 
 		#ifdef DEBUG_ZERO_GYRO
 			cout << endl << "After Zeroing" << endl;
 			spatial::print(newestP);
 		#endif
 		
-		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
-			cout << endl << "LIVE GRAPHING raw phidget" << endl;
-			//Graphing Gyro stuff
-			for(int i =0; i< 3; i++)	{
-				foutPhidgetRaw << newest->angularRate[i]  << ","; 	
-			}
-			for(int i =0; i< 3; i++)	{
-				foutPhidgetRaw << GYRO_OFFSET[i] << ",";
-			}
-			for(int i =0; i< 3; i++)	{
-				foutPhidgetRaw << newestP.angularRate[i]  << ","; 	
-		   	}		
+		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW	
 		   	//Graphing Acc stuff
 			for(int i =0; i< 3; i++)	{
 				foutPhidgetRaw << newest->acceleration[i]  << ","; 	
@@ -184,7 +189,7 @@ int main()	{
 				foutPhidgetRaw << ACC_OFFSET[i] << ",";
 			}
 			for(int i =0; i< 3; i++)	{
-				foutPhidgetRaw << newestP.acceleration[i]  << ","; 	
+				foutPhidgetRaw << newestP.acceleration[i]  << ",";	 	
 		   	}
 			foutPhidgetRaw << endl;
 		#endif
@@ -238,7 +243,7 @@ int main()	{
 			}
 		#endif
 		
-        filter(integQueue->at(2).acceleration, current, alpha);				
+        //filter(integQueue->at(2).acceleration, current, alpha);				
 		
 
 
