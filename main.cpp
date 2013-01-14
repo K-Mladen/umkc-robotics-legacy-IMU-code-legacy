@@ -143,8 +143,18 @@ int main()	{
 		//Convert data to pVector, rotate to initial reference frame
 		//-----------------------------------
 		spatial::set(newestP, *newest);	//TESTED AND WORKING TAKE 2
+		
+		#ifdef DEBUG_ZERO_GYRO
+			cout << endl << "Before Zeroing" << endl;
+			spatial::print(newestP);
+		#endif
 
 		spatial::zeroGyro(newestP);
+
+		#ifdef DEBUG_ZERO_GYRO
+			cout << endl << "After Zeroing" << endl;
+			spatial::print(newestP);
+		#endif
 
 		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
 			cout << endl << "LIVE GRAPHING raw phidget" << endl;
@@ -168,17 +178,10 @@ int main()	{
 	 	newestP.angularRate = rotatePOV(newestP.angularRate, about);
 	 	newestP.magneticField = rotatePOV(newestP.magneticField, about);
 	
-		#ifdef DEBUG_ZERO_GYRO
-			cout << endl << "Before Zeroing" << endl;
-			spatial::print(newestP);
-		#endif
+
 
 		spatial::zeroAcc(newestP);	//Zeroing of Acc (subtracting gravity) must  be done AFTER rotation???
 
-		#ifdef DEBUG_ZERO_GYRO
-			cout << endl << "After Zeroing" << endl;
-			spatial::print(newestP);
-		#endif
 		
 		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW	
 		   	//Graphing Acc stuff
