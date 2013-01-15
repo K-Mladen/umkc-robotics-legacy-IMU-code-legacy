@@ -34,6 +34,7 @@ int main()	{
 	pVector delta(0,0,0);				//delta, (debugging)
 
 	int timeStamp = 0;					//time of current data event in milliSec (debugging)
+	double zeroedGyro[3];				//remember zeroed gyro, to keep track of difference
 
 	spatial::SpatialPVector newestP;	
 	//Writing out to file for live graph
@@ -43,19 +44,21 @@ int main()	{
 		fstream foutPhidgetRaw;
 		foutPhidgetRaw.open("dataPoints/raw_phidget.csv", fstream::out);
 		foutPhidgetRaw << "@ Raw Gyro and Acc data, non zeroed, avg constant, then zeroed." << endl;
-		foutPhidgetRaw << "X Raw Gyro, Y Raw Gyro, Z Raw Gyro," 
-				<< "X Avg Raw Gyro, Y Avg Raw Gyro, Z Avg Raw Gyro," << 
-			 "X Zeroed Raw, Y Zeroed Raw, Z Zeroed Raw," <<
-			 "X Raw Acc, Y Raw Acc, Z Raw Acc," << 
-			 "X Avg Raw Acc, Y Avg Raw Acc, Z Avg Raw Acc," <<
-			 "X Zeroed/Rot Acc, Y Zeroed/Rot Acc, Z Zeroed/Rot Acc" << 	endl;
+		foutPhidgetRaw << 
+			"X Raw Gyro, 		Y Raw Gyro, 	Z Raw Gyro," << 
+			"X Avg Raw Gyro, 	Y Avg Raw Gyro, Z Avg Raw Gyro," << 
+			"X Zeroed Raw, 		Y Zeroed Raw, 	Z Zeroed Raw," << 
+			"X Raw Acc, 		Y Raw Acc, 		Z Raw Acc," << 
+			"X Avg Raw Acc, 	Y Avg Raw Acc, 	Z Avg Raw Acc," <<
+			"X Zeroed/Rot Acc, 	Y Zeroed/Rot Acc, Z Zeroed/Rot Acc" << 	endl;
 	#endif
 
 	#ifdef DEBUG_LIVE_GRAPH_ROTATION
 		fstream foutRotation;
 		foutRotation.open("dataPoints/rotatedGyro.csv", fstream::out);
 		foutRotation << "@ Rotated gyro data, after zeroing." << endl;
-		foutRotation << " X rotated, Y rotated, Z rotated" << endl;
+		foutRotation << " X rotated, Y rotated, Z rotated," << 
+						"X Diff RotGy, Y Diff RotGy, Z Diff RotGy, " <<endl;
 	#endif
 
 	#ifdef DEBUG_LIVE_GRAPH_DELTA
@@ -143,18 +146,30 @@ int main()	{
 		//Convert data to pVector, rotate to initial reference frame
 		//-----------------------------------
 		spatial::set(newestP, *newest);	//TESTED AND WORKING TAKE 2
+		
+		#ifdef DEBUG_ZERO_GYRO
+			cout << endl << "Before Zeroing" << endl;
+			spatial::print(newestP);
+		#endif
 
 		spatial::zeroGyro(newestP);
 
+		#ifdef DEBUG_ZERO_GYRO
+			cout << endl << "After Zeroing" << endl;
+			spatial::print(newestP);
+		#endif
+
 		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
 			cout << endl << "LIVE GRAPHING raw phidget" << endl;
-			//Graphing Gyro stuff
+			//Graphing raw gyro
 			for(int i =0; i< 3; i++)	{
 				foutPhidgetRaw << newest->angularRate[i]  << ","; 	
 			}
+			//graphing gyro offset
 			for(int i =0; i< 3; i++)	{
 				foutPhidgetRaw << GYRO_OFFSET[i] << ",";
 			}
+			//graphing zeroed raw
 			for(int i =0; i< 3; i++)	{
 				foutPhidgetRaw << newestP.angularRate[i]  << ","; 	
 		   	}
@@ -162,23 +177,21 @@ int main()	{
 
 		timeStamp = newestP.elapsed;
 
+		//remember zeroed gyro
+		for(int i = 0; i< 3; i++)	{
+			zeroedGyro[i] = newestP.angularRate[i];
+		}
+
 		pVector about = orientation(current);
 		
 		newestP.acceleration = rotatePOV(newestP.acceleration, about);	//WORKING - currently testing
 	 	newestP.angularRate = rotatePOV(newestP.angularRate, about);
 	 	newestP.magneticField = rotatePOV(newestP.magneticField, about);
 	
-		#ifdef DEBUG_ZERO_GYRO
-			cout << endl << "Before Zeroing" << endl;
-			spatial::print(newestP);
-		#endif
+
 
 		spatial::zeroAcc(newestP);	//Zeroing of Acc (subtracting gravity) must  be done AFTER rotation???
 
-		#ifdef DEBUG_ZERO_GYRO
-			cout << endl << "After Zeroing" << endl;
-			spatial::print(newestP);
-		#endif
 		
 		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW	
 		   	//Graphing Acc stuff
@@ -196,8 +209,13 @@ int main()	{
 
 
 	 	#ifdef DEBUG_LIVE_GRAPH_ROTATION
+	 		//Graphing rotation of gyro
 	 		for(int i =0; i< 3; i++)	{
 	 			foutRotation << newestP.angularRate[i] << ","; 
+	 		}
+	 		//Graphing difference in rotation of gyro and non rotated gyro
+	 		for(int i =0; i< 3; i++)	{
+	 			foutRotation << newestP.angularRate[i] - zeroedGyro[i] << ","; 
 	 		}
 	 		foutRotation << endl;
 	 	#endif
