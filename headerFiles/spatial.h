@@ -65,6 +65,10 @@ namespace spatial	{
 	//Zeroes offset in the Gyro
 	void zeroGyro(SpatialPVector &data);
 	void zeroAcc(SpatialPVector &data);
+
+	//used for testing
+	//fakes a gyro packet of {1,0,0}
+	void fakeGyro(SpatialPVector &data, int time);
 }
 
 /*PHIDGET_SETUP_BUFFER_H*/

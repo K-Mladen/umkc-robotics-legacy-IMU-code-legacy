@@ -70,7 +70,14 @@ void spatial::set(SpatialPVector& newestP, CPhidgetSpatial_SpatialEventData &dat
 	newestP.magneticField.set(data.magneticField);
 }
 
+void spatial::fakeGyro(SpatialPVector &data, int time)	{
+	data.elapsed = time;
+	double thing[3]= {1,0,0};
+	data.acceleration.set(thing);
+	data.angularRate.set(thing);
+	data.magneticField.set(thing);
 
+}
 
 int spatial::spatial_setup(CPhidgetSpatialHandle &spatial, deque<CPhidgetSpatial_SpatialEventData>* raw, int dataRate)	{
 	//Code taken from provided example code "Spatial-simple.c"
