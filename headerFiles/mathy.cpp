@@ -19,7 +19,7 @@
 
 //pt[i] is the value of the ith element
 //ust[i] is the time (in us) at which the ith element was sampled
-double simpsonIteration(double pt[],int  ust[])
+double simpsonIteration(double pt[],int ust[])
 {
   /*microseconds to seconds*/
   double t0 = ust[0]/US_PER_SECOND,
@@ -30,12 +30,12 @@ double simpsonIteration(double pt[],int  ust[])
   if ((t1 - t0)==(t2 - t1))
   {
     /*if so, do simpsons rule normally*/
-    return ((t1-t0)/3*(pt[0] + 4*pt[1] + pt[2]));
+    return (  ((t1-t0)/3)   * (pt[0] + 4*pt[1] + pt[2]));
   } else {
     /*Otherwise, split simpsons rule into smaller parts, and add them*/
     double result0, result1;
-    result0 = (t1-t0)/3*(pt[0]+2*pt[1]);
-    result1 = (t2-t1)/3*(2*pt[1]+pt[2]);
+    result0 = ((t1-t0)/3) * (pt[0]+2*pt[1]);
+    result1 = ((t2-t1)/3) * (2*pt[1]+pt[2]);
     return (result0+result1);
   }
 }
@@ -43,14 +43,13 @@ double simpsonIteration(double pt[],int  ust[])
 pVector integrateGyro(spatial::PVectorQ* data, pVector& current)
 {
   pVector delta;
-  double gyros[3][3]; //ith axis, kth element
+  double gyros[3][3]; //row is each axis. col is each event.
 
   for(int i =0; i< 3; i++)  {
     for(int k = 0; k<3; k++)  {
-      gyros[k][i] = data->at(i).angularRate[k];
+      gyros[i][k] = data->at(k).angularRate[i];
     }
   }
-
   int times[3] = {data->at(0).elapsed,data->at(1).elapsed,data->at(2).elapsed};
   delta.set(
     simpsonIteration(gyros[0],times),
