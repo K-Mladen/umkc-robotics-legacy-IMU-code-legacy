@@ -31,7 +31,10 @@ namespace spatial	{
 	struct SpatialPVector	{
 		int elapsed; 
 		pVector acceleration, angularRate, magneticField;
-		SpatialPVector(): elapsed(0), acceleration(pVector()), angularRate(pVector()), magneticField(pVector())	{}
+		SpatialPVector(): elapsed(0), 
+			acceleration(pVector(0.0203066, -0.0137503, 1.000767)), 
+			angularRate(pVector(-0.241803, 0.02563817, -0.3029)), 
+			magneticField(pVector())	{}
 		
 		SpatialPVector(CPhidgetSpatial_SpatialEventData &data) {
 			//why isn't this working - undefined symbols D:
