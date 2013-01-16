@@ -35,6 +35,9 @@ int main()	{
 
 	int timeStamp = 0;					//time of current data event in milliSec (debugging)
 	double zeroedGyro[3];				//remember zeroed gyro, to keep track of difference
+	double zeroedAcc[3];
+
+	CPhidgetSpatial_SpatialEventData* newest;
 
 	spatial::SpatialPVector newestP;	
 	//Writing out to file for live graph
@@ -57,8 +60,9 @@ int main()	{
 		fstream foutRotation;
 		foutRotation.open("dataPoints/rotatedGyro.csv", fstream::out);
 		foutRotation << "@ Rotated gyro data, after zeroing." << endl;
-		foutRotation << " X rotated, Y rotated, Z rotated," << 
-						"X Diff RotGy, Y Diff RotGy, Z Diff RotGy, " <<endl;
+		foutRotation << "X rotated, 	Y rotated, 		Z rotated," << 
+						"X Diff RotGy, 	Y Diff RotGy, 	Z Diff RotGy, " <<
+						"X Diff RotAcc, Y Diff RotAcc, 	Z Diff RotAcc, " << endl;
 	#endif
 
 	#ifdef DEBUG_LIVE_GRAPH_DELTA
@@ -73,7 +77,9 @@ int main()	{
 		fstream foutCurrentOr;
 		foutCurrentOr.open("dataPoints/current_orientation.csv", fstream::out);
 		foutCurrentOr << "@ Current Orientation, rotated, then non filtered and filtered." << endl;
-		foutCurrentOr << "timestamp, X Current NF, Y Current NF, Z Current NF, X Current F, Y Current F, Z Current F " << endl;
+		foutCurrentOr << 	"timestamp," << 
+							"X Current NF, 	Y Current NF, 	Z Current NF," <<
+							"X Current F, 	Y Current F, 	Z Current F " << endl;
 	#endif
 
 
@@ -127,10 +133,10 @@ int main()	{
 		//-----------------------------------
 		while(dataQueue->empty())	{}
 
-			//Copied event data is TESTED and WORKING.
+		//Copied event data is TESTED and WORKING.
 		pthread_mutex_lock(&mutex);
  		it = dataQueue->begin();
-		CPhidgetSpatial_SpatialEventData* newest = spatial::copy(*it);
+		newest = spatial::copy(*it);
 		dataQueue->pop_front();
 		pthread_mutex_unlock(&mutex);
 
@@ -180,17 +186,18 @@ int main()	{
 		//remember zeroed gyro
 		for(int i = 0; i< 3; i++)	{
 			zeroedGyro[i] = newestP.angularRate[i];
+			zeroedAcc[i] = newestP.acceleration[i];
 		}
 
-		pVector about = orientation(current);
+		//pVector about = orientation(current);
 		
-		newestP.acceleration = rotatePOV(newestP.acceleration, about);	//WORKING - currently testing
-	 	newestP.angularRate = rotatePOV(newestP.angularRate, about);
-	 	newestP.magneticField = rotatePOV(newestP.magneticField, about);
+		newestP.acceleration = rotatePOV(newestP.acceleration, current);	//WORKING - currently testing
+	 	newestP.angularRate = rotatePOV(newestP.angularRate, current);
+	 	newestP.magneticField = rotatePOV(newestP.magneticField, current);
 	
 
 
-		spatial::zeroAcc(newestP);	//Zeroing of Acc (subtracting gravity) must  be done AFTER rotation???
+//		spatial::zeroAcc(newestP);	//Zeroing of Acc (subtracting gravity) must  be done AFTER rotation???
 
 		
 		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW	
@@ -216,6 +223,10 @@ int main()	{
 	 		//Graphing difference in rotation of gyro and non rotated gyro
 	 		for(int i =0; i< 3; i++)	{
 	 			foutRotation << newestP.angularRate[i] - zeroedGyro[i] << ","; 
+	 		}
+	 		//Graphing difference in rotation of acc and non rotated acc
+	 		for(int i =0; i< 3; i++)	{
+	 			foutRotation << newestP.acceleration[i] - zeroedAcc[i] << ","; 
 	 		}
 	 		foutRotation << endl;
 	 	#endif
