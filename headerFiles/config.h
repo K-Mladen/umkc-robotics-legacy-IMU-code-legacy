@@ -17,9 +17,13 @@
 	#endif
 
 	#ifndef DEBUG_ZERO_GYRO
-	#define DEBUG_ZERO_GYRO
+	//#define DEBUG_ZERO_GYRO
 	#endif
 
+	#ifndef DEBUG_CURRENT_INTEGQUEUE
+	#define DEBUG_CURRENT_INTEGQUEUE
+	#endif
+	
 	#ifndef DEBUG_INTEGRATE
 	//#define DEBUG_INTEGRATE
 	#endif
@@ -30,22 +34,22 @@
 
 	//"@ Raw Phidget data, non zeroed, avg constant, then zeroed." 
 	#ifndef DEBUG_LIVE_GRAPH_PHIDGET_RAW	
-	#define DEBUG_LIVE_GRAPH_PHIDGET_RAW
+	//#define DEBUG_LIVE_GRAPH_PHIDGET_RAW
 	#endif
 
 	//"@ Rotated gyro data, after zeroing
 	#ifndef DEBUG_LIVE_GRAPH_ROTATION
-	#define DEBUG_LIVE_GRAPH_ROTATION 
+	//#define DEBUG_LIVE_GRAPH_ROTATION 
 	#endif
 
 	//
 	#ifndef DEBUG_LIVE_GRAPH_DELTA
-	#define DEBUG_LIVE_GRAPH_DELTA
+	//#define DEBUG_LIVE_GRAPH_DELTA
 	#endif
 
 	//"@ Current Orientation, rotated, then non filtered and filtered."
 	#ifndef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
-	#define DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
+	//#define DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
 	#endif
 
 
