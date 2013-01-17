@@ -70,9 +70,9 @@ void spatial::set(SpatialPVector& newestP, CPhidgetSpatial_SpatialEventData &dat
 	newestP.magneticField.set(data.magneticField);
 }
 
-void spatial::fakeGyro(SpatialPVector &data, int time)	{
+void spatial::fakeGyro(SpatialPVector &data, int time, double xVal, double yVal, double zVal)	{
 	data.elapsed = time;
-	double thing[3]= {1,0,0};
+	double thing[3]= {xVal,yVal,zVal};
 	data.acceleration.set(thing);
 	data.angularRate.set(thing);
 	data.magneticField.set(thing);

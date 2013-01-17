@@ -68,7 +68,7 @@ namespace spatial	{
 
 	//used for testing
 	//fakes a gyro packet of {1,0,0}
-	void fakeGyro(SpatialPVector &data, int time);
+	void fakeGyro(SpatialPVector &data, int time, double xVal, double yVal, double zVal);
 }
 
 /*PHIDGET_SETUP_BUFFER_H*/
