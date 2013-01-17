@@ -80,6 +80,11 @@ void pVector::set(pDirection dir, double val)
     resetFlags();
 }
 
+void pVector::set(int dir, double val)    {
+    comp[dir] = val;
+    resetFlags();
+}
+
 void pVector::set(double val[3])    {
     for(int i =0; i< 3; i++)    {
         comp[i]=val[i];
@@ -105,7 +110,7 @@ void pVector::print() {
 
 pVector pVector::operator+=(const pVector& other)
 {
-    if (other.comp[0]!=0 && other.comp[1]!=0 && other.comp[2]!=0)
+    if (other.comp[0]!=0 || other.comp[1]!=0 || other.comp[2]!=0)
     {
         comp[0]+=other.comp[0];
         comp[1]+=other.comp[1];
