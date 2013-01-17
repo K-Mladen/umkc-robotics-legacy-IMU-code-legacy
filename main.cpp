@@ -16,6 +16,10 @@ TODO: Some sort of criti section control?
 #include "headerFiles/pVector.h" //pvector class
 #include "headerFiles/mathy.h"	 //math related methods,eg rotation integration
 
+#ifdef DEBUG_ROTATION_MATRIX
+	#include "animator/rotMatrix.h"
+#endif
+
 
 //mutexes
 extern pthread_mutex_t mutex;	//used when writing to the deque
@@ -80,6 +84,15 @@ int main()	{
 		foutCurrentOr << 	"timestamp," << 
 							"X Current NF, 	Y Current NF, 	Z Current NF," <<
 							"X Current F, 	Y Current F, 	Z Current F " << endl;
+	#endif
+
+	#ifdef DEBUG_ROTATION_MATRIX
+		fstream foutRotMatrix;
+		foutRotMatrix.open("dataPoints/rotation_matrix.csv", fstream::out);
+		foutRotMatrix << "@ Rotation Matrix. Used for 3d modeling";
+		foutRotMatrix << 	"[0][0], [0][1], [0][2], " << 
+							"[1][0], [1][1], [1][2], " << 
+							"[2][0], [2][1], [2][2], " <<endl;
 	#endif
 
 
@@ -195,7 +208,16 @@ int main()	{
 	 	newestP.angularRate = rotatePOV(newestP.angularRate, current);
 	 	newestP.magneticField = rotatePOV(newestP.magneticField, current);
 	
-
+	 	#ifdef DEBUG_ROTATION_MATRIX
+	 		double rotMatrix[3][3]; 
+ 			getRotationMatrix(rotMatrix, newestP.angularRate, current);
+ 			for(int i =0; i < 3; i++)	{
+ 				for(int k = 0; k < 3; k++)	{
+ 					foutRotMatrix << rotMatrix[i][k] << ",";
+ 				}
+ 			}
+ 			foutRotMatrix << endl;
+	 	#endif
 
 //		spatial::zeroAcc(newestP);	//Zeroing of Acc (subtracting gravity) must  be done AFTER rotation???
 
@@ -316,6 +338,11 @@ int main()	{
 	#ifdef DEBUG_LIVE_GRAPH_DELTA
 		foutDelta.close();
 	#endif
+
+	#ifdef DEBUG_ROTATION_MATRIX
+		foutRotMatrix.close();
+	#endif
+
 
 	return 0;
 }

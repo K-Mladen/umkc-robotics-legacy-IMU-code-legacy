@@ -48,6 +48,11 @@
 	#define DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
 	#endif
 
+
+	#ifndef DEBUG_ROTATION_MATRIX
+	#define DEBUG_ROTATION_MATRIX
+	#endif
+
 //DEBUG
 #endif	
 
