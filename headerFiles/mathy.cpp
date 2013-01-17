@@ -117,14 +117,16 @@ pVector orientation(pVector & angle)
 }
 
 
-void filter(pVector & accel, pVector & current, double alpha)
+pVector filter(pVector accel, pVector & current, double alpha)
 {
   /*current time step t2 (so T=t-1 is t1 and T=t-2 is t0)*/
+  accel.set(asin(accel.component(X)),asin(accel.component(Y)),asin(accel.component(z)));
   pVector angle
   (
     accel.component(X)*(1-alpha)+alpha*current.component(X),
     accel.component(Y)*(1-alpha)+alpha*current.component(Y),
     accel.component(Z)*(1-alpha)+alpha*current.component(Z)
   );
-  current = angle;
+  return angle;
 }	
+
