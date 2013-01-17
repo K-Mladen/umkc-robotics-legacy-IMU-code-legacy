@@ -1,10 +1,13 @@
 
-#incldue "../headerFiles/pVector.h"
+#include "../headerFiles/pVector.h"
+#include <cmath>
 
-
-double* get(pVector vec, pVector rot)
+void getRotationMatrix(double theMatrix[3][3], pVector vec, pVector rot)
 {
-  double theMatrix[3][3];
+
+   double rad =  std::atan(1)/45; //(pi/4)/45 = pi/180
+    double s = sin(rot.magnitude()*rad),
+           c = cos(rot.magnitude()*rad);
 
 
   theMatrix[0][0] = (c+pow(rot.unitComponent(X),2)*(1-c));
@@ -25,6 +28,5 @@ double* get(pVector vec, pVector rot)
                      + rot.unitComponent(X)*s);
   theMatrix[2][2] = (c+pow(rot.unitComponent(Z),2)*(1-c));
 
-  return theMatrix;
 }
 
