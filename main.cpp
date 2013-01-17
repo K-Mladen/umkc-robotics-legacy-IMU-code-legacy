@@ -208,11 +208,8 @@ int main()	{
 
 			//pVector about = orientation(current);
 			
-			newestP.acceleration = rotatePOV(newestP.acceleration, current);	//WORKING - currently testing
-		 	newestP.angularRate = rotatePOV(newestP.angularRate, current);
-		 	//newestP.magneticField = rotatePOV(newestP.magneticField, current);
-		
-		 	#ifdef DEBUG_ROTATION_MATRIX
+
+			#ifdef DEBUG_ROTATION_MATRIX
 		 		double rotMatrix[3][3]; 
 	 			getRotationMatrix(rotMatrix, newestP.angularRate, current);
 	 			for(int i =0; i < 3; i++)	{
@@ -222,6 +219,12 @@ int main()	{
 	 			}
 	 			foutRotMatrix << endl;
 		 	#endif
+	 			
+			newestP.acceleration = rotatePOV(newestP.acceleration, current);	//WORKING - currently testing
+		 	newestP.angularRate = rotatePOV(newestP.angularRate, current);
+		 	//newestP.magneticField = rotatePOV(newestP.magneticField, current);
+		
+
 
 	//		spatial::zeroAcc(newestP);	//Zeroing of Acc (subtracting gravity) must  be done AFTER rotation???
 
