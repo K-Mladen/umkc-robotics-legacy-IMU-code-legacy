@@ -206,7 +206,7 @@ int main()	{
 		
 		newestP.acceleration = rotatePOV(newestP.acceleration, current);	//WORKING - currently testing
 	 	newestP.angularRate = rotatePOV(newestP.angularRate, current);
-	 	newestP.magneticField = rotatePOV(newestP.magneticField, current);
+	 	//newestP.magneticField = rotatePOV(newestP.magneticField, current);
 	
 	 	#ifdef DEBUG_ROTATION_MATRIX
 	 		double rotMatrix[3][3]; 
