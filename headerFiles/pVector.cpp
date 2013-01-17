@@ -127,7 +127,7 @@ const pVector pVector::operator+(const pVector& other) const
 
 pVector pVector::operator-=(const pVector& other)
 {
-    if (other.comp[0]!=0 && other.comp[1]!=0 && other.comp[2]!=0)
+    if (other.comp[0]!=0 || other.comp[1]!=0 || other.comp[2]!=0)
     {
         comp[0]-=other.comp[0];
         comp[1]-=other.comp[1];

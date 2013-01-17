@@ -49,6 +49,7 @@ enum pDirection
       double magnitude();
       double unitComponent(pDirection dir); //Enumerated as above
       //mutators
+      void set(int dir, double val);      
       void set(pDirection dir, double val); //Enumerated as above
       void set(double val[3]);
       void set(double valX, double valY, double valZ);
