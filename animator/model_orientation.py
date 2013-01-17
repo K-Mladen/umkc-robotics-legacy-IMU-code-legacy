@@ -13,8 +13,6 @@
 
 import time #follow function
 from visual import *
-import os 
-
 
 def follow(thefile):
     thefile.seek(0,2)   #seek relative to file's end, offset 0
@@ -36,9 +34,6 @@ if __name__ == '__main__':
     arrow( color=color.green, axis=(0,1,0), shaftwidth = 0.02, fixedwidth =1)
     arrow( color=color.blue, axis=(0,0,1), shaftwidth = 0.02, fixedwidth =1)
     thing = box(length=.5, height = .05, width = .4, color= color.yellow)
-
-
-    print os.getcwd()
 
     logfile = open("dataPoints/rotation_matrix.csv", "r")
     loglines = follow(logfile)
