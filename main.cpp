@@ -139,126 +139,142 @@ int main()	{
 	//-----------------------------------
 	spatial::spatial_setup(spatial, dataQueue, dataRate);
 
-	//doing the first i data points
-	for(int i = 0; i<100000; i++)	
+	
+
+	//GO! 
+	while(1)	
 	{
-		//Getting data from Phidget
-		//-----------------------------------
-		while(dataQueue->empty())	{}
 
-		//Copied event data is TESTED and WORKING.
-		pthread_mutex_lock(&mutex);
- 		it = dataQueue->begin();
-		newest = spatial::copy(*it);
-		dataQueue->pop_front();
-		pthread_mutex_unlock(&mutex);
+		//Get the next two data points (required for simpson's integration)
+		for(int i =0; i< 2; i++)	{
+			//Getting data from Phidget
+			//-----------------------------------
+			while(dataQueue->empty())	{}
 
-		#ifdef DEBUG_RAW_GYRO
-			cout << "Raw phidget data" << endl;
-			for(int i =0; i< 3; i++)	{
-				cout << newest->angularRate[i]  << ","; 	
+			//Copied event data is TESTED and WORKING.
+			pthread_mutex_lock(&mutex);
+	 		it = dataQueue->begin();
+			newest = spatial::copy(*it);
+			dataQueue->pop_front();
+			pthread_mutex_unlock(&mutex);
+
+			#ifdef DEBUG_RAW_GYRO
+				cout << "Raw phidget data" << endl;
+				for(int i =0; i< 3; i++)	{
+					cout << newest->angularRate[i]  << ","; 	
+				}
+				cout << endl;
+			#endif
+			
+
+			//Convert data to pVector, rotate to initial reference frame
+			//-----------------------------------
+			spatial::set(newestP, *newest);	//TESTED AND WORKING TAKE 2
+			
+			#ifdef DEBUG_ZERO_GYRO
+				cout << endl << "Before Zeroing" << endl;
+				spatial::print(newestP);
+			#endif
+
+			spatial::zeroGyro(newestP);
+
+			#ifdef DEBUG_ZERO_GYRO
+				cout << endl << "After Zeroing" << endl;
+				spatial::print(newestP);
+			#endif
+
+			#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
+				//Graphing raw gyro
+				for(int i =0; i< 3; i++)	{
+					foutPhidgetRaw << newest->angularRate[i]  << ","; 	
+				}
+				//graphing gyro offset
+				for(int i =0; i< 3; i++)	{
+					foutPhidgetRaw << GYRO_OFFSET[i] << ",";
+				}
+				//graphing zeroed raw
+				for(int i =0; i< 3; i++)	{
+					foutPhidgetRaw << newestP.angularRate[i]  << ","; 	
+			   	}
+			#endif	
+
+			timeStamp = newestP.elapsed;
+
+			//remember zeroed gyro
+			for(int i = 0; i< 3; i++)	{
+				zeroedGyro[i] = newestP.angularRate[i];
+				zeroedAcc[i] = newestP.acceleration[i];
 			}
-			cout << endl;
-		#endif
+
+			//pVector about = orientation(current);
+			
+			newestP.acceleration = rotatePOV(newestP.acceleration, current);	//WORKING - currently testing
+		 	newestP.angularRate = rotatePOV(newestP.angularRate, current);
+		 	//newestP.magneticField = rotatePOV(newestP.magneticField, current);
 		
+		 	#ifdef DEBUG_ROTATION_MATRIX
+		 		double rotMatrix[3][3]; 
+	 			getRotationMatrix(rotMatrix, newestP.angularRate, current);
+	 			for(int i =0; i < 3; i++)	{
+	 				for(int k = 0; k < 3; k++)	{
+	 					foutRotMatrix << rotMatrix[i][k] << ",";
+	 				}
+	 			}
+	 			foutRotMatrix << endl;
+		 	#endif
 
-		//Convert data to pVector, rotate to initial reference frame
-		//-----------------------------------
-		spatial::set(newestP, *newest);	//TESTED AND WORKING TAKE 2
-		
-		#ifdef DEBUG_ZERO_GYRO
-			cout << endl << "Before Zeroing" << endl;
-			spatial::print(newestP);
-		#endif
+	//		spatial::zeroAcc(newestP);	//Zeroing of Acc (subtracting gravity) must  be done AFTER rotation???
 
-		spatial::zeroGyro(newestP);
+			
+			#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW	
+			   	//Graphing Acc stuff
+				for(int i =0; i< 3; i++)	{
+					foutPhidgetRaw << newest->acceleration[i]  << ","; 	
+				}
+				for(int i =0; i< 3; i++)	{
+					foutPhidgetRaw << ACC_OFFSET[i] << ",";
+				}
+				for(int i =0; i< 3; i++)	{
+					foutPhidgetRaw << newestP.acceleration[i]  << ",";	 	
+			   	}
+				foutPhidgetRaw << endl;
+			#endif
 
-		#ifdef DEBUG_ZERO_GYRO
-			cout << endl << "After Zeroing" << endl;
-			spatial::print(newestP);
-		#endif
 
-		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
-			cout << endl << "LIVE GRAPHING raw phidget" << endl;
-			//Graphing raw gyro
-			for(int i =0; i< 3; i++)	{
-				foutPhidgetRaw << newest->angularRate[i]  << ","; 	
-			}
-			//graphing gyro offset
-			for(int i =0; i< 3; i++)	{
-				foutPhidgetRaw << GYRO_OFFSET[i] << ",";
-			}
-			//graphing zeroed raw
-			for(int i =0; i< 3; i++)	{
-				foutPhidgetRaw << newestP.angularRate[i]  << ","; 	
-		   	}
-		#endif	
+		 	#ifdef DEBUG_LIVE_GRAPH_ROTATION
+		 		//Graphing rotation of gyro
+		 		for(int i =0; i< 3; i++)	{
+		 			foutRotation << newestP.angularRate[i] << ","; 
+		 		}
+		 		//Graphing difference in rotation of gyro and non rotated gyro
+		 		for(int i =0; i< 3; i++)	{
+		 			foutRotation << newestP.angularRate[i] - zeroedGyro[i] << ","; 
+		 		}
+		 		//Graphing difference in rotation of acc and non rotated acc
+		 		for(int i =0; i< 3; i++)	{
+		 			foutRotation << newestP.acceleration[i] - zeroedAcc[i] << ","; 
+		 		}
+		 		foutRotation << endl;
+		 	#endif
 
-		timeStamp = newestP.elapsed;
-
-		//remember zeroed gyro
-		for(int i = 0; i< 3; i++)	{
-			zeroedGyro[i] = newestP.angularRate[i];
-			zeroedAcc[i] = newestP.acceleration[i];
+			//Adding newest point to integQueue for simpson's integration
+			//-----------------------------------
+			integQueue->push_back(newestP);
+			integQueue->pop_front();
 		}
 
-		//pVector about = orientation(current);
-		
-		newestP.acceleration = rotatePOV(newestP.acceleration, current);	//WORKING - currently testing
-	 	newestP.angularRate = rotatePOV(newestP.angularRate, current);
-	 	//newestP.magneticField = rotatePOV(newestP.magneticField, current);
-	
-	 	#ifdef DEBUG_ROTATION_MATRIX
-	 		double rotMatrix[3][3]; 
- 			getRotationMatrix(rotMatrix, newestP.angularRate, current);
- 			for(int i =0; i < 3; i++)	{
- 				for(int k = 0; k < 3; k++)	{
- 					foutRotMatrix << rotMatrix[i][k] << ",";
- 				}
- 			}
- 			foutRotMatrix << endl;
-	 	#endif
 
-//		spatial::zeroAcc(newestP);	//Zeroing of Acc (subtracting gravity) must  be done AFTER rotation???
-
-		
-		#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW	
-		   	//Graphing Acc stuff
-			for(int i =0; i< 3; i++)	{
-				foutPhidgetRaw << newest->acceleration[i]  << ","; 	
+		#ifdef DEBUG_CURRENT_INTEGQUEUE
+			for(int k =0; k< 3; k++)	{
+				cout << "time: " << integQueue->at(k).elapsed << endl;
+				for(int m =0; m < 3; m++)	{
+					cout << " gyro: " << integQueue->at(k).angularRate[m] << " ";
+				}
+				cout << endl;
 			}
-			for(int i =0; i< 3; i++)	{
-				foutPhidgetRaw << ACC_OFFSET[i] << ",";
-			}
-			for(int i =0; i< 3; i++)	{
-				foutPhidgetRaw << newestP.acceleration[i]  << ",";	 	
-		   	}
-			foutPhidgetRaw << endl;
+			cout << "---------------------------"<<endl;
 		#endif
 
-
-	 	#ifdef DEBUG_LIVE_GRAPH_ROTATION
-	 		//Graphing rotation of gyro
-	 		for(int i =0; i< 3; i++)	{
-	 			foutRotation << newestP.angularRate[i] << ","; 
-	 		}
-	 		//Graphing difference in rotation of gyro and non rotated gyro
-	 		for(int i =0; i< 3; i++)	{
-	 			foutRotation << newestP.angularRate[i] - zeroedGyro[i] << ","; 
-	 		}
-	 		//Graphing difference in rotation of acc and non rotated acc
-	 		for(int i =0; i< 3; i++)	{
-	 			foutRotation << newestP.acceleration[i] - zeroedAcc[i] << ","; 
-	 		}
-	 		foutRotation << endl;
-	 	#endif
-
-		//Adding newest point to integQueue for simpson's integration
-		//-----------------------------------
-
-		integQueue->push_back(newestP);
-		integQueue->pop_front();
-		
 		//Simpson's integration
 		//-----------------------------------
 		delta = integrateGyro(integQueue, current);
@@ -286,11 +302,9 @@ int main()	{
 		#endif
 
 		#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
-			cout << endl << "LIVE GRAPHING unfiltered current orientation" << endl;
 			foutCurrentOr << timeStamp << ",";
 			for(int i =0; i< 3; i++)	{
 				foutCurrentOr << current.component(i) << ",";
-				cout << current.component(i) << ","; 	
 			}
 		#endif
 		
@@ -300,10 +314,8 @@ int main()	{
 
 
 		#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
-			cout << endl << "LIVE GRAPHING filtered current orientation" << endl;
 			for(int i =0; i< 3; i++)	{
 				foutCurrentOr << current.component(i) << ",";
-				cout << current.component(i) << ","; 	
 			}
 			foutCurrentOr << endl;
 		#endif
