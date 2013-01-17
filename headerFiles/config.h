@@ -34,22 +34,22 @@
 
 	//"@ Raw Phidget data, non zeroed, avg constant, then zeroed." 
 	#ifndef DEBUG_LIVE_GRAPH_PHIDGET_RAW	
-	//#define DEBUG_LIVE_GRAPH_PHIDGET_RAW
+	#define DEBUG_LIVE_GRAPH_PHIDGET_RAW
 	#endif
 
 	//"@ Rotated gyro data, after zeroing
 	#ifndef DEBUG_LIVE_GRAPH_ROTATION
-	//#define DEBUG_LIVE_GRAPH_ROTATION 
+	#define DEBUG_LIVE_GRAPH_ROTATION 
 	#endif
 
 	//
 	#ifndef DEBUG_LIVE_GRAPH_DELTA
-	//#define DEBUG_LIVE_GRAPH_DELTA
+	#define DEBUG_LIVE_GRAPH_DELTA
 	#endif
 
 	//"@ Current Orientation, rotated, then non filtered and filtered."
 	#ifndef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
-	//#define DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
+	#define DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
 	#endif
 
 
@@ -67,7 +67,7 @@
 
 const double US_PER_SECOND = 1000000;
 const int dataRate = 16;
-const double TAU = 20000;
+const double TAU = 300;
 
 const double GYRO_OFFSET[3] = {-0.241803, 0.02563817, -0.3029};
 const double ACC_OFFSET[3] = {0.0203066, -0.0137503, 1.000767};
