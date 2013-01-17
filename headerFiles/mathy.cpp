@@ -117,15 +117,17 @@ pVector orientation(pVector & angle)
 }
 
 
-pVector filter(pVector accel, pVector & current, double alpha)
+pVector filter(pVector & accel, pVector & current, double alpha)
 {
   /*current time step t2 (so T=t-1 is t1 and T=t-2 is t0)*/
-  accel.set(asin(accel.component(X)),asin(accel.component(Y)),asin(accel.component(z)));
+  double Xtilt, Ytilt;
+  Xtilt = asin(accel.component(X));
+  Ytilt = asin(accel.component(Y));
   pVector angle
   (
-    accel.component(X)*(1-alpha)+alpha*current.component(X),
-    accel.component(Y)*(1-alpha)+alpha*current.component(Y),
-    accel.component(Z)*(1-alpha)+alpha*current.component(Z)
+    Xtilt*(1-alpha)+alpha*current.component(X),
+    Ytilt*(1-alpha)+alpha*current.component(Y),
+    current.component(Z)
   );
   return angle;
 }	

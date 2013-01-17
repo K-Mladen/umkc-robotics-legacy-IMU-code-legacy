@@ -308,7 +308,7 @@ int main()	{
 			}
 		#endif
 		
-        filter(integQueue->at(2).acceleration, current, alpha);				
+        current = filter(integQueue->at(2).acceleration, current, alpha);				
 		
 
 
