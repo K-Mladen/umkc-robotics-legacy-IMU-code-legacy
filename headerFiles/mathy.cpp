@@ -75,9 +75,9 @@ pVector rotatePOV(pVector & vec, pVector & rot)
   {
     return vec;
   } else {
-    double rad =  std::atan(1)/45; //(pi/4)/45 = pi/180
-    double s = sin(rot.magnitude()*rad),
-           c = cos(rot.magnitude()*rad);
+//    double rad =  std::atan(1)/45; //(pi/4)/45 = pi/180
+    double s = sin(rot.magnitude()*RAD),
+           c = cos(rot.magnitude()*RAD);
     pVector newVec
       (
     /*X component*/
@@ -121,8 +121,8 @@ pVector filter(pVector & accel, pVector & current, double alpha)
 {
   /*current time step t2 (so T=t-1 is t1 and T=t-2 is t0)*/
   double Xtilt, Ytilt;
-  Xtilt = asin(accel.unitComponent(X));
-  Ytilt = asin(accel.unitComponent(Y));
+  Xtilt = asin(accel.unitComponent(X))/RAD;
+  Ytilt = asin(accel.unitComponent(Y))/RAD;
   pVector angle
   (
     Xtilt*(1-alpha)+alpha*current.component(X),
