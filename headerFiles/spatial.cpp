@@ -119,3 +119,45 @@ int spatial::spatial_setup(CPhidgetSpatialHandle &spatial, deque<CPhidgetSpatial
 	return 0;
 
 }
+
+#ifdef DEBUG_FAKE_GYRO
+int spatial::fake_spatial_setup(CPhidgetSpatialHandle &spatial, deque<CPhidgetSpatial_SpatialEventData>* raw, int dataRate)	{
+	//Code taken from provided example code "Spatial-simple.c"
+	int result;
+	const char *err;	
+
+	//Set the handlers to be run when the device is plugged in or opened from software, unplugged or closed from software, or generates an error.
+	CPhidget_set_OnAttach_Handler((CPhidgetHandle)spatial, AttachHandler, NULL);
+	CPhidget_set_OnDetach_Handler((CPhidgetHandle)spatial, DetachHandler, NULL);
+	CPhidget_set_OnError_Handler((CPhidgetHandle)spatial, ErrorHandler, NULL);
+
+	//Registers a callback that will run according to the set data rate that will return the spatial data changes
+	//Requires the handle for the Spatial, the callback handler function that will be called, 
+	//and an arbitrary pointer that will be supplied to the callback function (may be NULL)
+	CPhidgetSpatial_set_OnSpatialData_Handler(spatial, FAKE_SpatialDataHandler, raw);
+
+	//open the spatial object for device connections
+	CPhidget_open((CPhidgetHandle)spatial, -1);
+
+	//get the program to wait for a spatial device to be attached
+	printf("Waiting for spatial to be attached.... \n");
+
+	if((result = CPhidget_waitForAttachment((CPhidgetHandle)spatial, 10000)))
+	{
+		CPhidget_getErrorDescription(result, &err);
+		printf("Problem waiting for attachment: %s\n", err);
+		return 0;
+	}
+
+	//Display the properties of the attached spatial device
+	display_properties((CPhidgetHandle)spatial);
+
+	//Set the data rate for the spatial events
+	CPhidgetSpatial_setDataRate(spatial, dataRate);
+
+	cout << "Spatial setup complete" << endl;
+
+	return 0;
+
+}
+#endif
