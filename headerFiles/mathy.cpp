@@ -121,8 +121,8 @@ pVector filter(pVector & accel, pVector & current, double alpha)
 {
   /*current time step t2 (so T=t-1 is t1 and T=t-2 is t0)*/
   double Xtilt, Ytilt;
-  Xtilt = asin(accel.component(X));
-  Ytilt = asin(accel.component(Y));
+  Xtilt = asin(accel.unitComponent(X));
+  Ytilt = asin(accel.unitComponent(Y));
   pVector angle
   (
     Xtilt*(1-alpha)+alpha*current.component(X),
