@@ -70,6 +70,15 @@ void spatial::set(SpatialPVector& newestP, CPhidgetSpatial_SpatialEventData &dat
 	newestP.magneticField.set(data.magneticField);
 }
 
+void spatial::fakeGyro(CPhidgetSpatial_SpatialEventData &data, int time, double xVal, double yVal, double zVal)	{
+	data.elapsed.microseconds = time;
+	data.elapsed.seconds = 0;
+	double thing[3]= {xVal,yVal,zVal};
+	data.acceleration.set(thing);
+	data.angularRate.set(thing);
+	data.magneticField.set(thing);
+}
+
 void spatial::fakeGyro(SpatialPVector &data, int time, double xVal, double yVal, double zVal)	{
 	data.elapsed = time;
 	double thing[3]= {xVal,yVal,zVal};
@@ -136,7 +145,7 @@ int spatial::fake_spatial_setup(CPhidgetSpatialHandle &spatial, deque<CPhidgetSp
 	//and an arbitrary pointer that will be supplied to the callback function (may be NULL)
 	CPhidgetSpatial_set_OnSpatialData_Handler(spatial, FAKE_SpatialDataHandler, raw);
 
-	//open the spatial object for device connections
+	//open the spatial object for device connections_setp
 	CPhidget_open((CPhidgetHandle)spatial, -1);
 
 	//get the program to wait for a spatial device to be attached
