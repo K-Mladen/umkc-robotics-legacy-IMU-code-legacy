@@ -37,7 +37,7 @@ int main()	{
 	pVector current(0,0,0);				//current orientation
 	pVector delta(0,0,0);				//delta, (debugging)
 
-	int timeStamp = 0;					//time of current data event in milliSec (debugging)
+	int timestamp = 0;					//time of current data event in milliSec (debugging)
 	double zeroedGyro[3];				//remember zeroed gyro, to keep track of difference
 	double zeroedAcc[3];
 
@@ -47,14 +47,21 @@ int main()	{
 	//Writing out to file for live graph
 	//----------------------------------
 
-	#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
-		fstream foutPhidgetRaw;
-		foutPhidgetRaw.open("dataPoints/raw_phidget.csv", fstream::out);
-		foutPhidgetRaw << "@ Raw Gyro and Acc data, non zeroed, avg constant, then zeroed." << endl;
-		foutPhidgetRaw << 
+	#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW_GYRO
+		fstream foutPhidgetRawGyro;
+		foutPhidgetRawGyro.open("dataPoints/raw_phidget_gyro.csv", fstream::out);
+		foutPhidgetRawGyro << "@ Raw Gyro data, non zeroed, avg constant, then zeroed." << endl;
+		foutPhidgetRawGyro << "Timestamp" <<
 			"X Raw Gyro, 		Y Raw Gyro, 	Z Raw Gyro," << 
 			"X Avg Raw Gyro, 	Y Avg Raw Gyro, Z Avg Raw Gyro," << 
-			"X Zeroed Raw, 		Y Zeroed Raw, 	Z Zeroed Raw," << 
+			"X Zeroed Raw, 		Y Zeroed Raw, 	Z Zeroed Raw," << endl;
+	#endif
+
+	#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW_ACC
+		fstream foutPhidgetRawAcc;
+		foutPhidgetRawAcc.open("dataPoints/raw_phidget_acc.csv", fstream::out);
+		foutPhidgetRawAcc << "@ Raw acc data, non zeroed, avg constant, then zeroed." << endl;
+		foutPhidgetRawAcc << "Timestamp, " <<
 			"X Raw Acc, 		Y Raw Acc, 		Z Raw Acc," << 
 			"X Avg Raw Acc, 	Y Avg Raw Acc, 	Z Avg Raw Acc," <<
 			"X Zeroed/Rot Acc, 	Y Zeroed/Rot Acc, Z Zeroed/Rot Acc" << 	endl;
@@ -64,7 +71,8 @@ int main()	{
 		fstream foutRotation;
 		foutRotation.open("dataPoints/rotatedGyro.csv", fstream::out);
 		foutRotation << "@ Rotated gyro data, after zeroing." << endl;
-		foutRotation << "X rotated, 	Y rotated, 		Z rotated," << 
+		foutRotation << "Timestamp" <<
+						"X Gyro rotated, 	Y Gyro rotated, Z Gyro rotated," << 
 						"X Diff RotGy, 	Y Diff RotGy, 	Z Diff RotGy, " <<
 						"X Diff RotAcc, Y Diff RotAcc, 	Z Diff RotAcc, " << endl;
 	#endif
@@ -73,7 +81,7 @@ int main()	{
 		fstream foutDelta;
 		foutDelta.open("dataPoints/gyroDelta.csv", fstream::out);
 		foutDelta << "@ delta of gyroscope in global ref frame, after rotation, before filtering." << endl;
-		foutDelta << "X delta, Y delta, Z delta " << endl;
+		foutDelta << "Timestamp, X delta, Y delta, Z delta " << endl;
 	#endif
 
 
@@ -90,7 +98,8 @@ int main()	{
 		fstream foutRotMatrix;
 		foutRotMatrix.open("dataPoints/rotation_matrix.csv", fstream::out);
 		foutRotMatrix << "@ Rotation Matrix. Used for 3d modeling";
-		foutRotMatrix << 	"[0][0], [0][1], [0][2], " << 
+		foutRotMatrix << 	"Timestamp "<<
+							"[0][0], [0][1], [0][2], " << 
 							"[1][0], [1][1], [1][2], " << 
 							"[2][0], [2][1], [2][2], " <<endl;
 	#endif
@@ -164,7 +173,7 @@ int main()	{
 			#ifdef DEBUG_RAW_GYRO
 				cout << "Raw phidget data" << endl;
 				for(int i =0; i< 3; i++)	{
-					cout << newest->angularRate[i]  << ","; 	
+					cout << newest->angularRate[i]  << "/t"; 	
 				}
 				cout << endl;
 			#endif
@@ -173,35 +182,41 @@ int main()	{
 			//Convert data to pVector, rotate to initial reference frame
 			//-----------------------------------
 			spatial::set(newestP, *newest);	//TESTED AND WORKING TAKE 2
-			
+			timestamp = newestP.elapsed;
+
 			#ifdef DEBUG_ZERO_GYRO
 				cout << endl << "Before Zeroing" << endl;
 				spatial::print(newestP);
 			#endif
 
-			spatial::zeroGyro(newestP);
+			#ifndef DEBUG_FAKE_GYRO		
+				spatial::zeroGyro(newestP);	//don't want to zero the fake gyro data.
+			#endif
 
 			#ifdef DEBUG_ZERO_GYRO
 				cout << endl << "After Zeroing" << endl;
 				spatial::print(newestP);
 			#endif
 
-			#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
+			#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW_GYRO
+				//Timestamp
+				foutPhidgetRawGyro << timestamp << "/t";
 				//Graphing raw gyro
 				for(int i =0; i< 3; i++)	{
-					foutPhidgetRaw << newest->angularRate[i]  << ","; 	
+					foutPhidgetRawGyro << newest->angularRate[i]  << "/t"; 	
 				}
 				//graphing gyro offset
 				for(int i =0; i< 3; i++)	{
-					foutPhidgetRaw << GYRO_OFFSET[i] << ",";
+					foutPhidgetRawGyro << GYRO_OFFSET[i] << "/t";
 				}
 				//graphing zeroed raw
 				for(int i =0; i< 3; i++)	{
-					foutPhidgetRaw << newestP.angularRate[i]  << ","; 	
+					foutPhidgetRawGyro << newestP.angularRate[i]  << "/t"; 	
 			   	}
+			   	foutPhidgetRawGyro <<endl;
 			#endif	
 
-			timeStamp = newestP.elapsed;
+			
 
 			//remember zeroed gyro
 			for(int i = 0; i< 3; i++)	{
@@ -217,48 +232,47 @@ int main()	{
 	 			getRotationMatrix(rotMatrix, newestP.angularRate, current);
 	 			for(int i =0; i < 3; i++)	{
 	 				for(int k = 0; k < 3; k++)	{
-	 					foutRotMatrix << rotMatrix[i][k] << ",";
+	 					foutRotMatrix << rotMatrix[i][k] << "/t";
 	 				}
 	 			}
 	 			foutRotMatrix << endl;
 		 	#endif
 
-			//newestP.acceleration = rotatePOV(newestP.acceleration, current);	//WORKING - currently testing
-		 	newestP.angularRate = rotatePOV(newestP.angularRate, current);
-		 	//newestP.magneticField = rotatePOV(newestP.magneticField, current);
-		
-
-
-	//		spatial::zeroAcc(newestP);	//Zeroing of Acc (subtracting gravity) must  be done AFTER rotation???
-
+		 	newestP.angularRate = rotatePOV(newestP.angularRate, current);	
 			
-			#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW	
-			   	//Graphing Acc stuff
+			#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW_ACC	
+			   	//Timestamp
+				foutPhidgetRawAcc << timestamp << "/t";
+			   	//Graphing raw acc data
 				for(int i =0; i< 3; i++)	{
-					foutPhidgetRaw << newest->acceleration[i]  << ","; 	
+					foutPhidgetRawAcc << newest->acceleration[i]  << "/t"; 	
 				}
+				//graphing acc offset
 				for(int i =0; i< 3; i++)	{
-					foutPhidgetRaw << ACC_OFFSET[i] << ",";
+					foutPhidgetRawAcc << ACC_OFFSET[i] << "/t";
 				}
+				//graphing rotated?
 				for(int i =0; i< 3; i++)	{
-					foutPhidgetRaw << newestP.acceleration[i]  << ",";	 	
+					foutPhidgetRawAcc << newestP.acceleration[i]  << "/t";	 	
 			   	}
-				foutPhidgetRaw << endl;
+				foutPhidgetRawAcc << endl;
 			#endif
 
 
 		 	#ifdef DEBUG_LIVE_GRAPH_ROTATION
+				//Graphing timestamp
+		 		foutRotation << timestamp << "/t";
 		 		//Graphing rotation of gyro
 		 		for(int i =0; i< 3; i++)	{
-		 			foutRotation << newestP.angularRate[i] << ","; 
+		 			foutRotation << newestP.angularRate[i] << "/t"; 
 		 		}
 		 		//Graphing difference in rotation of gyro and non rotated gyro
 		 		for(int i =0; i< 3; i++)	{
-		 			foutRotation << newestP.angularRate[i] - zeroedGyro[i] << ","; 
+		 			foutRotation << newestP.angularRate[i] - zeroedGyro[i] << "/t"; 
 		 		}
 		 		//Graphing difference in rotation of acc and non rotated acc
 		 		for(int i =0; i< 3; i++)	{
-		 			foutRotation << newestP.acceleration[i] - zeroedAcc[i] << ","; 
+		 			foutRotation << newestP.acceleration[i] - zeroedAcc[i] << "/t"; 
 		 		}
 		 		foutRotation << endl;
 		 	#endif
@@ -287,8 +301,9 @@ int main()	{
 
 
 		#ifdef DEBUG_LIVE_GRAPH_DELTA
+			foutDelta << timestamp << "/t";
 			for(int i =0; i< 3; i++)	{
-				foutDelta << delta.component(i) << ",";				
+				foutDelta << delta.component(i) << "/t";				
 			}
 			foutDelta << endl;
 		#endif
@@ -308,17 +323,19 @@ int main()	{
 		#endif
 
 		#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
-			foutCurrentOr << timeStamp << ",";
+			foutCurrentOr << timestamp << "/t";
+			//nonfiltered orientation
 			for(int i =0; i< 3; i++)	{
-				foutCurrentOr << current.component(i) << ",";
+				foutCurrentOr << current.component(i) << "/t";
 			}
 		#endif
 		
         current = filter(integQueue->at(2).acceleration, current, alpha);				
 		
 		#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
+			//filtered orientation
 			for(int i =0; i< 3; i++)	{
-				foutCurrentOr << current.component(i) << ",";
+				foutCurrentOr << current.component(i) << "/t";
 			}
 			foutCurrentOr << endl;
 		#endif
@@ -342,8 +359,12 @@ int main()	{
 		foutCurrentOr.close();
 	#endif
 
-	#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW
-		foutPhidgetRaw.close();
+	#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW_ACC
+		foutPhidgetRawAcc.close();
+	#endif
+
+	#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW_GYRO
+		foutPhidgetRawGyro.close();
 	#endif
 
 	#ifdef DEBUG_LIVE_GRAPH_ROTATION
