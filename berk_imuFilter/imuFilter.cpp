@@ -36,6 +36,8 @@
  * Includes
  */
 #include "IMUfilter.h"
+#include <iostream>
+using namespace std;
  
 IMUfilter::IMUfilter(double rate, double gyroscopeMeasurementError){
  
@@ -61,6 +63,13 @@ IMUfilter::IMUfilter(double rate, double gyroscopeMeasurementError){
     
     //Compute beta.
     beta = sqrt(3.0 / 4.0) * (PI * (gyroMeasError / 180.0));
+
+    //Initialize Rot matrix
+    for(int i =0; i< 3; i++)    {
+        for(int k=0; k<3; k++)  {
+            rotMatrix[i][k] = 0;
+        } 
+    }    
  
 }
  
@@ -183,6 +192,20 @@ void IMUfilter::computeEuler(void){
     ASq_2 = ESq_1 * AEq_2 + ESq_2 * AEq_1 + ESq_3 * AEq_4 - ESq_4 * AEq_3;
     ASq_3 = ESq_1 * AEq_3 - ESq_2 * AEq_4 + ESq_3 * AEq_1 + ESq_4 * AEq_2;
     ASq_4 = ESq_1 * AEq_4 + ESq_2 * AEq_3 - ESq_3 * AEq_2 + ESq_4 * AEq_1;
+
+    //Rot Matrix stuff - http://code.google.com/p/imumargalgorithm30042010sohm/
+    //Added in, from IMUdemo.zip,  Form1.cs
+    //Rotation Matrix Elements
+    // compute rotation matrix from quaternion
+    rotMatrix[0][0] = 2 * ASq_1 * ASq_1 - 1 + 2 * ASq_2 * ASq_2;
+    rotMatrix[0][1] = 2 * (ASq_2 * ASq_3 + ASq_1 * ASq_4);
+    rotMatrix[0][2] = 2 * (ASq_2 * ASq_4 - ASq_1 * ASq_3);
+    rotMatrix[1][0] = 2 * (ASq_2 * ASq_3 - ASq_1 * ASq_4);
+    rotMatrix[1][1] = 2 * ASq_1 * ASq_1 - 1 + 2 * ASq_3 * ASq_3;
+    rotMatrix[1][2] = 2 * (ASq_3 * ASq_4 + ASq_1 * ASq_2);
+    rotMatrix[2][0] = 2 * (ASq_2 * ASq_4 + ASq_1 * ASq_3);
+    rotMatrix[2][1] = 2 * (ASq_3 * ASq_4 - ASq_1 * ASq_2);
+    rotMatrix[2][2] = 2 * ASq_1 * ASq_1 - 1 + 2 * ASq_4 * ASq_4;
  
     //Compute the Euler angles from the quaternion.
     phi = atan2(2 * ASq_3 * ASq_4 - 2 * ASq_1 * ASq_2, 2 * ASq_1 * ASq_1 + 2 * ASq_4 * ASq_4 - 1);

@@ -134,6 +134,9 @@ private:
  
     //Compute beta (filter tuning constant..
     double beta;
+
+    //Rotation Matrix
+    double rotMatrix[3][3];
  
     double phi;
     double theta;
