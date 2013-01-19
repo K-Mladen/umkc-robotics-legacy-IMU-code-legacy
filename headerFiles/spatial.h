@@ -55,6 +55,8 @@ namespace spatial	{
 
 	//data rate in milliseconds, must be between 4ms and 1s
 	int spatial_setup(CPhidgetSpatialHandle &spatial, deque<CPhidgetSpatial_SpatialEventData>* raw, int dataRate );
+	int fake_spatial_setup(CPhidgetSpatialHandle &spatial, deque<CPhidgetSpatial_SpatialEventData>* raw, int dataRate );
+
 	void print(CPhidgetSpatial_SpatialEventData& data);
 	void print(SpatialPVector& data);
 	CPhidgetSpatial_SpatialEventData* copy(CPhidgetSpatial_SpatialEventData& spatial);
@@ -67,8 +69,9 @@ namespace spatial	{
 	void zeroAcc(SpatialPVector &data);
 
 	//used for testing
-	//fakes a gyro packet of {1,0,0}
+	//fakes a gyro packet of {1,0,0}, time in microseconds
 	void fakeGyro(SpatialPVector &data, int time, double xVal, double yVal, double zVal);
+	void fakeGyro(CPhidgetSpatial_SpatialEventData &data, int time, double xVal, double yVal, double zVal);	
 }
 
 /*PHIDGET_SETUP_BUFFER_H*/
