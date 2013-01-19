@@ -51,10 +51,10 @@ int main()	{
 		fstream foutPhidgetRawGyro;
 		foutPhidgetRawGyro.open("dataPoints/raw_phidget_gyro.csv", fstream::out);
 		foutPhidgetRawGyro << "@ Raw Gyro data, non zeroed, avg constant, then zeroed." << endl;
-		foutPhidgetRawGyro << "Timestamp" <<
-			"X Raw Gyro, 		Y Raw Gyro, 	Z Raw Gyro," << 
-			"X Avg Raw Gyro, 	Y Avg Raw Gyro, Z Avg Raw Gyro," << 
-			"X Zeroed Raw, 		Y Zeroed Raw, 	Z Zeroed Raw," << endl;
+		foutPhidgetRawGyro << "Timestamp," <<
+			"X Raw Gyro, Y Raw Gyro, Z Raw Gyro," << 
+			"X Avg Raw Gyro, Y Avg Raw Gyro, Z Avg Raw Gyro," << 
+			"X Zeroed Raw, Y Zeroed Raw, Z Zeroed Raw," << endl;
 	#endif
 
 	#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW_ACC
@@ -62,19 +62,19 @@ int main()	{
 		foutPhidgetRawAcc.open("dataPoints/raw_phidget_acc.csv", fstream::out);
 		foutPhidgetRawAcc << "@ Raw acc data, non zeroed, avg constant, then zeroed." << endl;
 		foutPhidgetRawAcc << "Timestamp, " <<
-			"X Raw Acc, 		Y Raw Acc, 		Z Raw Acc," << 
-			"X Avg Raw Acc, 	Y Avg Raw Acc, 	Z Avg Raw Acc," <<
-			"X Zeroed/Rot Acc, 	Y Zeroed/Rot Acc, Z Zeroed/Rot Acc" << 	endl;
+			"X Raw Acc, Y Raw Acc, Z Raw Acc," << 
+			"X Avg Raw Acc, Y Avg Raw Acc, Z Avg Raw Acc," <<
+			"X Zeroed/Rot Acc, Y Zeroed/Rot Acc, Z Zeroed/Rot Acc" << 	endl;
 	#endif
 
 	#ifdef DEBUG_LIVE_GRAPH_ROTATION
 		fstream foutRotation;
 		foutRotation.open("dataPoints/rotatedGyro.csv", fstream::out);
 		foutRotation << "@ Rotated gyro data, after zeroing." << endl;
-		foutRotation << "Timestamp" <<
-						"X Gyro rotated, 	Y Gyro rotated, Z Gyro rotated," << 
-						"X Diff RotGy, 	Y Diff RotGy, 	Z Diff RotGy, " <<
-						"X Diff RotAcc, Y Diff RotAcc, 	Z Diff RotAcc, " << endl;
+		foutRotation << "Timestamp, " <<
+						"X Gyro rotated, Y Gyro rotated, Z Gyro rotated," << 
+						"X Diff RotGy, Y Diff RotGy, Z Diff RotGy, " <<
+						"X Diff RotAcc, Y Diff RotAcc, Z Diff RotAcc, " << endl;
 	#endif
 
 	#ifdef DEBUG_LIVE_GRAPH_DELTA
@@ -98,7 +98,7 @@ int main()	{
 		fstream foutRotMatrix;
 		foutRotMatrix.open("dataPoints/rotation_matrix.csv", fstream::out);
 		foutRotMatrix << "@ Rotation Matrix. Used for 3d modeling";
-		foutRotMatrix << 	"Timestamp "<<
+		foutRotMatrix << 	"Timestamp, "<<
 							"[0][0], [0][1], [0][2], " << 
 							"[1][0], [1][1], [1][2], " << 
 							"[2][0], [2][1], [2][2], " <<endl;
@@ -153,6 +153,24 @@ int main()	{
 #endif
 	
 
+	//Being sneaky, copying a packet of real data to put in our integQ. 
+	//Prevents random jumps in delta due to timestamp issues (Phidget not starting at 0 all the time.)
+
+	while(dataQueue->empty())	{}
+
+	//Copied event data is TESTED and WORKING.
+	pthread_mutex_lock(&mutex);
+	it = dataQueue->begin();
+	newest = spatial::copy(*it);
+	pthread_mutex_unlock(&mutex);
+
+	//Clearing out integQ with real data
+	spatial::set(newestP, *newest);
+	for(int i =0; i<3; i++)	{
+		integQueue->push_back(newestP);
+		integQueue->pop_front();
+	}
+
 	//GO! 
 	while(1)	
 	{
@@ -173,7 +191,7 @@ int main()	{
 			#ifdef DEBUG_RAW_GYRO
 				cout << "Raw phidget data" << endl;
 				for(int i =0; i< 3; i++)	{
-					cout << newest->angularRate[i]  << "/t"; 	
+					cout << newest->angularRate[i]  << ","; 	
 				}
 				cout << endl;
 			#endif
@@ -200,18 +218,18 @@ int main()	{
 
 			#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW_GYRO
 				//Timestamp
-				foutPhidgetRawGyro << timestamp << "/t";
+				foutPhidgetRawGyro << timestamp << ",";
 				//Graphing raw gyro
 				for(int i =0; i< 3; i++)	{
-					foutPhidgetRawGyro << newest->angularRate[i]  << "/t"; 	
+					foutPhidgetRawGyro << newest->angularRate[i]  << ","; 	
 				}
 				//graphing gyro offset
 				for(int i =0; i< 3; i++)	{
-					foutPhidgetRawGyro << GYRO_OFFSET[i] << "/t";
+					foutPhidgetRawGyro << GYRO_OFFSET[i] << ",";
 				}
 				//graphing zeroed raw
 				for(int i =0; i< 3; i++)	{
-					foutPhidgetRawGyro << newestP.angularRate[i]  << "/t"; 	
+					foutPhidgetRawGyro << newestP.angularRate[i]  << ","; 	
 			   	}
 			   	foutPhidgetRawGyro <<endl;
 			#endif	
@@ -232,7 +250,7 @@ int main()	{
 	 			getRotationMatrix(rotMatrix, newestP.angularRate, current);
 	 			for(int i =0; i < 3; i++)	{
 	 				for(int k = 0; k < 3; k++)	{
-	 					foutRotMatrix << rotMatrix[i][k] << "/t";
+	 					foutRotMatrix << rotMatrix[i][k] << ",";
 	 				}
 	 			}
 	 			foutRotMatrix << endl;
@@ -242,18 +260,18 @@ int main()	{
 			
 			#ifdef DEBUG_LIVE_GRAPH_PHIDGET_RAW_ACC	
 			   	//Timestamp
-				foutPhidgetRawAcc << timestamp << "/t";
+				foutPhidgetRawAcc << timestamp << ",";
 			   	//Graphing raw acc data
 				for(int i =0; i< 3; i++)	{
-					foutPhidgetRawAcc << newest->acceleration[i]  << "/t"; 	
+					foutPhidgetRawAcc << newest->acceleration[i]  << ","; 	
 				}
 				//graphing acc offset
 				for(int i =0; i< 3; i++)	{
-					foutPhidgetRawAcc << ACC_OFFSET[i] << "/t";
+					foutPhidgetRawAcc << ACC_OFFSET[i] << ",";
 				}
 				//graphing rotated?
 				for(int i =0; i< 3; i++)	{
-					foutPhidgetRawAcc << newestP.acceleration[i]  << "/t";	 	
+					foutPhidgetRawAcc << newestP.acceleration[i]  << ",";	 	
 			   	}
 				foutPhidgetRawAcc << endl;
 			#endif
@@ -261,18 +279,18 @@ int main()	{
 
 		 	#ifdef DEBUG_LIVE_GRAPH_ROTATION
 				//Graphing timestamp
-		 		foutRotation << timestamp << "/t";
+		 		foutRotation << timestamp << ",";
 		 		//Graphing rotation of gyro
 		 		for(int i =0; i< 3; i++)	{
-		 			foutRotation << newestP.angularRate[i] << "/t"; 
+		 			foutRotation << newestP.angularRate[i] << ","; 
 		 		}
 		 		//Graphing difference in rotation of gyro and non rotated gyro
 		 		for(int i =0; i< 3; i++)	{
-		 			foutRotation << newestP.angularRate[i] - zeroedGyro[i] << "/t"; 
+		 			foutRotation << newestP.angularRate[i] - zeroedGyro[i] << ","; 
 		 		}
 		 		//Graphing difference in rotation of acc and non rotated acc
 		 		for(int i =0; i< 3; i++)	{
-		 			foutRotation << newestP.acceleration[i] - zeroedAcc[i] << "/t"; 
+		 			foutRotation << newestP.acceleration[i] - zeroedAcc[i] << ","; 
 		 		}
 		 		foutRotation << endl;
 		 	#endif
@@ -288,7 +306,7 @@ int main()	{
 			for(int k =0; k< 3; k++)	{
 				cout << "time: " << integQueue->at(k).elapsed << endl;
 				for(int m =0; m < 3; m++)	{
-					cout << " gyro: " << integQueue->at(k).angularRate[m] << " ";
+					cout << " gyro: " << integQueue->at(k).angularRate[m] << ",";
 				}
 				cout << endl;
 			}
@@ -301,9 +319,9 @@ int main()	{
 
 
 		#ifdef DEBUG_LIVE_GRAPH_DELTA
-			foutDelta << timestamp << "/t";
+			foutDelta << timestamp << ",";
 			for(int i =0; i< 3; i++)	{
-				foutDelta << delta.component(i) << "/t";				
+				foutDelta << delta.component(i) << ",";				
 			}
 			foutDelta << endl;
 		#endif
@@ -323,10 +341,10 @@ int main()	{
 		#endif
 
 		#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
-			foutCurrentOr << timestamp << "/t";
+			foutCurrentOr << timestamp << ",";
 			//nonfiltered orientation
 			for(int i =0; i< 3; i++)	{
-				foutCurrentOr << current.component(i) << "/t";
+				foutCurrentOr << current.component(i) << ",";
 			}
 		#endif
 		
@@ -335,7 +353,7 @@ int main()	{
 		#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
 			//filtered orientation
 			for(int i =0; i< 3; i++)	{
-				foutCurrentOr << current.component(i) << "/t";
+				foutCurrentOr << current.component(i) << ",";
 			}
 			foutCurrentOr << endl;
 		#endif
