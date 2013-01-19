@@ -137,8 +137,11 @@ int main()	{
 
 	//Setting up Phidget
 	//-----------------------------------
+#ifdef DEBUG_FAKE_GYRO
+	spatial::fake_spatial_setup(spatial, dataQueue, dataRate);
+#else
 	spatial::spatial_setup(spatial, dataQueue, dataRate);
-
+#endif
 	
 
 	//GO! 
@@ -219,8 +222,8 @@ int main()	{
 	 			}
 	 			foutRotMatrix << endl;
 		 	#endif
-	 			
-			newestP.acceleration = rotatePOV(newestP.acceleration, current);	//WORKING - currently testing
+
+			//newestP.acceleration = rotatePOV(newestP.acceleration, current);	//WORKING - currently testing
 		 	newestP.angularRate = rotatePOV(newestP.angularRate, current);
 		 	//newestP.magneticField = rotatePOV(newestP.magneticField, current);
 		
@@ -313,9 +316,6 @@ int main()	{
 		
         current = filter(integQueue->at(2).acceleration, current, alpha);				
 		
-
-
-
 		#ifdef DEBUG_LIVE_GRAPH_CURRENT_ORIENTATION
 			for(int i =0; i< 3; i++)	{
 				foutCurrentOr << current.component(i) << ",";
