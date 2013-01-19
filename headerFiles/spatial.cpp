@@ -133,6 +133,10 @@ int spatial::spatial_setup(CPhidgetSpatialHandle &spatial, deque<CPhidgetSpatial
 
 #ifdef DEBUG_FAKE_GYRO
 int spatial::fake_spatial_setup(CPhidgetSpatialHandle &spatial, deque<CPhidgetSpatial_SpatialEventData>* raw, int dataRate)	{
+	
+	cout << "========================================================= " << endl;
+	cout << "FAKE SPATIAL SETUP " << endl;
+	cout << "========================================================= " << endl;
 	//Code taken from provided example code "Spatial-simple.c"
 	int result;
 	const char *err;	
