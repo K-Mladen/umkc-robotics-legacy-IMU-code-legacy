@@ -105,6 +105,14 @@ public:
      */
     double getYaw(void);
  
+
+    /**
+     *Get rotation matrix.
+     *
+     *@return The current rotation matrix.
+     */
+    void getRotationMatrix(double rot[3][3]);
+    
     /**
      * Reset the filter.
      */

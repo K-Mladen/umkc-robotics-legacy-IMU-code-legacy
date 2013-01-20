@@ -213,6 +213,14 @@ void IMUfilter::computeEuler(void){
     psi = atan2(2 * ASq_2 * ASq_3 - 2 * ASq_1 * ASq_4, 2 * ASq_1 * ASq_1 + 2 * ASq_2 * ASq_2 - 1);
  
 }
+
+void IMUfilter::getRotationMatrix(double rot[3][3])    {
+    for(int i =0; i<3; i++) {
+        for(int k = 0; k<3; k++)    {
+            rot[i][k] = rotMatrix[i][k];
+        }
+    }
+}
  
 double IMUfilter::getRoll(void){
  
