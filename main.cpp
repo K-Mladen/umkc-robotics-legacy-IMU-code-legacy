@@ -247,7 +247,7 @@ int main()	{
 
 			#ifdef DEBUG_ROTATION_MATRIX
 		 		double rotMatrix[3][3]; 
-	 			getRotationMatrix(rotMatrix, newestP.angularRate, current);
+	 			getRotationMatrix(rotMatrix,current);
 	 			for(int i =0; i < 3; i++)	{
 	 				for(int k = 0; k < 3; k++)	{
 	 					foutRotMatrix << rotMatrix[i][k] << ",";

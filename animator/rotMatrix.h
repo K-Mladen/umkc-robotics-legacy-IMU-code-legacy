@@ -2,7 +2,7 @@
 #include "../headerFiles/pVector.h"
 #include <cmath>
 
-void getRotationMatrix(double theMatrix[3][3], pVector vec, pVector rot)
+void getRotationMatrix(double theMatrix[3][3], pVector rot)
 {
 
    double rad =  std::atan(1)/45; //(pi/4)/45 = pi/180
