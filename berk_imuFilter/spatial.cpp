@@ -76,6 +76,7 @@ void spatial::eat(std::deque<CPhidgetSpatial_SpatialEventData>* dataQueue, spati
 
 
 	imuFilter.updateFilter(gyro[0], gyro[1], gyro [2], acc[0], acc[1], acc[2]);
+	imuFilter.computeEuler();
 }
 
 void spatial::copyGyAc(spatial::PhidgetRawDataQ::iterator it)	{
@@ -83,11 +84,6 @@ void spatial::copyGyAc(spatial::PhidgetRawDataQ::iterator it)	{
 		gyro[i] = toRadians(it->angularRate[i]); 
 		acc[i] = it->acceleration[i]; 
 	} 
-	
-	cout << "Gyroscope (rad): " << endl;
-	cout << gyro[0] << " " << gyro[1] << " " << gyro[2] <<endl;
-	cout << "Acc: " << endl;
-	cout << acc[0] << " " << acc[1] << " " << acc[2] <<endl;
 
 }
 
